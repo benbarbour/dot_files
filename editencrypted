@@ -1,0 +1,100 @@
+#!/bin/bash
+
+function usage()
+{
+    stream=1
+    if [ -z "$1" ]; then
+        stream=2
+    fi
+    cat 1>&$stream <<-UMSG
+		usage: ${0##*/} [options] file 
+
+		This script temporarily decrypts a file, opens it for editing
+		and then encrypts it again when the editor exits. 
+
+		OPTIONS:
+		    -h
+		        Prints this message 
+
+			-e editor
+				Specifies the editor to use. Defaults to wordgrinder.
+	UMSG
+}
+
+editor="wordgrinder"
+while getopts ":he:" opt; do
+    case $opt in
+        h)
+            usage 1
+			exit 1
+            ;;
+        e)
+			editor="$OPTARG"
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG" >&2
+            echo
+            usage
+            exit 1
+			;;
+        :)
+            echo "Option -$OPTARG requires an argument." >&2
+            exit 1
+            ;;
+    esac
+done
+shift $(($OPTIND - 1))
+
+if [ "$#" -gt 1 ]; then
+    echo -e "More than one file specified\n" 1>&2
+    usage
+    exit 1
+fi
+
+file=$1
+
+if [ -z "$file" ]; then
+    echo -e "No file specified\n" 1>&2
+    usage
+    exit 1
+fi
+
+createdFile=false
+if [ ! -e "$file" ]; then
+	touch "$file"
+	createdFile=true
+fi
+
+
+if [[ ! -r "$file" && ! $createdFile ]]; then
+    echo "Could not read '$file'" 1>&2
+    exit 1
+fi
+
+read -s -r -p "Passphrase: " pass
+
+if ! $createdFile ; then
+	echo $pass | decrypt $file
+	success=$?
+	if [ $success -ne 0 ]; then
+		exit 1
+	fi
+fi
+
+tmpFile=${file%.gpg}
+chmod 600 $tmpFile
+$editor $tmpFile
+success=$?
+if [ $success -ne 0 ]; then
+	echo "Error during editing!"
+	exit 1
+fi
+
+if [ -e "$tmpFile" ]; then
+	echo $pass | encrypt $tmpFile
+	success=$?
+	chmod 600 $file
+	if [ $success -ne 0 ]; then
+		exit 1
+	fi
+fi

@@ -1,0 +1,19 @@
+#!/bin/sh
+r=`runningAsRoot`
+if [ -n "$r" ]; then
+	echo $r
+	exit 1
+fi
+
+if [ $# -lt 1 ]; then
+	echo "specify repo name"
+	exit 2
+fi
+
+SVNDIR="/svn"
+
+svnadmin create $SVNDIR/$1
+chown -R www-data:svn $SVNDIR/$1
+chmod -R g+rws $SVNDIR/$1
+
+echo "Repository '$1' created"

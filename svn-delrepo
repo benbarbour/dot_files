@@ -1,0 +1,30 @@
+#!/bin/bash
+r=`runningAsRoot`
+if [ -n "$r" ]; then
+	echo $r
+	exit 1
+fi
+
+if [ $# -lt 1 ]; then
+	echo "specify repo name"
+	exit 2
+fi
+
+SVNDIR="/svn"
+
+echo "Are you sure you wish to delete repository '$1'?"
+select yn in "Yes" "No"; do
+    case $yn in
+        Yes )
+		rm -rf $SVNDIR/$1
+		echo "Repository '$1' deleted"
+		exit 0
+		;;
+        No )
+		exit 0
+		;;
+	* )
+		echo "Please enter a number"
+		;;
+    esac
+done

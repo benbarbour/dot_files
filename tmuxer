@@ -1,0 +1,39 @@
+#!/bin/bash
+
+R=`tmux ls`
+L=`echo "$R" | wc -l`
+
+clear
+
+if [ $L -gt 0 ]; then
+	echo "$R"
+	echo
+	echo -e "Which session?\n Enter new name or blank to create new session\n Enter 'b' to start bash\n Enter 'q' to quit"
+	read -p "Selection: " sName 
+	if [[ $sName = "q" ]]; then
+		exit 0	
+	elif [[ $sName = "b" ]]; then
+		bash
+	elif [ -n "$sName" ]; then
+		if  tmux has -t "$sName"
+		then
+			tmux attach -t "$sName"
+		else
+			tmux new -s "$sName"
+		fi
+	else
+		tmux new
+	fi
+else
+	echo -e "Which session?\n Enter new name or blank to create new session\n Enter 'b' to start bash\n Enter 'q' to quit"
+	read -p "Selection: " sName 
+	if [[ $sName = "q" ]]; then
+		exit 1
+	elif [ -n "$sName" ]; then
+		tmux new -s "$sName"
+	else
+		tmux new
+	fi
+fi
+
+exit 0
