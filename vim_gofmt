@@ -1,7 +1,0 @@
-#!/bin/sh
-
-tmp=`mktemp` 
-cat >$tmp 
-gofmt -w $tmp 2>/dev/null 
-cat $tmp 
-rm -f $tmp
