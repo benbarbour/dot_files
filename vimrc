@@ -1,98 +1,234 @@
-set rtp+=/opt/google/go/misc/vim
+"" Load pathogen
+call pathogen#infect()
 
-set grepprg=grep\ -nH\ %$*
-set nocompatible                "Forget about acting like vi
-set autoindent                  "Set indent to previous indent
-set smartindent                 "Guess indent based language
-set tabstop=4                   "4 space tabstops
-set shiftwidth=4                "4 space indents
-set expandtab                   "Don't use tabs
-set showmatch                   "match brace, brackets, etc
-set vb t_fb=                    "Stop beeps, flash screen instead
-set ruler                       "Status line with cursor position
-set incsearch                   "Set incremental search
-set showtabline=2               "Always show the tab line
-set backspace=indent,eol,start  "make the backspace key more flexible
-set backup                      "make backup files
-set backupdir=~/.vim/backup//   "location of backups
-set directory=~/.vim/tmp//      "location of swap files
-set dir=~/.vim/tmp//            "location of swap files
-set fileformats=unix,dos,mac    "support all 3, in that order
-set iskeyword+=_,$,@,%,#        "none of these are word dividers
-set mouse=a                     "use the mouse
-"set cursorcolumn                "highlight the current column
-set cursorline                  "highlight the current line
-set number                      "show line numbers
-set numberwidth=3               "show up to line 999 by default
-set background=dark             "use colors that look good on a dark background
-set wildmenu                    "better command line completion
-set showcmd                     "show partial commands in the last line of the screen
-set noexrc                      "don't use exrc files
-"set hidden                      "Allows switching from unsaved buffers
-set nostartofline               "stop certain movements from always going to the start of the line
-set laststatus=2                "always show the status line
-set statusline=%f\ \ \ \ \ [FORMAT=%{&ff}]\ [TYPE=%Y]\ [ASCII=\%03.3b]\ [HEX=\%02.2B]\ [POS=%04l,%04v][%p%%]
-set confirm                     "confirm saves, if needed
-set cmdheight=2                 "set the command window height to 2 lines
-let g:tex_flavor='latex'        "Make .tex files open with vim-latex
-set nowrap                      "Don't wrap lines by default
+"" Syntax highlighting and filetype plugins and indents
+syntax on
+filetype plugin indent on
 
+"" Searching
+set hlsearch                                    " highlight matches
+set incsearch                                   " incremental searching
+set ignorecase                                  " searches are case insensitive...
+set smartcase                                   " ... unless they contain at least one capital letter
+
+"" Color Scheme
+set t_Co=256
+set background=dark
+colorscheme peaksea
+
+"" Backup and undo settings
+set backupdir=~/.vim/backup//                   "location of backups
+set directory=~/.vim/tmp//                      "location of swap files
+set dir=~/.vim/tmp//                            "location of swap files
 set undodir=~/.vim/undodir//
 set undofile
-set undolevels=1000             "maximum number of changes that can be undone
-set undoreload=10000            "maximum number lines to save for undo on a buffer reload
+set undolevels=1000                             "maximum number of changes that can be undone
+set undoreload=1000                             "maximum number lines to save for undo on a buffer reload
 
-filetype plugin indent on       "load filetype specific plugins/indent settings
-syntax on                       "enable syntax highlighting
+"" SWAGG
+let mapleader = ","                             " setting leader to ,
+set cursorline                                  " shows the horizontal cursor line
+set showcmd                                     " display incomplete commands
+set nowrap                                      " don't wrap lines
+set confirm                                     " confirm saves, if needed
+set wildmenu                                    " better command line completion
+set autoindent                                  " set indent to previous indent
+set showmatch                                   " highlight brace, brackets, etc.
+set mouse=a                                     " use the mouse
+set textwidth=0                                 " don't wrap lines
+set wrapmargin=0
 
-"hilight comments in gray
-hi Comment ctermfg=gray
+"" Folding
+set foldlevelstart=99
 
-"Change visual mode highlight color
-hi Visual gui=bold ctermfg=black ctermbg=lightgreen
+"" Whitespace
+set tabstop=4 shiftwidth=4                      " a tab is 4 spaces
+set expandtab                                   " use spaces, not tabs
+set backspace=indent,eol,start                  " backspace through everything in insert mode
 
-"map ALT-d, META-d, and <Esc>d to 'cut to the null buffer'
-map <Esc>d "_d
+"" Powerline
+let g:Powerline_symbols = 'fancy'
+let g:Powerline_colorscheme = 'ben'
+set guifont=Anonymous\ Pro\ for\ Powerline:h13
+"set guifont=Consola\ Powerline
+set nocompatible                                " Disable vi-compatibility
+set laststatus=2                                " Always show the statusline
+set encoding=utf-8                              " Necessary to show Unicode glyphs
 
-"tab movement commands
-nmap tt  :tabnew
-"nmap tn  :tabnext<CR>
-"nmap tp  :tabprevious<CR>
-vnoremap _( <Esc>`>a)<Esc>`<i(<Esc>
+"" TagBar
+" Go support
+let g:tagbar_type_go = {
+    \ 'ctagstype': 'go',
+    \ 'kinds' : [
+        \'p:package',
+        \'f:function',
+        \'v:variables',
+        \'t:type',
+        \'c:const'
+    \]
+\}
 
-"highlight whitespace
-highlight ExtraWhitespace ctermbg=red guibg=red
-match ExtraWhitespace /\s\+$/
+"" Highlight whitespace
+highlight ExtraWhiteSpace ctermbg=red guibg=red
+match ExtraWhiteSpace /\s\+$/
 
-" Show  tab characters. Visual Whitespace.
-set list
-set listchars=tab:>-
-
-"remove trailing whitespace
-augroup whitespace
+"" Python settings
+augroup python
     autocmd!
-    autocmd BufWritePre *.php :%s/\s\+$//e
-    autocmd BufWritePre *.cpp :%s/\s\+$//e
-    autocmd BufWritePre *.c++ :%s/\s\+$//e
-    autocmd BufWritePre *.h :%s/\s\+$//e
-    autocmd BufWritePre *.java :%s/\s\+$//e
-    autocmd BufWritePre *.go :%s/\s\+$//e
-    autocmd BufWritePre *.py :%s/\s\+$//e
-    autocmd BufWritePre .vimrc :%s/\s\+$//e
-augroup END
+    autocmd Filetype python setlocal expandtab
+    autocmd Filetype python setlocal list
+    autocmd Filetype python setlocal listchars=tab:>-
+augroup end
 
-"Omnicompletion tweaks
-inoremap <expr> <C-Space> pumvisible() \|\| &omnifunc == '' ?
-            \ "\<lt>C-n>" :
-            \ "\<lt>C-x>\<lt>C-o><c-r>=pumvisible() ?" .
-            \ "\"\\<lt>c-n>\\<lt>c-p>\\<lt>c-n>\" :" .
-            \ "\" \\<lt>bs>\\<lt>C-n>\"\<CR>"
-imap <C-@> <C-Space>
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-inoremap <expr> <M-,> pumvisible() ? '<C-n>' :
-  \ '<C-x><C-o><C-n><C-p><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-set completeopt=menu",longest
-highlight Pmenu gui=bold ctermbg=black ctermfg=lightblue
-highlight PmenuSel gui=bold ctermbg=black ctermfg=lightcyan
+"" Go settings
+augroup go
+    autocmd!
+    autocmd Filetype go setlocal noexpandtab
+augroup end
+
+
+
+"" Awesome functions
+function! OpenChangedFiles()
+  only " Close all windows, unless they're modified
+  let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
+  let filenames = split(status, "\n")
+  exec "edit " . filenames[0]
+  for filename in filenames[1:]
+    exec "sp " . filename
+  endfor
+endfunction
+command! OpenChangedFiles :call OpenChangedFiles()
+
+function! <SID>StripTrailingWhitespaces()
+    " Preparation: save last search, and cursor position.
+    let _s=@/
+    let l = line(".")
+    let c = col(".")
+    " Do the business:
+    %s/\s\+$//e
+    " Clean up: restore previous search history, and cursor position
+    let @/=_s
+    call cursor(l, c)
+endfunction
+
+if exists("+showtabline")
+    function! MyTabLine()
+      let s = '' " complete tabline goes here
+      " loop through each tab page
+      for t in range(tabpagenr('$'))
+        " select the highlighting for the buffer names
+        if t + 1 == tabpagenr()
+          let s .= '%#TabLineSel#'
+        else
+          let s .= '%#TabLine#'
+        endif
+        " empty space
+        let s .= ' '
+        " set the tab page number (for mouse clicks)
+        let s .= '%' . (t + 1) . 'T'
+        " set page number string
+        let s .= t + 1 . ':'
+        " get buffer names and statuses
+        let n = ''  "temp string for buffer names while we loop and check buftype
+        let m = 0 " &modified counter
+        let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
+        " loop through each buffer in a tab
+        for b in tabpagebuflist(t + 1)
+          " buffer types: quickfix gets a [Q], help gets [H]{base fname}
+          " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
+          if getbufvar( b, "&buftype" ) == 'help'
+            let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
+          elseif getbufvar( b, "&buftype" ) == 'quickfix'
+            let n .= '[Q]'
+          else
+            let n .= pathshorten(bufname(b))
+            "let n .= bufname(b)
+          endif
+          " check and ++ tab's &modified count
+          if getbufvar( b, "&modified" )
+            let m += 1
+          endif
+          " no final ' ' added...formatting looks better done later
+          if bc > 1
+            let n .= ' '
+          endif
+          let bc -= 1
+        endfor
+        " add modified label [n+] where n pages in tab are modified
+        if m > 0
+          "let s .= '[' . m . '+]'
+          let s.= '+ '
+        endif
+        " add buffer names
+        if n == ''
+          let s .= '[No Name]'
+        else
+          let s .= n
+        endif
+        " switch to no underlining and add final space to buffer list
+        "let s .= '%#TabLineSel#' . ' '
+        let s .= ' '
+      endfor
+      " after the last tab fill with TabLineFill and reset tab page nr
+      let s .= '%#TabLineFill#%T'
+      " right-align the label to close the current tab page
+      if tabpagenr('$') > 1
+        let s .= '%=%#TabLine#%999XX'
+      endif
+      return s
+    endfunction
+    set tabline=%!MyTabLine()
+endif
+"" End Awesome Functionr
+
+
+
+"" Mappings (NOTE: inline comments don't work for map commands)
+
+"   tab shortcuts
+nnoremap tt :tabnew 
+nnoremap td :tabdo 
+
+"   don't delete a single char to a register
+nnoremap x "_x
+
+"   use Esc-d (which maps to Alt-d AND META-d in gnome-terminal) to drop to null register
+nnoremap <Esc>d "_d
+
+"   edit vimrc quickly
+nmap <leader>ev :vsplit $MYVIMRC<cr>
+"   source vimrc
+nmap <leader>sv :source $MYVIMRC<cr>
+
+"   various plugin toggles
+nmap <F2> :NumbersToggle<CR>
+nmap <F3> :GundoToggle<CR>
+nmap <F4> :TagbarToggle<CR>
+
+"   decrement and increment number or character under cursor
+set nrformats+=alpha
+map <F5> <C-X>
+map <F6> <C-A>
+
+"   strip trailing whitespace
+nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
+
+"   resize windows easily
+if bufwinnr(1)
+    map + <C-W>+
+    map - <C-W>-
+endif
+
+"   tab movement mappings
+map <leader>1 1gt
+map <leader>2 2gt
+map <leader>3 3gt
+map <leader>4 4gt
+map <leader>5 5gt
+map <leader>6 6gt
+map <leader>7 7gt
+map <leader>8 8gt
+map <leader>9 9gt
+map <leader>0 :tablast<CR>
+
