@@ -1,6 +1,9 @@
 "" Load pathogen
 call pathogen#infect()
 
+"" Load Go plugins
+set rtp+=/opt/google/go/misc/vim
+
 "" Syntax highlighting and filetype plugins and indents
 syntax on
 filetype plugin indent on
@@ -72,12 +75,17 @@ let g:tagbar_type_go = {
 highlight ExtraWhiteSpace ctermbg=red guibg=red
 match ExtraWhiteSpace /\s\+$/
 
+"" PyMode
+let g:pymode_lint_ignore=""
+
 "" Python settings
 augroup python
     autocmd!
     autocmd Filetype python setlocal expandtab
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal colorcolumn=80
 augroup end
 
 "" Go settings
