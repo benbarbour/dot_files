@@ -30,11 +30,15 @@ set undoreload=1000                             "maximum number lines to save fo
 
 "" SWAGG
 let mapleader = ","                             " setting leader to ,
+set hidden                                      " allow buffer hiding (Needed for Lusty File Explorer)
+set wildignore=*.o                              " ignore these filetypes in menus
 set cursorline                                  " shows the horizontal cursor line
 set showcmd                                     " display incomplete commands
 set nowrap                                      " don't wrap lines
 set confirm                                     " confirm saves, if needed
 set wildmenu                                    " better command line completion
+set completeopt+=longest                        " when completing, fill in the longest common text of all matches
+set completeopt+=menuone                        " when completing, bring up the menu even if there's only one match
 set autoindent                                  " set indent to previous indent
 set showmatch                                   " highlight brace, brackets, etc.
 set mouse=a                                     " use the mouse
@@ -48,6 +52,26 @@ set foldlevelstart=99
 set tabstop=4 shiftwidth=4                      " a tab is 4 spaces
 set expandtab                                   " use spaces, not tabs
 set backspace=indent,eol,start                  " backspace through everything in insert mode
+
+"" Omnicompletion / SuperTab
+set completeopt-=preview
+set omnifunc=syntaxcomplete#Complete
+autocmd FileType python set omnifunc=pythoncomplete#Complete
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType c set omnifunc=ccomplete#Complete
+let g:SuperTabDefaultCompletionType = "context"
+let g:SuperTabContextDefaultCompletionType = "<C-x><C-o>"
+if has("autocmd") && exists("+omnifunc")
+  autocmd Filetype *
+    \   if &omnifunc == "" |
+    \     setlocal omnifunc=syntaxcomplete#Complete |
+    \   endif
+endif
+
 
 "" Powerline
 let g:Powerline_symbols = 'fancy'
@@ -70,6 +94,9 @@ let g:tagbar_type_go = {
         \'c:const'
     \]
 \}
+" variables
+let g:tagbar_autoclose = 0
+let g:tagbar_autofocus = 1
 
 "" Highlight whitespace
 highlight ExtraWhiteSpace ctermbg=red guibg=red
@@ -97,6 +124,7 @@ augroup end
 
 
 "" Awesome functions
+" Open all changed files (as reported by git)
 function! OpenChangedFiles()
   only " Close all windows, unless they're modified
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
@@ -213,11 +241,12 @@ nmap <leader>sv :source $MYVIMRC<cr>
 nmap <F2> :NumbersToggle<CR>
 nmap <F3> :GundoToggle<CR>
 nmap <F4> :TagbarToggle<CR>
+nmap <F5> :NERDTreeToggle<CR>
 
 "   decrement and increment number or character under cursor
 set nrformats+=alpha
-map <F5> <C-X>
-map <F6> <C-A>
+map <F7> <C-X>
+map <F8> <C-A>
 
 "   strip trailing whitespace
 nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
