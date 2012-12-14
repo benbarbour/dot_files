@@ -9,7 +9,7 @@ syntax on
 filetype plugin indent on
 
 "" Searching
-set hlsearch                                    " highlight matches
+set nohlsearch                                  " don't highlight matches
 set incsearch                                   " incremental searching
 set ignorecase                                  " searches are case insensitive...
 set smartcase                                   " ... unless they contain at least one capital letter
@@ -23,8 +23,8 @@ colorscheme peaksea
 set backupdir=~/.vim/backup//                   "location of backups
 set directory=~/.vim/tmp//                      "location of swap files
 set dir=~/.vim/tmp//                            "location of swap files
-set undodir=~/.vim/undodir//
 set undofile
+set undodir=~/.vim/undodir//
 set undolevels=1000                             "maximum number of changes that can be undone
 set undoreload=1000                             "maximum number lines to save for undo on a buffer reload
 
@@ -37,13 +37,16 @@ set showcmd                                     " display incomplete commands
 set nowrap                                      " don't wrap lines
 set confirm                                     " confirm saves, if needed
 set wildmenu                                    " better command line completion
+set wildmode=longest,full                       " bash style filename tab completion
 set completeopt+=longest                        " when completing, fill in the longest common text of all matches
 set completeopt+=menuone                        " when completing, bring up the menu even if there's only one match
 set autoindent                                  " set indent to previous indent
 set showmatch                                   " highlight brace, brackets, etc.
 set mouse=a                                     " use the mouse
 set textwidth=0                                 " don't wrap lines
-set wrapmargin=0
+set wrapmargin=0                                " the wrap margin
+set list                                        " show formatting characters
+set listchars=tab:>-                            " show tab formatting character only
 
 "" Folding
 set foldlevelstart=99
@@ -55,6 +58,7 @@ set backspace=indent,eol,start                  " backspace through everything i
 
 "" Omnicompletion / SuperTab
 set completeopt-=preview
+set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
@@ -65,13 +69,6 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 let g:SuperTabDefaultCompletionType = "context"
 let g:SuperTabContextDefaultCompletionType = "<C-x><C-o>"
-if has("autocmd") && exists("+omnifunc")
-  autocmd Filetype *
-    \   if &omnifunc == "" |
-    \     setlocal omnifunc=syntaxcomplete#Complete |
-    \   endif
-endif
-
 
 "" Powerline
 let g:Powerline_symbols = 'fancy'
@@ -104,6 +101,7 @@ match ExtraWhiteSpace /\s\+$/
 
 "" PyMode
 let g:pymode_lint_ignore=""
+let g:pymode_lint_checker="pep8,pyflakes"
 
 "" Python settings
 augroup python
@@ -131,7 +129,7 @@ function! OpenChangedFiles()
   let filenames = split(status, "\n")
   exec "edit " . filenames[0]
   for filename in filenames[1:]
-    exec "sp " . filename
+    exec "edit " . filename
   endfor
 endfunction
 command! OpenChangedFiles :call OpenChangedFiles()
@@ -243,6 +241,9 @@ nmap <F3> :GundoToggle<CR>
 nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
 
+"   build ctags
+map <F6> :!/usr/bin/ctags -L $(find . -name "*.c" -o -name "*.h")<CR>
+
 "   decrement and increment number or character under cursor
 set nrformats+=alpha
 map <F7> <C-X>
@@ -250,6 +251,9 @@ map <F8> <C-A>
 
 "   strip trailing whitespace
 nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
+
+"   turn off search highlighting
+nmap <F9> :noh<CR>
 
 "   resize windows easily
 if bufwinnr(1)
@@ -268,4 +272,7 @@ map <leader>7 7gt
 map <leader>8 8gt
 map <leader>9 9gt
 map <leader>0 :tablast<CR>
+
+"   switch to alternate (last) buffer
+nmap <C-p> <C-^>
 
