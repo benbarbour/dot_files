@@ -56,7 +56,7 @@ set tabstop=4 shiftwidth=4                      " a tab is 4 spaces
 set expandtab                                   " use spaces, not tabs
 set backspace=indent,eol,start                  " backspace through everything in insert mode
 
-"" Omnicompletion / SuperTab
+"" Omnicompletion
 set completeopt-=preview
 set completeopt=longest,menuone
 set omnifunc=syntaxcomplete#Complete
@@ -67,14 +67,9 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabContextDefaultCompletionType = "<C-x><C-o>"
 
 "" Powerline
 let g:Powerline_symbols = 'fancy'
-let g:Powerline_colorscheme = 'ben'
-set guifont=Anonymous\ Pro\ for\ Powerline:h13
-"set guifont=Consola\ Powerline
 set nocompatible                                " Disable vi-compatibility
 set laststatus=2                                " Always show the statusline
 set encoding=utf-8                              " Necessary to show Unicode glyphs
