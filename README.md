@@ -1,4 +1,7 @@
-dot_files
-=========
+My dot files
+============
 
-Various configuration files and misc scripts.
+Various configuration files, vim plugins, and misc scripts.
+
+I usually keep all these files in ~/bin, which is on my path. Some files (bashrc, vimrc, vim/, etc)
+should be symlinked to your home folder (with a '.' prepended, of course).
