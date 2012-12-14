@@ -515,7 +515,7 @@ elseif &background=='dark'
     hi SpecialKey	ctermfg=153	ctermbg=NONE	cterm=NONE
     hi NonText		ctermfg=69	ctermbg=233	cterm=NONE
     " Comment/Uncomment the following line to disable/enable transparency
-    "hi NonText		ctermfg=69	ctermbg=NONE	cterm=NONE
+    hi NonText		ctermfg=69	ctermbg=NONE	cterm=NONE
     hi Directory	ctermfg=110	ctermbg=NONE	cterm=NONE
     hi ErrorMsg		ctermfg=186	ctermbg=88	cterm=NONE
     hi MoreMsg		ctermfg=150	ctermbg=NONE	cterm=NONE
