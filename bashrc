@@ -98,6 +98,9 @@ esac
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+if [ -h ~/.bash_aliases ]; then
+    . $(readlink -f ~/.bash_aliases)
+fi
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
