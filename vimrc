@@ -236,7 +236,7 @@ nmap <F4> :TagbarToggle<CR>
 nmap <F5> :NERDTreeToggle<CR>
 
 "   build ctags
-map <F6> :!/usr/bin/ctags -L $(find . -name "*.c" -o -name "*.h")<CR>
+map <F6> :!/usr/bin/ctags -R .<CR>
 
 "   decrement and increment number or character under cursor
 set nrformats+=alpha
