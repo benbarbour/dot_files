@@ -74,7 +74,7 @@ BWHT="\[\033[47m\]" # background white
 
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="$HC$FCYN${debian_chroot:+($debian_chroot)}\u@\h: $FYEL\w$FCYYN\\$ $RS"
+    PS1="$INV$HC$FCYN${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1="${debian_chroot:+($debian_chroot)}]\u@\h: \w\\$ $RS"
