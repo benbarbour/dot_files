@@ -105,6 +105,7 @@ augroup python
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
     autocmd Filetype python setlocal colorcolumn=80
+    autocmd Filetype python highlight ColorColumn ctermbg=4
 augroup end
 
 "" Go settings
