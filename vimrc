@@ -95,6 +95,8 @@ highlight ExtraWhiteSpace ctermbg=red guibg=red
 match ExtraWhiteSpace /\s\+$/
 
 "" PyMode
+ " Disable rope for now.
+let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
 let g:pymode_lint_checker="pep8,pyflakes"
 
@@ -114,6 +116,9 @@ augroup go
     autocmd Filetype go setlocal noexpandtab
 augroup end
 
+"" Ack settings
+cabbrev Ack Ack!
+cabbrev LAck LAck!
 
 
 "" Awesome functions
@@ -209,7 +214,7 @@ if exists("+showtabline")
     endfunction
     set tabline=%!MyTabLine()
 endif
-"" End Awesome Functionr
+"" End Awesome Functions
 
 
 

@@ -125,17 +125,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-if [ "$PS1" != "" -a "${STARTED_TMUX:-x}" = x -a "${SSH_TTY:-x}" != x ]
-then
-    STARTED_TMUX=1; export STARTED_TMUX
-    sleep 1
-    # (tmux has-session -t remote && tmux attach-session -t remote) || (tmux new-session -s remote) ) && exit 0
-    # echo "tmux failed to start"
-	if /home/ben/bin/tmuxer.py
-	then
-		exit
-	fi
-fi
 export TERM=xterm-256color
 
 #export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
