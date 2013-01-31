@@ -69,12 +69,11 @@ autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType c set omnifunc=ccomplete#Complete
 
 "" Powerline (https://github.com/Lokaltog/powerline)
-python from powerline.ext.vim import source_plugin; source_plugin()
+python from powerline.bindings.vim import source_plugin; source_plugin()
 let g:Powerline_symbols = 'fancy'
 set nocompatible                                " Disable vi-compatibility
 set laststatus=2                                " Always show the statusline
 set encoding=utf-8                              " Necessary to show Unicode glyphs
-set guifont=Ubuntu\ Mono\ for\ Powerline\ 12
 
 "" TagBar
 " Go support
