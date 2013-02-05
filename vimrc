@@ -261,8 +261,10 @@ nmap <F9> :noh<CR>
 
 "   resize windows easily
 if bufwinnr(1)
-    map + <C-W>+
-    map - <C-W>-
+    map <leader><Up> <C-W>+
+    map <leader><Down> <C-W>-
+    map <leader><Left> <C-W><
+    map <leader><Right> <C-W>>
 endif
 
 "   tab movement mappings
