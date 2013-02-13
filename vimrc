@@ -100,9 +100,6 @@ match ExtraWhiteSpace /\s\+$/
 let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
 let g:pymode_lint_checker="pep8,pyflakes"
- " TODO: Remove this - only turned off because WurldTech code is full of
- "       extra whitespace.
-let g:pymode_utils_whitespaces = 0
 
 "" Python settings
 augroup python
