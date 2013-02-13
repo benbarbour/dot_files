@@ -224,6 +224,9 @@ endif
 
 "" Mappings (NOTE: inline comments don't work for map commands)
 
+"   change working directory to current file
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+
 "   tab shortcuts
 nnoremap tt :tabnew 
 nnoremap td :tabdo 
