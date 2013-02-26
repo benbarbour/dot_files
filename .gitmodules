@@ -55,3 +55,6 @@
 [submodule "vim/bundle/keepcase"]
 	path = vim/bundle/keepcase
 	url = git://github.com/vim-scripts/keepcase.vim.git
+[submodule "vim/bundle/tabular"]
+	path = vim/bundle/tabular
+	url = git://github.com/godlygeek/tabular.git
