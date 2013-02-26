@@ -2,7 +2,7 @@
 call pathogen#infect()
 
 "" Load Go plugins
-set rtp+=/opt/google/go/misc/vim
+set rtp+=$GOROOT/misc/vim
 
 "" Syntax highlighting and filetype plugins and indents
 syntax on
@@ -45,8 +45,6 @@ set showmatch                                   " highlight brace, brackets, etc
 set mouse=a                                     " use the mouse
 set textwidth=0                                 " don't wrap lines
 set wrapmargin=0                                " the wrap margin
-set list                                        " show formatting characters
-set listchars=tab:>-                            " show tab formatting character only
 
 "" Folding
 set foldlevelstart=99
@@ -74,6 +72,9 @@ let g:Powerline_symbols = 'fancy'
 set nocompatible                                " Disable vi-compatibility
 set laststatus=2                                " Always show the statusline
 set encoding=utf-8                              " Necessary to show Unicode glyphs
+
+"   look for tags in current directory and up
+set tags=./tags;
 
 "" TagBar
 " Go support
@@ -115,6 +116,7 @@ augroup end
 augroup go
     autocmd!
     autocmd Filetype go setlocal noexpandtab
+    autocmd Filetype go set tags+=/opt/go/src/tags
 augroup end
 
 "" Ack settings
