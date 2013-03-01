@@ -8,6 +8,16 @@ set rtp+=$GOROOT/misc/vim
 syntax on
 filetype plugin indent on
 
+"" Disable arrow keys
+map <up> <nop>
+map <down> <nop>
+map <left> <nop>
+map <right> <nop>
+imap <up> <nop>
+imap <down> <nop>
+imap <left> <nop>
+imap <right> <nop>
+
 "" Searching
 set nohlsearch                                  " don't highlight matches
 set incsearch                                   " incremental searching
