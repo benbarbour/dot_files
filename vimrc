@@ -13,10 +13,10 @@ map <up> <nop>
 map <down> <nop>
 map <left> <nop>
 map <right> <nop>
-imap <up> <nop>
-imap <down> <nop>
-imap <left> <nop>
-imap <right> <nop>
+"imap <up> <nop>
+"imap <down> <nop>
+"imap <left> <nop>
+"imap <right> <nop>
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
@@ -192,7 +192,8 @@ if exists("+showtabline")
           elseif getbufvar( b, "&buftype" ) == 'quickfix'
             let n .= '[Q]'
           else
-            let n .= pathshorten(bufname(b))
+            "let n .= pathshorten(bufname(b))
+            let n .= fnamemodify( bufname(b), ':t' )
             "let n .= bufname(b)
           endif
           " check and ++ tab's &modified count
@@ -297,3 +298,15 @@ map <leader>0 :tablast<CR>
 "   switch to alternate (last) buffer
 nmap <C-p> <C-^>
 
+function! s:MkNonExDir(file, buf)
+    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
+        let dir=fnamemodify(a:file, ':h')
+        if !isdirectory(dir)
+            call mkdir(dir, 'p')
+        endif
+    endif
+endfunction
+augroup BWCCreateDir
+    autocmd!
+    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
+augroup END
