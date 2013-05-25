@@ -1,3 +1,6 @@
+"" Set shell
+set shell=/bin/bash
+
 "" Load pathogen
 call pathogen#infect()
 
