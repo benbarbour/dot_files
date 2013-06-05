@@ -133,10 +133,6 @@ augroup end
 cabbrev Ack Ack!
 cabbrev LAck LAck!
 
-"" Substitute case plugin shortcut
-cabbrev SC SubstituteCase#\c##g
-
-
 "" Awesome functions
 " Open all changed files (as reported by git)
 function! OpenChangedFiles()
