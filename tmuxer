@@ -157,4 +157,4 @@ if subprocess.call(
         for w in INITAL_WINDOWS[1:]:
             w.create(session)
 
-subprocess.call(['tmux', 'attach', '-t', session])
+subprocess.call(['tmux', '-2', 'attach', '-t', session])

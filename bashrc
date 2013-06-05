@@ -125,8 +125,6 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-export TERM=xterm-256color
-
 #export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 
 export WORKON_HOME=$HOME/.virtualenvs
