@@ -74,7 +74,11 @@ BWHT="\[\033[47m\]" # background white
 
 if [ "$color_prompt" = yes ]; then
     #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    PS1="$INV$HC$FCYN${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
+    if [ "$(id -u)" != "0" ]; then
+        PS1="$INV$HC$FCYN${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
+    else
+        PS1="$INV$HC$FRED${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
+    fi
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1="${debian_chroot:+($debian_chroot)}]\u@\h: \w\\$ $RS"
@@ -124,8 +128,6 @@ export PATH=$PATH:/opt/go/bin:~/Programs/Go/bin:/opt/google/go/bin
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
-
-export TERM=xterm-256color
 
 #export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
 

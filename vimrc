@@ -51,13 +51,17 @@ set nowrap                                      " don't wrap lines
 set confirm                                     " confirm saves, if needed
 set wildmenu                                    " better command line completion
 set wildmode=longest,full                       " bash style filename tab completion
-set completeopt+=longest                        " when completing, fill in the longest common text of all matches
-set completeopt+=menuone                        " when completing, bring up the menu even if there's only one match
 set autoindent                                  " set indent to previous indent
 set showmatch                                   " highlight brace, brackets, etc.
 set mouse=a                                     " use the mouse
 set textwidth=0                                 " don't wrap lines
 set wrapmargin=0                                " the wrap margin
+
+"" Autocomplete
+set completeopt+=longest                        " when completing, fill in the longest common text of all matches
+set completeopt+=preview
+inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
+  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
 
 "" Folding
 set foldlevelstart=99
@@ -135,10 +139,6 @@ augroup end
 "" Ack settings
 cabbrev Ack Ack!
 cabbrev LAck LAck!
-
-"" Substitute case plugin shortcut
-cabbrev SC SubstituteCase#\c##g
-
 
 "" Awesome functions
 " Open all changed files (as reported by git)

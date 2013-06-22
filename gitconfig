@@ -16,3 +16,5 @@
 	tool = meld
 [core]
 	mergeoptions = --no-commit
+[push]
+	default = simple
