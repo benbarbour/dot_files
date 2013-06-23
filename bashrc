@@ -109,18 +109,7 @@ fi
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     eval "`dircolors -b`"
-    alias ls='ls --color=auto'
-    #alias dir='dir --color=auto'
-    #alias vdir='vdir --color=auto'
-
-    #alias grep='grep --color=auto'
-    #alias fgrep='fgrep --color=auto'
-    #alias egrep='egrep --color=auto'
 fi
-
-export GOROOT=/opt/google/go
-export GOPATH=/opt/go/:~/Programs/Go
-export PATH=$PATH:/opt/go/bin:~/Programs/Go/bin:/opt/google/go/bin
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -129,10 +118,10 @@ if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
 fi
 
-#export PROMPT_COMMAND="history -a; history -n; $PROMPT_COMMAND"
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    export WORKON_HOME=$HOME/.python_virtualenvs
+    export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
 
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
-source /usr/local/bin/virtualenvwrapper.sh
-
-export PATH=$PATH:/$HOME/bin
+export PATH=$PATH:/$HOME/.bin
