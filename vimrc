@@ -1,25 +1,105 @@
-"" Set shell
-set shell=/bin/bash
+" MISC INIT
+set nocompatible                                " Disable vi-compatibility
 
-"" Load pathogen
-call pathogen#infect()
 
-"" Load Go plugins
-set rtp+=$GOROOT/misc/vim
+" NEOBUNDLE
+if has('vim_starting')
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+endif
+call neobundle#rc(expand('~/.vim/bundle/'))
 
-"" Syntax highlighting and filetype plugins and indents
-syntax on
-filetype plugin indent on
+"" My Bundles
+NeoBundleFetch 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/vimproc', {
+      \ 'build' : {
+      \     'windows' : 'make -f make_mingw32.mak',
+      \     'cygwin' : 'make -f make_cygwin.mak',
+      \     'mac' : 'make -f make_mac.mak',
+      \     'unix' : 'make -f make_unix.mak',
+      \    },
+      \ }
+NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'godlygeek/tabular'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'klen/python-mode'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'msanders/snipmate.vim'
+NeoBundle 'myusuf3/numbers.vim'
+NeoBundle 'nelstrom/vim-markdown-folding'
+NeoBundle 'nelstrom/vim-visual-star-search'
+NeoBundle 'nvie/vim-flake8'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'rking/ag.vim'
+NeoBundle 'sjbach/lusty'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'tpope/vim-abolish'
+NeoBundle 'tpope/vim-characterize'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-sensible'
+NeoBundle 'tpope/vim-sleuth'
+NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-tbone'
+NeoBundle 'tsaleh/vim-matchit'
+NeoBundle 'vim-scripts/bufkill.vim'
 
-"" Disable arrow keys
-map <up> <nop>
-map <down> <nop>
-map <left> <nop>
-map <right> <nop>
-"imap <up> <nop>
-"imap <down> <nop>
-"imap <left> <nop>
-"imap <right> <nop>
+"" Colorschemes
+NeoBundle 'altercation/vim-colors-solarized.git'
+NeoBundle 'nelstrom/vim-mac-classic-theme.git'
+NeoBundle 'nelstrom/vim-blackboard.git'
+NeoBundle 'vim-scripts/peaksea'
+NeoBundle 'Lokaltog/vim-distinguished'
+
+"" Bundle mappings
+nmap <F2> :NumbersToggle<CR>
+nmap <F3> :GundoToggle<CR>
+nmap <F4> :TagbarToggle<CR>
+
+"" Python Mode config
+" Disable rope plugin
+let g:pymode_rope = 0
+let g:pymode_lint_ignore=""
+
+"" Python settings
+augroup my-python
+    autocmd!
+    autocmd Filetype python setlocal list
+    autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal textwidth=80
+    autocmd Filetype python setlocal colorcolumn=+1
+    autocmd Filetype python highlight ColorColumn ctermbg=4
+    autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
+augroup end
+
+
+" MY CONFIG
+
+"" Colors
+set t_Co=256
+set background=dark
+silent! colorscheme distinguished
+
+"" Misc
+let mapleader = ","                             " setting leader to ,
+set tabstop=4                                   " tabs are 4 spaces
+set backspace=indent,eol,start                  " backspace through everything in insert mode
+set confirm                                     " confirm saves, if needed
+set mouse=a                                     " use the mouse
+set nowrap                                      " don't wrap lines
+set textwidth=0                                 " don't wrap lines
+set wildignore=*.o                              " ignore these filetypes in menus
+set wildmenu                                    " better command line completion
+set wildmode=longest,full                       " bash style filename tab completion
+set wrapmargin=0                                " disable line wrapping
+set hidden                                      " allow hidden buffers. Required by LustyJuggler
+set matchpairs+=<:>                             " Match angle brackets
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,    " give these suffixes lower priority when opening files
+  \ .dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,
+  \ .inx,.out,.toc,.pyc
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
@@ -27,122 +107,50 @@ set incsearch                                   " incremental searching
 set ignorecase                                  " searches are case insensitive...
 set smartcase                                   " ... unless they contain at least one capital letter
 
-"" Color Scheme
-set t_Co=256
-set background=dark
-colorscheme peaksea
-
-"" Backup and undo settings
-set backupdir=~/.vim/backup//                   "location of backups
-set directory=~/.vim/tmp//                      "location of swap files
-set dir=~/.vim/tmp//                            "location of swap files
-set undofile
-set undodir=~/.vim/undodir//
-set undolevels=1000                             "maximum number of changes that can be undone
-set undoreload=1000                             "maximum number lines to save for undo on a buffer reload
-
-"" SWAGG
-let mapleader = ","                             " setting leader to ,
-set hidden                                      " allow buffer hiding (Needed for Lusty File Explorer)
-set wildignore=*.o                              " ignore these filetypes in menus
-set cursorline                                  " shows the horizontal cursor line
-set showcmd                                     " display incomplete commands
-set nowrap                                      " don't wrap lines
-set confirm                                     " confirm saves, if needed
-set wildmenu                                    " better command line completion
-set wildmode=longest,full                       " bash style filename tab completion
-set autoindent                                  " set indent to previous indent
-set showmatch                                   " highlight brace, brackets, etc.
-set mouse=a                                     " use the mouse
-set textwidth=0                                 " don't wrap lines
-set wrapmargin=0                                " the wrap margin
-
-"" Autocomplete
-set completeopt+=longest                        " when completing, fill in the longest common text of all matches
-set completeopt+=preview
-inoremap <expr> <C-n> pumvisible() ? '<C-n>' :
-  \ '<C-n><C-r>=pumvisible() ? "\<lt>Down>" : ""<CR>'
-
 "" Folding
-set foldlevelstart=99
-
-"" Whitespace
-set tabstop=4 shiftwidth=4                      " a tab is 4 spaces
-set expandtab                                   " use spaces, not tabs
-set backspace=indent,eol,start                  " backspace through everything in insert mode
-
-"" Omnicompletion
-set completeopt-=preview
-set completeopt=longest,menuone
-set omnifunc=syntaxcomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags
-autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-autocmd FileType c set omnifunc=ccomplete#Complete
-
-"" Powerline (https://github.com/Lokaltog/powerline)
-set rtp+=/usr/local/lib/python2.7/dist-packages/powerline/bindings/vim
-let g:Powerline_symbols = 'fancy'
-set nocompatible                                " Disable vi-compatibility
-set laststatus=2                                " Always show the statusline
-set encoding=utf-8                              " Necessary to show Unicode glyphs
-
-"   look for tags in current directory and up
-set tags=./tags;
-
-"" TagBar
-" Go support
-let g:tagbar_type_go = {
-    \ 'ctagstype': 'go',
-    \ 'kinds' : [
-        \'p:package',
-        \'f:function',
-        \'v:variables',
-        \'t:type',
-        \'c:const'
-    \]
-\}
-" variables
-let g:tagbar_autoclose = 0
-let g:tagbar_autofocus = 1
+set foldlevelstart=99				            "Don't fold anything when opening a new file
 
 "" Highlight whitespace
 highlight ExtraWhiteSpace ctermbg=red guibg=red
 match ExtraWhiteSpace /\s\+$/
 
-"" PyMode
- " Disable rope for now.
-let g:pymode_rope = 0
-let g:pymode_lint_ignore=""
-let g:pymode_lint_checker="pep8,pyflakes"
+"" Backup and undo settings
+set backupdir=~/.vim/backup//                   "location of backups
+set directory=~/.vim/swp//                      "location of swap files
+set undofile
+set undodir=~/.vim/undo//
+set undolevels=9000                             "maximum number of changes that can be undone
+set undoreload=9000                             "maximum number lines to save for undo on a buffer reload
 
-"" Python settings
-augroup python
-    autocmd!
-    autocmd Filetype python setlocal expandtab
-    autocmd Filetype python setlocal list
-    autocmd Filetype python setlocal listchars=tab:>-
-    autocmd Filetype python setlocal colorcolumn=80
-    autocmd Filetype python highlight ColorColumn ctermbg=4
-augroup end
+"" Mappings
 
-"" Go settings
-augroup go
-    autocmd!
-    autocmd Filetype go setlocal noexpandtab
-    autocmd Filetype go set tags+=/opt/go/src/tags
-augroup end
+"-edit/source vimrc quickly
+nmap <leader>ev :vsplit $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
+"-strip trailing whitespace
+nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
+"-change working directory to current file
+nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+"-tab shortcuts
+nnoremap tt :tabnew 
+nnoremap td :tabdo 
+"-don't delete a single char to a register
+nnoremap x "_x
+"-use Esc-d (which maps to Alt-d AND META-d in gnome-terminal) to drop to null register
+nnoremap <Esc>d "_d
+"-Map <C-Up> to 'prev quickfix entry'
+noremap [A :cp<cr>
+"-Map <C-Down> to 'next quickfix entry'
+noremap [B :cn<cr>
+"-Map <C-I> to 'Increment number'
+noremap <C-I> <C-A>
+"-Map <C-D> to 'Decrement number'
+noremap <C-D> <C-X>
 
-"" Ack settings
-cabbrev Ack Ack!
-cabbrev LAck LAck!
+"" Functions
 
-"" Awesome functions
-" Open all changed files (as reported by git)
-function! OpenChangedFiles()
+"-Open all changed files (as reported by git)
+function! EditDirtyGit()
   only " Close all windows, unless they're modified
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
   let filenames = split(status, "\n")
@@ -151,7 +159,7 @@ function! OpenChangedFiles()
     exec "edit " . filename
   endfor
 endfunction
-command! OpenChangedFiles :call OpenChangedFiles()
+command! EditDirtyGit :call EditDirtyGit()
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
@@ -164,152 +172,3 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
-
-if exists("+showtabline")
-    function! MyTabLine()
-      let s = '' " complete tabline goes here
-      " loop through each tab page
-      for t in range(tabpagenr('$'))
-        " select the highlighting for the buffer names
-        if t + 1 == tabpagenr()
-          let s .= '%#TabLineSel#'
-        else
-          let s .= '%#TabLine#'
-        endif
-        " empty space
-        let s .= ' '
-        " set the tab page number (for mouse clicks)
-        let s .= '%' . (t + 1) . 'T'
-        " set page number string
-        let s .= t + 1 . ':'
-        " get buffer names and statuses
-        let n = ''  "temp string for buffer names while we loop and check buftype
-        let m = 0 " &modified counter
-        let bc = len(tabpagebuflist(t + 1))  "counter to avoid last ' '
-        " loop through each buffer in a tab
-        for b in tabpagebuflist(t + 1)
-          " buffer types: quickfix gets a [Q], help gets [H]{base fname}
-          " others get 1dir/2dir/3dir/fname shortened to 1/2/3/fname
-          if getbufvar( b, "&buftype" ) == 'help'
-            let n .= '[H]' . fnamemodify( bufname(b), ':t:s/.txt$//' )
-          elseif getbufvar( b, "&buftype" ) == 'quickfix'
-            let n .= '[Q]'
-          else
-            "let n .= pathshorten(bufname(b))
-            let n .= fnamemodify( bufname(b), ':t' )
-            "let n .= bufname(b)
-          endif
-          " check and ++ tab's &modified count
-          if getbufvar( b, "&modified" )
-            let m += 1
-          endif
-          " no final ' ' added...formatting looks better done later
-          if bc > 1
-            let n .= ' '
-          endif
-          let bc -= 1
-        endfor
-        " add modified label [n+] where n pages in tab are modified
-        if m > 0
-          "let s .= '[' . m . '+]'
-          let s.= '+ '
-        endif
-        " add buffer names
-        if n == ''
-          let s .= '[No Name]'
-        else
-          let s .= n
-        endif
-        " switch to no underlining and add final space to buffer list
-        "let s .= '%#TabLineSel#' . ' '
-        let s .= ' '
-      endfor
-      " after the last tab fill with TabLineFill and reset tab page nr
-      let s .= '%#TabLineFill#%T'
-      " right-align the label to close the current tab page
-      if tabpagenr('$') > 1
-        let s .= '%=%#TabLine#%999XX'
-      endif
-      return s
-    endfunction
-    set tabline=%!MyTabLine()
-endif
-"" End Awesome Functions
-
-
-
-"" Mappings (NOTE: inline comments don't work for map commands)
-
-"   change working directory to current file
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
-
-"   tab shortcuts
-nnoremap tt :tabnew 
-nnoremap td :tabdo 
-
-"   don't delete a single char to a register
-nnoremap x "_x
-
-"   use Esc-d (which maps to Alt-d AND META-d in gnome-terminal) to drop to null register
-nnoremap <Esc>d "_d
-
-"   edit vimrc quickly
-nmap <leader>ev :vsplit $MYVIMRC<cr>
-"   source vimrc
-nmap <leader>sv :source $MYVIMRC<cr>
-
-"   various plugin toggles
-nmap <F2> :NumbersToggle<CR>
-nmap <F3> :GundoToggle<CR>
-nmap <F4> :TagbarToggle<CR>
-nmap <F5> :NERDTreeToggle<CR>
-
-"   build ctags
-map <F6> :!/usr/bin/ctags -R .<CR>
-
-"   decrement and increment number or character under cursor
-set nrformats+=alpha
-map <F7> <C-X>
-map <F8> <C-A>
-
-"   strip trailing whitespace
-nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
-
-"   turn off search highlighting
-nmap <F9> :noh<CR>
-
-"   resize windows easily
-if bufwinnr(1)
-    map <leader><Up> <C-W>+
-    map <leader><Down> <C-W>-
-    map <leader><Left> <C-W><
-    map <leader><Right> <C-W>>
-endif
-
-"   tab movement mappings
-map <leader>1 1gt
-map <leader>2 2gt
-map <leader>3 3gt
-map <leader>4 4gt
-map <leader>5 5gt
-map <leader>6 6gt
-map <leader>7 7gt
-map <leader>8 8gt
-map <leader>9 9gt
-map <leader>0 :tablast<CR>
-
-"   switch to alternate (last) buffer
-nmap <C-p> <C-^>
-
-function! s:MkNonExDir(file, buf)
-    if empty(getbufvar(a:buf, '&buftype')) && a:file!~#'\v^\w+\:\/'
-        let dir=fnamemodify(a:file, ':h')
-        if !isdirectory(dir)
-            call mkdir(dir, 'p')
-        endif
-    endif
-endfunction
-augroup BWCCreateDir
-    autocmd!
-    autocmd BufWritePre * :call s:MkNonExDir(expand('<afile>'), +expand('<abuf>'))
-augroup END
