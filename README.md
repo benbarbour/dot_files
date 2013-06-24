@@ -13,14 +13,14 @@ Install Prequisites
 -------------------
 To make your environment exactly like mine you should install these items first:
 
-1. https://github.com/ggreer/the\_silver\_searcher#building-from-source
+1. [The Silver Searcher](https://github.com/ggreer/the\_silver\_searcher#building-from-source)
 2. sudo pip install pylama
 3. sudo apt-get install tmux
 
 *Note: There might be more to install - if you find anything let me know and
 I'll add it here*
 
-Alternatively, you can now pass the -i/--install option to setup\_bbenv.py
+Alternatively, you can now pass the -i/--install option to `setup_bbenv.py`
 to run commands 2-3, and install the neobundle vim plugin, but you must run with
 `sudo`.
 
@@ -29,7 +29,7 @@ Install config files and scripts
 --------------------------------
 Then clone this repo into ~/.bbenv (or wherever you want)
 
-Then run setup\_bbenv.py to create all the nessecary symlinks (it will
+Then run `setup_bbenv.py` to create all the nessecary symlinks (it will
 prompt you with what it's going to create, so you can cancel if needed)
 
 *If you cloned to a location other than ~/.bbenv then pass the `-r /clone/location`
