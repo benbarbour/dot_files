@@ -48,6 +48,8 @@ if args.install:
 
 excluded_dotfiles = (
     "README.md",
+    "config",
+    ".git",
     os.path.basename(__file__),
 )
 
@@ -58,16 +60,21 @@ for dotfile in os.listdir(args.root):
     new_path = os.path.join(HOME, '.' + dotfile)
     if not dotfile in excluded_dotfiles:
         dotfile = os.path.join(args.root, dotfile)
-        print(dotfile)
         link = Symlink(dotfile, new_path)
-        print(link)
         symlinks.append(link)
 
+for config in os.listdir(os.path.join(args.root, 'config')):
+    new_path = os.path.join(HOME, '.config', config)
+    config = os.path.join(args.root, 'config', config)
+    link = Symlink(config, new_path)
+    symlinks.append(link)
+
+for sym in symlinks:
+    print("symlinking '{}' to '{}'".format(sym.src, sym.target))
 if prompt('Are you sure you wish to continue? [y/N]') != 'y':
     sys.exit()
 
 for sym in symlinks:
-    print("symlinking '{}' to '{}'".format(sym.src, sym.target))
     try:
         os.symlink(sym.src, sym.target)
     except OSError:
@@ -75,10 +82,8 @@ for sym in symlinks:
         os.symlink(sym.src, sym.target)
 
 if args.install:
+    print("Cloning NeoBundle...")
     subprocess.call(
         'git clone git://github.com/Shougo/neobundle.vim '
         '~/.vim/bundle/neobundle.vim',
         shell=True)
-
-subprocess.call("git config --global init.templatedir '~/.git_template'")
-subprocess.call("git config --global alias.ctags '!.git/hooks/ctags'")

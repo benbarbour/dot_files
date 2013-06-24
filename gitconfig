@@ -12,9 +12,12 @@
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
 	allgraph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
 	co = checkout
+	ctags = !.git/hooks/ctags
 [merge]
 	tool = meld
 [core]
 	mergeoptions = --no-commit
 [push]
 	default = simple
+[init]
+	templatedir = ~/.git_template
