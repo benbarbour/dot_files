@@ -63,6 +63,7 @@ nmap <F4> :TagbarToggle<CR>
 " Disable rope plugin
 let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
+let g:pymode_lint_checker = "pyflakes,pep8"
 
 "" Python settings
 augroup my-python
