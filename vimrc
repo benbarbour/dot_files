@@ -95,6 +95,7 @@ set textwidth=0                                 " don't wrap lines
 set wildignore=*.o                              " ignore these filetypes in menus
 set wildmenu                                    " better command line completion
 set wildmode=longest,full                       " bash style filename tab completion
+set completeopt+=longest                        " autocompletion fills in the longest match possible
 set wrapmargin=0                                " disable line wrapping
 set hidden                                      " allow hidden buffers. Required by LustyJuggler
 set matchpairs+=<:>                             " Match angle brackets
