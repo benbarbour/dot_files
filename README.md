@@ -8,6 +8,9 @@ Various configuration files, vim plugins, and misc scripts.
 Comes with a little script I use to symlink everything in place. You may or may
 not want to run it... chances are you like things a little different than I do.
 
+This repo is primarily for me to sync my stuff around, but others may find some config
+useful, I guess.
+
 
 Install Prequisites
 -------------------
