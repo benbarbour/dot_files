@@ -71,10 +71,24 @@ augroup my-python
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
     autocmd Filetype python setlocal textwidth=80
-    autocmd Filetype python setlocal colorcolumn=+1
-    autocmd Filetype python highlight ColorColumn ctermbg=4
+    autocmd Filetype python setlocal colorcolumn=+0
+    autocmd Filetype python highlight ColorColumn ctermbg=1
     autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
 augroup end
+
+"" XML settings
+augroup my-xml
+    autocmd!
+    let g:xml_syntax_folding=1
+    autocmd FileType xml setlocal foldmethod=syntax
+augroup end
+
+"" CTRLP config
+" Sane Ignore For ctrlp
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
+  \ 'file': '\.exe$\|\.so$\|\.dat$|\.o|\.pyc'
+  \ }
 
 
 " MY CONFIG
