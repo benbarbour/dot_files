@@ -166,7 +166,7 @@ noremap <C-D> <C-X>
 "" Functions
 
 "-Open all changed files (as reported by git)
-function! EditDirtyGit()
+function! GitEditDirty()
   only " Close all windows, unless they're modified
   let status = system('git status -s | grep "^ \?\(M\|A\|UU\)" | sed "s/^.\{3\}//"')
   let filenames = split(status, "\n")
@@ -175,7 +175,7 @@ function! EditDirtyGit()
     exec "edit " . filename
   endfor
 endfunction
-command! EditDirtyGit :call EditDirtyGit()
+command! GitEditDirty :call GitEditDirty()
 
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
