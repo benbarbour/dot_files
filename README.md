@@ -48,3 +48,11 @@ Install vim plugins
 2. Open vim and run :NeoBundleInstall to install all my vim plugins
 
 Finally, close and open vim again.
+
+
+Install the support for powerline fonts
+=======================================
+Follow the instructions for linux at: https://powerline.readthedocs.org/en/latest/installation/linux.html
+
+On Ubuntu 13.04, I used the FontConfig method, putting `10-powerline-symbols.conf` into
+`~/.config/fontconfig/conf.d/`, and it worked fine.
