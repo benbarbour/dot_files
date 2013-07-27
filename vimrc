@@ -33,16 +33,21 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'sjbach/lusty'
 NeoBundle 'sjl/gundo.vim'
+"" Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-abolish'
+"" Press ga on a character to view its encodings
 NeoBundle 'tpope/vim-characterize'
 NeoBundle 'tpope/vim-commentary'
+"" Git support
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-sleuth'
+"" Use increment/decrement on dates and times
 NeoBundle 'tpope/vim-speeddating'
 NeoBundle 'tpope/vim-surround'
+"" Tmux integration (:Tput :Tyank, etc)
 NeoBundle 'tpope/vim-tbone'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
