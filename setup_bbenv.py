@@ -43,7 +43,7 @@ args = parse_args()
 os.chdir(HOME)
 
 if args.install:
-    subprocess.call('pip install pylama', shell=True)
+    subprocess.call('pip install pylama prettytable', shell=True)
     subprocess.call('apt-get install tmux exuberant-ctags', shell=True)
 
 excluded_dotfiles = (
