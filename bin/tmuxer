@@ -23,43 +23,59 @@ def prompt(prompt):
 
 class Window:
 
-    def __init__(self, name, panes=1, layout='tiled'):
+    def __init__(self, name, panes=1, layout='tiled', commands=()):
         self.name = name
         self.setLayout(layout)
-        self.panes = panes
+        self.panes = panes if panes > 0 else 1
+        self.commands = commands
 
     def setLayout(self, layout):
         self._layout = layout if 'layout' else 'tiled'
         return self
 
     def create(self, session):
-        subprocess.call(['tmux', 'new-window', '-n', self.name, '-t', session])
+        args = ['tmux', 'new-window', '-n', self.name, '-t', session]
+        if len(self.commands) > 0:
+            args.append(self.commands[0])
+        subprocess.call(args)
         self._create_panes()
 
     def _create_panes(self):
-        for i in range(2, self.panes + 1):
-            subprocess.call(['tmux', 'split-window'])
+        for i in range(1, self.panes):
+            args = ['tmux', 'split-window']
+            if len(self.commands) > i:
+                args.append(self.commands[i])
+            subprocess.call(args)
         if self.panes > 1:
             subprocess.call(['tmux', 'select-layout', self._layout])
+
+SESSIONS = {
+    'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np'
+}
 
 WINDOW_SETS = {
     'ftnt': [
         Window("FortiGate", panes=2, layout='even-horizontal'),
         Window("Terminal"),
-        Window("Code1", layout=''),
+        Window("Code1"),
     ],
     'code': [
-        Window("Code", layout='main-vertical'),
-        Window("Terminal"),
+        Window("Shell"),
+        Window("Code", commands=('vim',)),
     ],
 }
-INITAL_WINDOWS = []
+INITIAL_WINDOWS = []
 
 
 # ===========SCRIPT START=========== #
 
 parser = argparse.ArgumentParser(
     description='Create a new, or attach to an existing, tmux session')
+parser.add_argument('-s', '--session',
+                    help='Choose a preset session (just a saved set of all '
+                         'the other args listed')
+parser.add_argument('-ls', '--list-sessions', action='store_true',
+                    help='List all preset sessions')
 parser.add_argument('-w', '--window-set',
                     help='Choose a Window Set')
 parser.add_argument('-p', '--default-path',
@@ -69,8 +85,21 @@ parser.add_argument('-n', '--session-name',
 parser.add_argument('-np', '--session-name-from-path', action='store_true',
                     help='Set the name for the new session to the last ' +
                          'directory specified by --session-path. Ignored if' +
-                         '--session - name is given or --session-path is not.')
+                         '--session-name is given or --default-path is not.')
 opts = parser.parse_args()
+
+if opts.list_sessions:
+    print("Available Sessions:")
+    for name, args in SESSIONS.items():
+        print("\t- {}: '{}'".format(name, args))
+    sys.exit()
+
+if opts.session:
+    if opts.session not in SESSIONS:
+        print("There is no session by that name (try -ls)")
+        sys.exit(1)
+    opts = parser.parse_args(SESSIONS[opts.session].split())
+
 session_name = opts.session_name
 if opts.default_path:
     path = os.path.abspath(opts.default_path)
@@ -80,7 +109,7 @@ if opts.default_path:
         session_name = os.path.basename(path)
 winset = opts.window_set.lower() if opts.window_set else None
 if winset in WINDOW_SETS:
-    INITAL_WINDOWS = WINDOW_SETS[winset]
+    INITIAL_WINDOWS = WINDOW_SETS[winset]
 
 sessions = {}
 try:
@@ -146,15 +175,18 @@ else:
 if subprocess.call(
         ['tmux', 'has', '-t', session], stderr=subprocess.PIPE) != 0:
     args = ['tmux', 'new', '-d', '-s', session]
-    if len(INITAL_WINDOWS) > 0:
-        w = INITAL_WINDOWS[0]
+    if len(INITIAL_WINDOWS) > 0:
+        w = INITIAL_WINDOWS[0]
         args.extend(['-n', str(w.name)])
+        if len(w.commands) > 0:
+            args.append(w.commands[0])
     subprocess.call(args)
-    if len(INITAL_WINDOWS) > 0:
+    if len(INITIAL_WINDOWS) > 1:
         w._create_panes()
 
-    if len(INITAL_WINDOWS) > 0:
-        for w in INITAL_WINDOWS[1:]:
+    if len(INITIAL_WINDOWS) > 0:
+        for w in INITIAL_WINDOWS[1:]:
             w.create(session)
 
+subprocess.call(['tmux', 'select-window', '-t', '1'])
 subprocess.call(['tmux', '-2', 'attach', '-t', session])
