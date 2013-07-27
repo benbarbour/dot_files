@@ -18,7 +18,8 @@ To make your environment exactly like mine you should install these items first:
 
 1. [The Silver Searcher](https://github.com/ggreer/the\_silver\_searcher#building-from-source)
 2. sudo pip install pylama
-3. sudo apt-get install tmux
+3. sudo apt-get install vim tmux
+4. sudo apt-get install vim-ruby (for LustyJuggler)
 
 *Note: There might be more to install - if you find anything let me know and
 I'll add it here*
