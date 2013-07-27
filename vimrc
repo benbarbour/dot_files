@@ -18,6 +18,7 @@ NeoBundle 'Shougo/vimproc', {
       \     'unix' : 'make -f make_unix.mak',
       \    },
       \ }
+NeoBundle 'Shougo/neocomplete.vim.git'
 NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'godlygeek/tabular'
@@ -127,6 +128,7 @@ set nohlsearch                                  " don't highlight matches
 set incsearch                                   " incremental searching
 set ignorecase                                  " searches are case insensitive...
 set smartcase                                   " ... unless they contain at least one capital letter
+set number                                      " enabled line numbers by default
 
 "" Folding
 set foldlevelstart=99				            "Don't fold anything when opening a new file
@@ -193,3 +195,6 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
+
+"" Neocomplete settings
+source ~/.vim/completion.vim
