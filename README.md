@@ -18,15 +18,16 @@ To make your environment exactly like mine you should install these items first:
 
 1. [The Silver Searcher](https://github.com/ggreer/the\_silver\_searcher#building-from-source)
 2. sudo pip install pylama prettytable
-3. sudo apt-get install tmux ctags
-4. Compile vim 7.3.885 or greater from source, with lua-support (for neocompletion plugin)
+3. sudo pip install git+git://github.com/Lokaltog/powerline
+4. sudo apt-get install tmux ctags
+5. Compile vim 7.3.885 or greater from source, with lua-support (for neocompletion plugin)
    - https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source 
 
 *Note: There might be more to install - if you find anything let me know and
 I'll add it here*
 
 Alternatively, you can now pass the -i/--install option to `setup_bbenv.py`
-to run commands 2-3, and install the neobundle vim plugin, but you must run with
+to run commands 2-4, and install the neobundle vim plugin, but you must run with
 `sudo`.
 
 
