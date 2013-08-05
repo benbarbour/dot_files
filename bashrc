@@ -124,4 +124,8 @@ if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     source /usr/local/bin/virtualenvwrapper.sh
 fi
 
-export PATH=$PATH:/$HOME/.bin
+export PATH=$PATH:$HOME/.bin
+
+# Golang settings
+export GOROOT=/opt/google/go
+export PATH=$PATH:$GOROOT/bin
