@@ -101,7 +101,7 @@ augroup end
 "" CTRLP config
 " Sane Ignore For ctrlp
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|data\|log\|tmp$',
+  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|log\|tmp$',
   \ 'file': '\.exe$\|\.so$\|\.dat$|\.o|\.pyc'
   \ }
 
