@@ -52,6 +52,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-tbone'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
+NeoBundle 'jnwhiteh/vim-golang'
 
 "" Colorschemes
 NeoBundle 'altercation/vim-colors-solarized.git'
@@ -70,6 +71,10 @@ nmap <F4> :TagbarToggle<CR>
 let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
 let g:pymode_lint_checker = "pyflakes,pep8"
+
+"" Commentary settings
+" Add golang
+autocmd FileType go set commentstring=//\ %s
 
 "" Python settings
 augroup my-python
