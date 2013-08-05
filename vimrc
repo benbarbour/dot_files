@@ -19,7 +19,8 @@ NeoBundle 'Shougo/vimproc', {
       \    },
       \ }
 NeoBundle 'Shougo/neocomplete.vim.git'
-NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
+"NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
+NeoBundle 'bling/vim-airline'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'kien/ctrlp.vim'
@@ -71,6 +72,9 @@ nmap <F4> :TagbarToggle<CR>
 let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
 let g:pymode_lint_checker = "pyflakes,pep8"
+
+"" Airline settings
+let g:airline_powerline_fonts = 1
 
 "" Commentary settings
 " Add golang
