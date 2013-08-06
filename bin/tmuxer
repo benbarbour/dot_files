@@ -50,7 +50,8 @@ class Window:
             subprocess.call(['tmux', 'select-layout', self._layout])
 
 SESSIONS = {
-    'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np'
+    'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np',
+    'wt-delphi-dj': '-p /home/bbarbour/Work/delphi -n django-delphi',
 }
 
 WINDOW_SETS = {
