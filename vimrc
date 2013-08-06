@@ -91,6 +91,7 @@ augroup my-python
     autocmd Filetype python setlocal colorcolumn=+0
     autocmd Filetype python highlight ColorColumn ctermbg=1
     autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
+    autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
 augroup end
 
 "" XML settings
