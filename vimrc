@@ -72,6 +72,8 @@ nmap <F4> :TagbarToggle<CR>
 let g:pymode_rope = 0
 let g:pymode_lint_ignore=""
 let g:pymode_lint_checker = "pyflakes,pep8"
+let g:pymode_rope_vim_completion = 0
+let g:pymode_rope_extended_complete = 0
 
 "" Airline settings
 let g:airline_powerline_fonts = 1
@@ -121,10 +123,8 @@ set confirm                                     " confirm saves, if needed
 set mouse=a                                     " use the mouse
 set nowrap                                      " don't wrap lines
 set textwidth=0                                 " don't wrap lines
-set wildignore=*.o                              " ignore these filetypes in menus
-set wildmenu                                    " better command line completion
-set wildmode=longest,full                       " bash style filename tab completion
-set completeopt+=longest                        " autocompletion fills in the longest match possible
+set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,    " ignore these filetypes in menus
+  \ *.pyc, *.min.js
 set wrapmargin=0                                " disable line wrapping
 set hidden                                      " allow hidden buffers. Required by LustyJuggler
 set matchpairs+=<:>                             " Match angle brackets
