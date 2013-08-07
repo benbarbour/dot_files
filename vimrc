@@ -78,6 +78,7 @@ let g:pymode_rope_extended_complete = 0
 
 "" Airline settings
 let g:airline_powerline_fonts = 1
+let g:airline_readonly_symbol = '⭤'
 
 "" Commentary settings
 " Add golang
