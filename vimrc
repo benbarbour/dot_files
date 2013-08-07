@@ -35,6 +35,7 @@ NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'rking/ag.vim'
 NeoBundle 'sjbach/lusty'
 NeoBundle 'sjl/gundo.vim'
+NeoBundle 'scrooloose/syntastic'
 "" Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-abolish'
 "" Press ga on a character to view its encodings
