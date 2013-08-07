@@ -107,7 +107,7 @@ augroup end
 " Sane Ignore For ctrlp
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|log\|tmp$',
-  \ 'file': '\.exe$\|\.so$\|\.dat$|\.o|\.pyc'
+  \ 'file': '\.exe$\|\.so$\|\.dat$|\.o|\.pyc,tags'
   \ }
 
 
@@ -126,14 +126,13 @@ set confirm                                     " confirm saves, if needed
 set mouse=a                                     " use the mouse
 set nowrap                                      " don't wrap lines
 set textwidth=0                                 " don't wrap lines
-set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,    " ignore these filetypes in menus
-  \ *.pyc, *.min.js
 set wrapmargin=0                                " disable line wrapping
 set hidden                                      " allow hidden buffers. Required by LustyJuggler
 set matchpairs+=<:>                             " Match angle brackets
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,    " give these suffixes lower priority when opening files
-  \ .dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,
-  \ .inx,.out,.toc,.pyc
+" give these suffixes lower priority when opening files
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc
+" ignore these filetypes in menus
+set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
