@@ -54,7 +54,9 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-tbone'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
-NeoBundle 'jnwhiteh/vim-golang'
+NeoBundle 'Peregrinati/vim-golang'
+NeoBundle 'dgryski/vim-godef'
+
 
 "" Colorschemes
 NeoBundle 'altercation/vim-colors-solarized.git'
@@ -78,22 +80,28 @@ let g:pymode_rope_extended_complete = 0
 
 "" Airline settings
 let g:airline_powerline_fonts = 1
-let g:airline_readonly_symbol = '⭤'
-
-"" Commentary settings
-" Add golang
-autocmd FileType go set commentstring=//\ %s
 
 "" Python settings
 augroup my-python
-    autocmd!
-    autocmd Filetype python setlocal list
-    autocmd Filetype python setlocal listchars=tab:>-
-    autocmd Filetype python setlocal textwidth=80
-    autocmd Filetype python setlocal colorcolumn=+0
-    autocmd Filetype python highlight ColorColumn ctermbg=1
-    autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
-    autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
+  autocmd!
+  autocmd Filetype python setlocal list
+  autocmd Filetype python setlocal listchars=tab:>-
+  autocmd Filetype python setlocal textwidth=80
+  autocmd Filetype python setlocal colorcolumn=+0
+  autocmd Filetype python highlight ColorColumn ctermbg=1
+  autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
+  autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
+augroup end
+
+"" Go settings
+let g:go_fmt_cmd = 'goimports'
+augroup my-golang
+  autocmd!
+  autocmd Filetype go noremap <buffer> <F7> :Fmt<CR>
+  "" Fmt on save
+  autocmd FileType go au BufWritePre <buffer> Fmt
+  "" For commentary plugin
+  autocmd FileType go set commentstring=//\ %s
 augroup end
 
 "" XML settings
