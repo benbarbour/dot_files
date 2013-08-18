@@ -180,6 +180,8 @@ noremap [B :cn<cr>
 noremap <C-I> <C-A>
 "-Map <C-D> to 'Decrement number'
 noremap <C-D> <C-X>
+"-Disable Ex-mode (I never use it and it's easyh to get stuck in)
+map Q <Nop>
 
 "" Functions
 
