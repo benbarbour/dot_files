@@ -128,4 +128,5 @@ export PATH=$PATH:$HOME/.bin
 
 # Golang settings
 export GOROOT=/opt/google/go
-export PATH=$PATH:$GOROOT/bin
+export GOPATH=$GOPATH:$HOME/.gopath
+export PATH=$PATH:$GOROOT/bin:/$GOPATH/bin
