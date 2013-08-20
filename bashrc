@@ -56,6 +56,7 @@ HC="\[\033[1m\]"    # hicolor
 UL="\[\033[4m\]"    # underline
 INV="\[\033[7m\]"   # inverse background and foreground
 FBLK="\[\033[30m\]" # foreground black
+FGRY="\[\033[1;30m\]" # foreground gray
 FRED="\[\033[31m\]" # foreground red
 FGRN="\[\033[32m\]" # foreground green
 FYEL="\[\033[33m\]" # foreground yellow
@@ -73,12 +74,15 @@ BCYN="\[\033[46m\]" # background cyan
 BWHT="\[\033[47m\]" # background white
 
 if [ "$color_prompt" = yes ]; then
-    #PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-    if [ "$(id -u)" != "0" ]; then
-        PS1="$INV$HC$FCYN${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
-    else
-        PS1="$INV$HC$FRED${debian_chroot:+($debian_chroot)}\u@\h:$RS $HC$FYEL\w$FCYYN\\$ $RS"
+    BASECLR=$RS$FGRY
+    TXTCLR=$RS$FGRN
+    VARCLR=$RS$HC$FBLE
+    if [[ "$(id -u)" == "0" ]]; then
+	TXTCLR=$FRED
     fi
+
+    STATUS="\$(es=\$?; if [ \$es -eq 0 ]; then echo $FGRN✓ ; else echo $FRED✗ ; fi)"
+    PS1="$EC\n$BASECLR╭┤$STATUS $BASECLR├┈┤$VARCLR\j$TXTCLR jobs$BASECLR├┈┤$VARCLR\w$BASECLR ├┈╼\n╰─┤$TXTCLR$HC\u@\h$TXTCLR➢$RS  "
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1="${debian_chroot:+($debian_chroot)}]\u@\h: \w\\$ $RS"
