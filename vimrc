@@ -56,6 +56,7 @@ NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
 NeoBundle 'Peregrinati/vim-golang'
 NeoBundle 'dgryski/vim-godef'
+NeoBundle 'Blackrush/vim-gocode'
 
 
 "" Colorschemes
@@ -107,6 +108,7 @@ augroup end
 let g:go_fmt_cmd = 'goimports'
 augroup my-golang
   autocmd!
+  autocmd FileType go set tabstop=3
   autocmd Filetype go noremap <buffer> <F7> :Fmt<CR>
   "" Fmt on save
   autocmd FileType go au BufWritePre <buffer> Fmt
