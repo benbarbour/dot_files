@@ -121,6 +121,7 @@ fi
 if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
     export WORKON_HOME=$HOME/.python_virtualenvs
     export VIRTUALENVWRAPPER_VIRTUALENV_ARGS='--no-site-packages'
+    export VIRTUALENVWRAPPER_PYTHON=`which python`
     source /usr/local/bin/virtualenvwrapper.sh
 fi
 
