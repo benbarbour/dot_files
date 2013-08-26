@@ -83,14 +83,24 @@ let g:airline_powerline_fonts = 1
 
 "" Python settings
 augroup my-python
+    autocmd!
+    autocmd Filetype python setlocal list
+    autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal textwidth=80
+    autocmd Filetype python setlocal colorcolumn=+0
+    autocmd Filetype python highlight ColorColumn ctermbg=1
+    autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
+    autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
+augroup end
+
+"" Markdown settings
+augroup my-markdown
   autocmd!
-  autocmd Filetype python setlocal list
-  autocmd Filetype python setlocal listchars=tab:>-
-  autocmd Filetype python setlocal textwidth=80
-  autocmd Filetype python setlocal colorcolumn=+0
-  autocmd Filetype python highlight ColorColumn ctermbg=1
-  autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
-  autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
+  autocmd Filetype markdown set wrap
+  autocmd Filetype markdown set linebreak
+  autocmd Filetype markdown set nolist
+  autocmd Filetype markdown set textwidth=0
+  autocmd Filetype markdown set wrapmargin=0
 augroup end
 
 "" Go settings
