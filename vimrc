@@ -151,6 +151,7 @@ set matchpairs+=<:>                             " Match angle brackets
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc
 " ignore these filetypes in menus
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
+set nostartofline                               " Don't jump to the start of the line when switching buffers
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
