@@ -82,7 +82,7 @@ if [ "$color_prompt" = yes ]; then
     fi
 
     STATUS="\$(es=\$?; if [ \$es -eq 0 ]; then echo $FGRN✓ ; else echo $FRED✗ ; fi)"
-    PS1="$EC\n$BASECLR╭┤$STATUS $BASECLR├┈┤$VARCLR\j$TXTCLR jobs$BASECLR├┈┤$VARCLR\w$BASECLR ├┈╼\n╰─┤$TXTCLR$HC\u@\h$TXTCLR➢$RS  "
+    PS1="$EC\n$BASECLR╭┤$STATUS $BASECLR├┈┤$VARCLR\j$TXTCLR jobs$BASECLR├┈┤$VARCLR\w$BASECLR ├┈╼\n$BASECLR╰─┤$TXTCLR$HC\u@\h$TXTCLR➢$RS  "
 else
     #PS1='${debian_chroot:+($debian_chroot)}\u@\h:\w\$ '
     PS1="${debian_chroot:+($debian_chroot)}]\u@\h: \w\\$ $RS"
