@@ -14,6 +14,7 @@
 	co = checkout
 	ctags = !.git/hooks/ctags
 	cdiff = diff --cached
+	whatadded = log --diff-filter=A
 [merge]
 	tool = meld
 [core]
