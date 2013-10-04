@@ -201,7 +201,7 @@ noremap [B :cn<cr>
 noremap <C-I> <C-A>
 "-Map <C-D> to 'Decrement number'
 noremap <C-D> <C-X>
-"-Disable Ex-mode (I never use it and it's easyh to get stuck in)
+"-Disable Ex-mode (I never use it and it's easy to get stuck in)
 map Q <Nop>
 
 "" Functions
@@ -232,3 +232,9 @@ endfunction
 
 "" Neocomplete settings
 source ~/.vim/completion.vim
+
+"" Generate ctags on save (at least for git repos)
+autocmd BufWritePost *
+      \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
+      \   call system('"'.b:git_dir.'/hooks/ctags" &') |
+      \ endif
