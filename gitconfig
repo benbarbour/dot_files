@@ -13,6 +13,7 @@
 	allgraph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
 	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
 	co = checkout
+	s = status
 	ctags = !.git/hooks/ctags
 	cdiff = diff --cached
 	whatadded = log --diff-filter=A
