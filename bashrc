@@ -133,6 +133,9 @@ fi
 
 export PATH=$PATH:$HOME/.bin
 
+export EDITOR="vim"
+export VISUAL="vim"
+
 # Golang settings
 export GOROOT=/opt/google/go
 export GOPATH=$GOPATH:$HOME/.gopath
