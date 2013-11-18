@@ -15,7 +15,8 @@
 	co = checkout
 	s = status
 	ctags = !.git/hooks/ctags
-	cdiff = diff --cached
+	d = diff
+	ds = diff --staged
 	whatadded = log --diff-filter=A
 [merge]
 	tool = meld
