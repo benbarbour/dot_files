@@ -28,7 +28,6 @@ NeoBundle 'klen/python-mode'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'msanders/snipmate.vim'
 NeoBundle 'myusuf3/numbers.vim'
-NeoBundle 'nelstrom/vim-markdown-folding'
 NeoBundle 'nelstrom/vim-visual-star-search'
 NeoBundle 'nvie/vim-flake8'
 NeoBundle 'pangloss/vim-javascript'
@@ -54,6 +53,7 @@ NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-tbone'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
+"" Golang related
 NeoBundle 'Peregrinati/vim-golang'
 NeoBundle 'dgryski/vim-godef'
 NeoBundle 'Blackrush/vim-gocode'
@@ -81,6 +81,16 @@ let g:pymode_rope_extended_complete = 0
 
 "" Airline settings
 let g:airline_powerline_fonts = 1
+"
+"" Python settings
+augroup my-lua
+    autocmd!
+    autocmd Filetype lua setlocal list
+    autocmd Filetype lua setlocal listchars=tab:>-
+    autocmd Filetype lua setlocal expandtab
+    autocmd Filetype lua setlocal tabstop=4
+    autocmd Filetype lua setlocal shiftwidth=4
+augroup end
 
 "" Python settings
 augroup my-python
