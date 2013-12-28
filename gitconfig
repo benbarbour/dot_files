@@ -22,6 +22,7 @@
 	tool = meld
 [core]
 	mergeoptions = --no-commit
+	editor = vim
 [push]
 	default = simple
 [init]

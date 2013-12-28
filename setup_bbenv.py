@@ -43,25 +43,32 @@ args = parse_args()
 os.chdir(HOME)
 
 if args.install:
-    subprocess.call('apt-get install tmux exuberant-ctags', shell=True)
-    subprocess.call('pip install pylama prettytable', shell=True)
+    subprocess.call(
+        'apt-get install zsh meld tmux vim python-pip exuberant-ctags '
+        'silversearcher-ag',
+        shell=True)
+    subprocess.call(
+        'chsh -s $(which zsh)',
+        shell=True)
+    subprocess.call(
+        'pip install flake8 prettytable virtualenvwrapper',
+        shell=True)
     subprocess.call(
         'pip install git+git://github.com/Lokaltog/powerline',
         shell=True)
 
-excluded_dotfiles = (
+# Symlink dot files
+excluded = (
     "README.md",
     "config",
     ".git",
     os.path.basename(__file__),
 )
-
-# Symlink dot files
 Symlink = namedtuple('Symlink', ('src', 'target'))
 symlinks = []
 for dotfile in os.listdir(args.root):
     new_path = os.path.join(HOME, '.' + dotfile)
-    if not dotfile in excluded_dotfiles:
+    if not dotfile in excluded:
         dotfile = os.path.join(args.root, dotfile)
         link = Symlink(dotfile, new_path)
         symlinks.append(link)
