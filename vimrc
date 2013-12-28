@@ -1,108 +1,91 @@
 " MISC INIT
 set nocompatible                                " Disable vi-compatibility
 
-
-" NEOBUNDLE
+" PLUGINS / NEOBUNDLE
 if has('vim_starting')
-    set runtimepath+=~/.vim/bundle/neobundle.vim/
+   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 call neobundle#rc(expand('~/.vim/bundle/'))
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+NeoBundle 'Shougo/vimproc', {
+ \ 'build' : {
+ \     'windows' : 'make -f make_mingw32.mak',
+ \     'cygwin' : 'make -f make_cygwin.mak',
+ \     'mac' : 'make -f make_mac.mak',
+ \     'unix' : 'make -f make_unix.mak',
+ \    },
+ \ }
+filetype plugin indent on     " Required!
 
 "" My Bundles
-NeoBundleFetch 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/vimproc', {
-      \ 'build' : {
-      \     'windows' : 'make -f make_mingw32.mak',
-      \     'cygwin' : 'make -f make_cygwin.mak',
-      \     'mac' : 'make -f make_mac.mak',
-      \     'unix' : 'make -f make_unix.mak',
-      \    },
-      \ }
 NeoBundle 'Shougo/neocomplete.vim.git'
-"NeoBundle 'Lokaltog/powerline', {'rtp': 'powerline/bindings/vim'}
+source ~/.vim/completion.vim
+
+NeoBundle 'Shougo/neosnippet'
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+
+NeoBundle 'Shougo/unite.vim'
+
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'bling/vim-airline'
-NeoBundle 'Lokaltog/vim-easymotion'
+let g:airline_powerline_fonts = 1
+
+NeoBundle 'davidhalter/jedi-vim'
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#popup_on_dot = 0
+let g:jedi#popup_select_first = 0
+
 NeoBundle 'godlygeek/tabular'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'klen/python-mode'
+NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'msanders/snipmate.vim'
+nmap <F4> :TagbarToggle<CR>
+
 NeoBundle 'myusuf3/numbers.vim'
+nmap <F2> :NumbersToggle<CR>
+
 NeoBundle 'nelstrom/vim-visual-star-search'
-NeoBundle 'nvie/vim-flake8'
-NeoBundle 'pangloss/vim-javascript'
 NeoBundle 'rking/ag.vim'
-NeoBundle 'sjbach/lusty'
 NeoBundle 'sjl/gundo.vim'
+nmap <F3> :GundoToggle<CR>
+
 NeoBundle 'scrooloose/syntastic'
-"" Case-matching substitution, abbreviation, and coercion
-NeoBundle 'tpope/vim-abolish'
-"" Press ga on a character to view its encodings
-NeoBundle 'tpope/vim-characterize'
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height = 5
+let g:syntastic_python_flake8_args="--select=E,W"
+noremap <silent><leader>lc :lcl<CR>
+
+NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
+NeoBundle 'tpope/vim-characterize'  " Press ga on a character to view encodings
 NeoBundle 'tpope/vim-commentary'
-"" Git support
 NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-repeat'
 NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-sleuth'
-"" Use increment/decrement on dates and times
-NeoBundle 'tpope/vim-speeddating'
+NeoBundle 'tpope/vim-speeddating'   " Use increment/decrement on dates and times
 NeoBundle 'tpope/vim-surround'
-"" Tmux integration (:Tput :Tyank, etc)
-NeoBundle 'tpope/vim-tbone'
+NeoBundle 'tpope/vim-tbone'         " Tmux integration (:Tput :Tyank, etc)
+NeoBundle 'tpope/vim-unimpaired'
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
-"" Golang related
-NeoBundle 'Peregrinati/vim-golang'
-NeoBundle 'dgryski/vim-godef'
-NeoBundle 'Blackrush/vim-gocode'
-
 
 "" Colorschemes
-NeoBundle 'altercation/vim-colors-solarized.git'
-NeoBundle 'nelstrom/vim-mac-classic-theme.git'
-NeoBundle 'nelstrom/vim-blackboard.git'
-NeoBundle 'vim-scripts/peaksea'
 NeoBundle 'Lokaltog/vim-distinguished'
 
-"" Bundle mappings
-nmap <F2> :NumbersToggle<CR>
-nmap <F3> :GundoToggle<CR>
-nmap <F4> :TagbarToggle<CR>
+" MY CONFIG
 
-"" Python Mode config
-" Disable rope plugin
-let g:pymode_rope = 0
-let g:pymode_lint_ignore=""
-let g:pymode_lint_checker = "pyflakes,pep8"
-let g:pymode_rope_vim_completion = 0
-let g:pymode_rope_extended_complete = 0
-
-"" Airline settings
-let g:airline_powerline_fonts = 1
-"
-"" Lua settings
-augroup my-lua
-    autocmd!
-    autocmd Filetype lua setlocal list
-    autocmd Filetype lua setlocal listchars=tab:>-
-    autocmd Filetype lua setlocal expandtab
-    autocmd Filetype lua setlocal tabstop=4
-    autocmd Filetype lua setlocal shiftwidth=4
-augroup end
-
-"" Python settings
-augroup my-python
-    autocmd!
-    autocmd Filetype python setlocal list
-    autocmd Filetype python setlocal listchars=tab:>-
-    autocmd Filetype python setlocal textwidth=80
-    autocmd Filetype python setlocal colorcolumn=+0
-    autocmd Filetype python highlight ColorColumn ctermbg=1
-    autocmd Filetype python noremap <buffer> <F7> :PyLintAuto<CR>
-    autocmd Filetype python noremap <buffer> <F8> :PyLintWindowToggle<CR>
-augroup end
+"" Colors
+set t_Co=256
+set background=dark
+silent! colorscheme distinguished
 
 "" Markdown settings
 augroup my-markdown
@@ -114,39 +97,15 @@ augroup my-markdown
   autocmd Filetype markdown set wrapmargin=0
 augroup end
 
-"" Go settings
-let g:go_fmt_cmd = 'goimports'
-augroup my-golang
-  autocmd!
-  autocmd FileType go set tabstop=3
-  autocmd Filetype go noremap <buffer> <F7> :Fmt<CR>
-  "" Fmt on save
-  autocmd FileType go au BufWritePre <buffer> Fmt
-  "" For commentary plugin
-  autocmd FileType go set commentstring=//\ %s
-augroup end
-
-"" XML settings
-augroup my-xml
+"" Python settings
+augroup my-python
     autocmd!
-    let g:xml_syntax_folding=1
-    autocmd FileType xml setlocal foldmethod=syntax
+    autocmd Filetype python setlocal list
+    autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal textwidth=80
+    autocmd Filetype python setlocal colorcolumn=+0
+    autocmd Filetype python highlight ColorColumn ctermbg=68
 augroup end
-
-"" CTRLP config
-" Sane Ignore For ctrlp
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\.git$\|\.hg$\|\.svn$\|\.yardoc\|public\/images\|public\/system\|log\|tmp$',
-  \ 'file': '\.exe$\|\.so$\|\.dat$|\.o|\.pyc,tags'
-  \ }
-
-
-" MY CONFIG
-
-"" Colors
-set t_Co=256
-set background=dark
-silent! colorscheme distinguished
 
 "" Misc
 let mapleader = ","                             " setting leader to ,
@@ -214,7 +173,7 @@ noremap <C-D> <C-X>
 "-Disable Ex-mode (I never use it and it's easy to get stuck in)
 map Q <Nop>
 
-"" Functions
+"" FUNCTIONS
 
 "-Open all changed files (as reported by git)
 function! GitEditDirty()
@@ -240,11 +199,56 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
-"" Neocomplete settings
-source ~/.vim/completion.vim
-
 "" Generate ctags on save (at least for git repos)
 autocmd BufWritePost *
       \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
       \   call system('"'.b:git_dir.'/hooks/ctags" &') |
       \ endif
+
+"" Unite settings
+let g:unite_source_history_yank_enable = 1
+let g:unite_data_directory='~/.vim/.cache/unite'
+let g:unite_source_rec_max_cache_files=5000
+let g:unite_enable_start_insert = 1
+let g:unite_split_rule = "botright"
+let g:unite_force_overwrite_statusline = 0
+let g:unite_winheight = 10
+let g:unite_source_grep_command = 'ag'
+
+call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+      \ 'ignore_pattern', join([
+      \ '\.git/',
+      \ 'git5/.*/review/',
+      \ 'google/obj/',
+      \ ], '\|'))
+
+" Use the fuzzy matcher for everything
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+
+" Use the rank sorter for everything
+call unite#filters#sorter_default#use(['sorter_rank'])
+
+" Use ag for search
+if executable('ag')
+  let g:unite_source_grep_command = 'ag'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+  let g:unite_source_grep_recursive_opt = ''
+endif
+
+nnoremap <leader>/ :Unite -no-split grep:.<cr>
+nnoremap <leader>y :Unite -no-split -start-insert history/yank<cr>
+nnoremap <leader>f :Unite -no-split -start-insert file_rec/async<cr>
+nnoremap <leader>b :Unite -no-split buffer<cr>
+
+autocmd FileType unite call s:unite_settings()
+
+function! s:unite_settings()
+  let b:SuperTabDisabled=1
+  imap <buffer> <C-j>   <Plug>(unite_select_next_line)
+  imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
+  imap <silent><buffer><expr> <C-x> unite#do_action('split')
+  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
+
+  nmap <buffer> <ESC> <Plug>(unite_exit)
+endfunction
