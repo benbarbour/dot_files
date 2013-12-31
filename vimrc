@@ -107,6 +107,19 @@ augroup my-python
     autocmd Filetype python highlight ColorColumn ctermbg=68
 augroup end
 
+"" Python settings
+augroup my-lua
+    autocmd!
+    autocmd Filetype lua setlocal list
+    autocmd Filetype lua setlocal listchars=tab:>-
+    autocmd Filetype lua setlocal textwidth=79
+    autocmd Filetype lua setlocal colorcolumn=+1
+    autocmd Filetype lua highlight ColorColumn ctermbg=68
+    autocmd Filetype lua setlocal expandtab
+    autocmd Filetype lua setlocal tabstop=2
+    autocmd Filetype lua setlocal shiftwidth=2
+augroup end
+
 "" Misc
 let mapleader = ","                             " setting leader to ,
 set tabstop=4                                   " tabs are 4 spaces
