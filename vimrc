@@ -59,7 +59,9 @@ NeoBundle 'scrooloose/syntastic'
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height = 5
-let g:syntastic_python_flake8_args="--select=E,W"
+"let g:syntastic_python_flake8_args="--ignore=E501"
+let g:syntastic_error_symbol="✗"
+let g:syntastic_warning_symbol = '⚠'
 noremap <silent><leader>lc :lcl<CR>
 
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
