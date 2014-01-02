@@ -166,7 +166,7 @@ nmap <leader>ev :vsplit $MYVIMRC<cr>
 nmap <leader>sv :source $MYVIMRC<cr>
 "-strip trailing whitespace
 nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
-"-change working directory to current file
+"-change working directory to current file's directory
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
 "-tab shortcuts
 nnoremap tt :tabnew 
