@@ -45,7 +45,7 @@ else
 fi
 local git_branch='$(git_prompt_info)%{$PR_NO_COLOR%}'
 
-local jobs="%(1j.$sep$PR_BOLD$PR_MAGENTA%j jobs$PR_NO_COLOR.)"
+local jobs="%(1j.$sep$PR_BOLD$PR_MAGENTA%j job%(2j.s.)$PR_NO_COLOR.)"
 
 PROMPT="
 $sep_clr╭┤${user_host}${jobs}${return_code}${current_dir}${rvm_ruby}${git_branch}$sep_clr├┈╼
