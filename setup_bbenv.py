@@ -44,8 +44,8 @@ os.chdir(HOME)
 
 if args.install:
     subprocess.call(
-        'apt-get install zsh meld tmux vim python-pip exuberant-ctags '
-        'silversearcher-ag',
+        'apt-get --ignore-missing install '
+        'zsh meld tmux python-pip exuberant-ctags silversearcher-ag',
         shell=True)
     subprocess.call(
         'chsh -s $(which zsh)',
@@ -62,6 +62,8 @@ excluded = (
     "README.md",
     "config",
     ".git",
+    ".gitignore",
+    "oh-my-zsh",
     os.path.basename(__file__),
 )
 Symlink = namedtuple('Symlink', ('src', 'target'))
@@ -73,10 +75,20 @@ for dotfile in os.listdir(args.root):
         link = Symlink(dotfile, new_path)
         symlinks.append(link)
 
-for config in os.listdir(os.path.join(args.root, 'config')):
-    new_path = os.path.join(HOME, '.config', config)
-    config = os.path.join(args.root, 'config', config)
-    link = Symlink(config, new_path)
+# Link config subdirs
+baseDir = os.path.join(args.root, 'config')
+for f in os.listdir(baseDir):
+    new_path = os.path.join(HOME, '.config', f)
+    f = os.path.join(baseDir, f)
+    link = Symlink(f, new_path)
+    symlinks.append(link)
+
+# Link oh-my-zsh custom subdir
+baseDir = os.path.join(args.root, 'oh-my-zsh', 'custom')
+for f in os.listdir(baseDir):
+    new_path = os.path.join(HOME, '.oh-my-zsh', 'custom', f)
+    f = os.path.join(baseDir, f)
+    link = Symlink(f, new_path)
     symlinks.append(link)
 
 for sym in symlinks:
