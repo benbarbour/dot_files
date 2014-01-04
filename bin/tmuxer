@@ -50,6 +50,7 @@ class Window:
             subprocess.call(['tmux', 'select-layout', self._layout])
 
 SESSIONS = {
+    'wt': '-w client_server -p /home/bbarbour/Work/achilles -np',
     'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np',
     'wt-delphi-dj': '-p /home/bbarbour/Work/delphi -n django-delphi',
 }
@@ -61,8 +62,12 @@ WINDOW_SETS = {
         Window("Code1"),
     ],
     'code': [
+        Window("Code"),
         Window("Shell"),
-        Window("Code", commands=('vim',)),
+    ],
+    'client_server': [
+        Window("Local"),
+        Window("Remote"),
     ],
 }
 INITIAL_WINDOWS = []
