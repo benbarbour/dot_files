@@ -77,6 +77,9 @@ NeoBundle 'tpope/vim-speeddating'   " Use increment/decrement on dates and times
 NeoBundle 'tpope/vim-surround'
 NeoBundle 'tpope/vim-tbone'         " Tmux integration (:Tput :Tyank, etc)
 NeoBundle 'tpope/vim-unimpaired'
+nnoremap <silent> ]g :tabnext<CR>
+nnoremap <silent> [g :tabprev<CR>
+
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
 
