@@ -110,7 +110,7 @@ augroup my-python
     autocmd Filetype python highlight ColorColumn ctermbg=68
 augroup end
 
-"" Python settings
+"" Lua settings
 augroup my-lua
     autocmd!
     autocmd Filetype lua setlocal list
