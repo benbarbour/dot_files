@@ -56,11 +56,15 @@ NeoBundle 'sjl/gundo.vim'
 nmap <F3> :GundoToggle<CR>
 
 NeoBundle 'scrooloose/syntastic'
-let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height = 5
-"let g:syntastic_python_flake8_args="--ignore=E501"
+" let g:syntastic_python_flake8_args="--ignore=E501"
+"   E501: Line too long
+let g:syntastic_python_pylint_post_args="-d C0111,W0511"
+"   C0111: Missing docstring
+"   W0511: FIXME, XXX, TODO, etc.
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 noremap <silent><leader>lc :lcl<CR>
