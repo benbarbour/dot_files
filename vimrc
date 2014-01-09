@@ -62,9 +62,10 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height = 5
 " let g:syntastic_python_flake8_args="--ignore=E501"
 "   E501: Line too long
-let g:syntastic_python_pylint_post_args="-d C0111,W0511"
+let g:syntastic_python_pylint_post_args="-d C0111,W0511,R0902"
 "   C0111: Missing docstring
 "   W0511: FIXME, XXX, TODO, etc.
+"   R0902: Too many instances attributes
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 noremap <silent><leader>lc :lcl<CR>
@@ -197,6 +198,8 @@ noremap <C-I> <C-A>
 noremap <C-D> <C-X>
 "-Disable Ex-mode (I never use it and it's easy to get stuck in)
 map Q <Nop>
+"-Jump to first item in location list
+nnoremap <leader>ll :ll 1<CR>
 
 "" FUNCTIONS
 
