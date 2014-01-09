@@ -113,8 +113,10 @@ augroup my-python
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
     autocmd Filetype python setlocal textwidth=80
-    autocmd Filetype python setlocal colorcolumn=+0
-    autocmd Filetype python highlight ColorColumn ctermbg=68
+    autocmd Filetype python setlocal colorcolumn=80
+    autocmd Filetype python highlight ColorColumn ctermbg=232
+    autocmd Filetype python setlocal tabstop=4
+    autocmd Filetype python setlocal shiftwidth=4
 augroup end
 
 "" Lua settings
@@ -126,8 +128,8 @@ augroup my-lua
     autocmd Filetype lua setlocal colorcolumn=+1
     autocmd Filetype lua highlight ColorColumn ctermbg=68
     autocmd Filetype lua setlocal expandtab
-    autocmd Filetype lua setlocal tabstop=2
-    autocmd Filetype lua setlocal shiftwidth=2
+    autocmd Filetype lua setlocal tabstop=4
+    autocmd Filetype lua setlocal shiftwidth=4
 augroup end
 
 "" Misc
