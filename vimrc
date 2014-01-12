@@ -156,10 +156,6 @@ set number                                      " enabled line numbers by defaul
 "" Folding
 set foldlevelstart=99				            "Don't fold anything when opening a new file
 
-"" Highlight whitespace
-highlight ExtraWhiteSpace ctermbg=red guibg=red
-match ExtraWhiteSpace /\s\+$/
-
 "" Backup and undo settings
 set backupdir=~/.vim/backup//                   "location of backups
 set directory=~/.vim/swp//                      "location of swap files
@@ -276,3 +272,7 @@ function! s:unite_settings()
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
+
+"" Highlight trailing whitespace
+highlight ExtraWhiteSpace ctermbg=red guibg=red
+match ExtraWhiteSpace /\s\+$/
