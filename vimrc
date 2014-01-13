@@ -114,6 +114,7 @@ augroup my-python
     autocmd Filetype python highlight ColorColumn ctermbg=232
     autocmd Filetype python setlocal tabstop=4
     autocmd Filetype python setlocal shiftwidth=4
+    autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
 
 "" Lua settings
@@ -127,6 +128,7 @@ augroup my-lua
     autocmd Filetype lua setlocal expandtab
     autocmd Filetype lua setlocal tabstop=4
     autocmd Filetype lua setlocal shiftwidth=4
+    autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
 
 "" Misc
