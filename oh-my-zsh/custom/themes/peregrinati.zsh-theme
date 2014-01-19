@@ -34,7 +34,7 @@ local sep="$sep_clr├┈┤%{$PR_NO_COLOR%}"
 local return_code="%(?..$sep%{$PR_RED%}%? ↵ %{$PR_NO_COLOR%})"
 
 local user_host='${PR_USER}${PR_BOLD}${PR_CYAN}@${PR_HOST}'
-local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%~%{$PR_NO_COLOR%}'
+local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%d%{$PR_NO_COLOR%}'
 local rvm_ruby=''
 if which rvm-prompt &> /dev/null; then
   rvm_ruby='$sep%{$PR_RED%}‹$(rvm-prompt i v g s)›%{$PR_NO_COLOR%}'
