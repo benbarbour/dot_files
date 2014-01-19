@@ -37,6 +37,8 @@ NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 
+NeoBundle 'blackrush/vim-gocode'
+
 NeoBundle 'davidhalter/jedi-vim'
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
@@ -130,6 +132,17 @@ augroup my-lua
     autocmd Filetype lua setlocal shiftwidth=4
     autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
+
+"" Go settings
+filetype off
+filetype plugin indent off
+let govim=system('go env GOROOT')
+let govim=substitute(govim, '\n$', '', '').'/misc/vim'
+let &runtimepath.=','.govim
+filetype plugin indent on
+syntax on
+let g:gofmt_command="goimports"
+autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 "" Misc
 let mapleader = ","                             " setting leader to ,
