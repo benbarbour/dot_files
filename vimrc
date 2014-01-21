@@ -256,6 +256,7 @@ call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
       \ '\.git/',
       \ 'git5/.*/review/',
       \ 'google/obj/',
+      \ '\.pyc',
       \ ], '\|'))
 
 " Use the fuzzy matcher for everything
