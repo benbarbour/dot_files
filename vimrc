@@ -60,7 +60,7 @@ nmap <F3> :GundoToggle<CR>
 NeoBundle 'scrooloose/syntastic'
 let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_check_on_open=1
-let g:syntastic_auto_loc_list=1
+let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
 " let g:syntastic_python_flake8_args="--ignore=E501"
 "   E501: Line too long
