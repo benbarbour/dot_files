@@ -11,9 +11,9 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
     \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
 \ }
+    " \ 'vimshell' : $HOME.'/.vimshell_hist',
+    " \ 'scheme' : $HOME.'/.gosh_completions'
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
@@ -54,7 +54,7 @@ inoremap <expr><C-e>  neocomplete#cancel_popup()
 "let g:neocomplete#enable_insert_char_pre = 1
 
 " AutoComplPop like behavior.
-let g:neocomplete#enable_auto_select = 1
+let g:neocomplete#enable_auto_select = 0
 
 " Shell like behavior(not recommended).
 "set completeopt+=longest

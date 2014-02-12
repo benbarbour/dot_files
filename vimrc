@@ -23,6 +23,7 @@ NeoBundle 'Shougo/neocomplete.vim.git'
 source ~/.vim/completion.vim
 
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -62,10 +63,11 @@ let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
-" let g:syntastic_python_flake8_args="--ignore=E501"
+let g:syntastic_python_flake8_args="--ignore=E501"
 "   E501: Line too long
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
+let g:syntastic_always_populate_loc_list=1
 noremap <silent><leader>lc :lcl<CR>
 
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
@@ -156,7 +158,7 @@ set wrapmargin=0                                " disable line wrapping
 set hidden                                      " allow hidden buffers. Required by LustyJuggler
 set matchpairs+=<:>                             " Match angle brackets
 " give these suffixes lower priority when opening files
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc
+set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.class
 " ignore these filetypes in menus
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
 set nostartofline                               " Don't jump to the start of the line when switching buffers
