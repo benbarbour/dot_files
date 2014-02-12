@@ -56,6 +56,10 @@ export GOPATH="$HOME/Code/go"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:/usr/local/go/bin:$GOPATH/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
+setopt no_share_history
+HISTSIZE=99999
+SAVEHIST=99999
+
 # # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
 #   export EDITOR='vim'
