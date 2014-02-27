@@ -48,9 +48,11 @@ let g:airline_powerline_fonts = 1
 NeoBundle 'blackrush/vim-gocode'
 
 NeoBundle 'davidhalter/jedi-vim'
-let g:jedi#auto_vim_configuration = 0
+let g:jedi#auto_vim_configuration = 1
 let g:jedi#popup_on_dot = 0
 let g:jedi#popup_select_first = 0
+let g:jedi#use_tabs_not_buffers = 0
+let g:jedi#use_splits_not_buffers = "bottom"
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -71,6 +73,7 @@ let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
 let g:syntastic_python_flake8_args="--ignore=E501"
+let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
 "   E501: Line too long
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
