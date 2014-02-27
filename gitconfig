@@ -18,6 +18,8 @@
 	d = diff
 	ds = diff --staged
 	whatadded = log --diff-filter=A
+	cleanup = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
+	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
 [merge]
 	tool = meld
 [core]
