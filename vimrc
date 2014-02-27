@@ -97,6 +97,7 @@ nnoremap <silent> [g :tabprev<CR>
 
 NeoBundle 'tsaleh/vim-matchit'
 NeoBundle 'vim-scripts/bufkill.vim'
+NeoBundle 'vim-scripts/hexman.vim'
 
 "" Colorschemes
 NeoBundle 'Lokaltog/vim-distinguished'
