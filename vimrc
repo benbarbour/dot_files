@@ -35,6 +35,13 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 NeoBundle 'Shougo/unite.vim'
 
 NeoBundle 'airblade/vim-gitgutter'
+let g:gitgutter_realtime=0
+let g:gitgutter_map_keys = 0
+nmap <Leader>ha <Plug>GitGutterStageHunk
+nmap <Leader>hu <Plug>GitGutterRevertHunk
+nmap ]h <Plug>GitGutterNextHunk
+nmap [h <Plug>GitGutterPrevHunk
+
 NeoBundle 'bling/vim-airline'
 let g:airline_powerline_fonts = 1
 
