@@ -99,7 +99,7 @@ NeoBundle 'tpope/vim-unimpaired'
 nnoremap <silent> ]g :tabnext<CR>
 nnoremap <silent> [g :tabprev<CR>
 
-NeoBundle 'tsaleh/vim-matchit'
+NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/bufkill.vim'
 NeoBundle 'vim-scripts/hexman.vim'
 
