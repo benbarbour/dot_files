@@ -55,11 +55,8 @@ let g:airline#extensions#default#layout = [
 NeoBundle 'blackrush/vim-gocode'
 
 NeoBundle 'davidhalter/jedi-vim'
-let g:jedi#auto_vim_configuration = 1
+let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
-let g:jedi#popup_select_first = 0
-let g:jedi#use_tabs_not_buffers = 0
-let g:jedi#use_splits_not_buffers = "bottom"
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -79,9 +76,9 @@ let g:syntastic_python_checkers = ['flake8', 'pylint']
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
-let g:syntastic_python_flake8_args="--ignore=E501"
-let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
 "   E501: Line too long
+let g:syntastic_python_flake8_args="--ignore=E501,R901"
+let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_always_populate_loc_list=1
@@ -131,12 +128,13 @@ augroup my-python
     autocmd!
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
-    autocmd Filetype python setlocal textwidth=80
+    " autocmd Filetype python setlocal textwidth=80
     autocmd Filetype python setlocal colorcolumn=80
     autocmd Filetype python highlight ColorColumn ctermbg=232
     autocmd Filetype python setlocal tabstop=4
     autocmd Filetype python setlocal shiftwidth=4
     autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+    autocmd FileType python setlocal completeopt=menuone,longest
 augroup end
 
 "" Lua settings
