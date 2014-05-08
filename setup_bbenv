@@ -1,4 +1,5 @@
-#!/usr/bin/python
+#!/usr/bin/env python
+
 import os
 import sys
 import argparse
@@ -9,16 +10,14 @@ from collections import namedtuple
 HOME = os.path.expanduser("~")
 
 
-def prompt(prompt):
+def prompt(txt):
     val = None
-    print("\n" + prompt + ":")
+    print("\n" + txt + ":")
     try:
         val = raw_input().strip()
     except (EOFError, KeyboardInterrupt):
         print()
-        pass
     return val
-    namedtuple
 
 
 def parse_args():
@@ -64,6 +63,7 @@ excluded = (
     ".git",
     ".gitignore",
     "oh-my-zsh",
+    "python_virtualenvs",
     os.path.basename(__file__),
 )
 Symlink = namedtuple('Symlink', ('src', 'target'))
@@ -90,6 +90,15 @@ for f in os.listdir(baseDir):
     f = os.path.join(baseDir, f)
     link = Symlink(f, new_path)
     symlinks.append(link)
+
+# Link custom python_virtualenvs hooks
+baseDir = os.path.join(args.root, 'python_virtualenvs')
+for f in os.listdir(baseDir):
+    new_path = os.path.join(HOME, '.python_virtualenvs', f)
+    f = os.path.join(baseDir, f)
+    link = Symlink(f, new_path)
+    symlinks.append(link)
+
 
 for sym in symlinks:
     print("symlinking '{}' to '{}'".format(sym.src, sym.target))
