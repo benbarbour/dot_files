@@ -45,7 +45,7 @@ ZSH_THEME="peregrinati"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(history-substring-search git svn virtualenvwrapper virtualenv tmux rsync)
+plugins=(history-substring-search git svn tmux rsync)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -74,3 +74,7 @@ SAVEHIST=99999
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 DISABLE_AUTO_TITLE=true
+
+# python virtualenvs
+export WORKON_HOME="$HOME/.python_virtualenvs"
+source /usr/local/bin/virtualenvwrapper.sh

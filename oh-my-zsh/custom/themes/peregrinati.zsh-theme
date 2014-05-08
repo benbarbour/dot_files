@@ -35,14 +35,6 @@ local return_code="%(?..$sep%{$PR_RED%}%? ↵ %{$PR_NO_COLOR%})"
 
 local user_host='${PR_USER}${PR_BOLD}${PR_CYAN}@${PR_HOST}'
 local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%d%{$PR_NO_COLOR%}'
-local rvm_ruby=''
-if which rvm-prompt &> /dev/null; then
-  rvm_ruby='$sep%{$PR_RED%}‹$(rvm-prompt i v g s)›%{$PR_NO_COLOR%}'
-else
-  if which rbenv &> /dev/null; then
-    rvm_ruby='$sep%{$PR_RED%}‹$(rbenv version | sed -e "s/ (set.*$//")›%{$PR_NO_COLOR%}'
-  fi
-fi
 local git_branch='$(git_prompt_info)%{$PR_NO_COLOR%}'
 
 local jobs="%(1j.$sep$PR_BOLD$PR_MAGENTA%j job%(2j.s.)$PR_NO_COLOR.)"
