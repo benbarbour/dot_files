@@ -34,7 +34,7 @@ local sep="$sep_clr├┈┤%{$PR_NO_COLOR%}"
 local return_code="%(?..$sep%{$PR_RED%}%? ↵ %{$PR_NO_COLOR%})"
 
 local user_host='${PR_USER}${PR_BOLD}${PR_CYAN}@${PR_HOST}'
-local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%d%{$PR_NO_COLOR%}'
+local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%~%{$PR_NO_COLOR%}'
 local git_branch='$(git_prompt_info)%{$PR_NO_COLOR%}'
 
 local jobs="%(1j.$sep$PR_BOLD$PR_MAGENTA%j job%(2j.s.)$PR_NO_COLOR.)"
