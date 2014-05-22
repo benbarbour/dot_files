@@ -77,4 +77,5 @@ DISABLE_AUTO_TITLE=true
 
 # python virtualenvs
 export WORKON_HOME="$HOME/.python_virtualenvs"
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 source /usr/local/bin/virtualenvwrapper.sh
