@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 
 import os
 import sys
@@ -14,7 +14,7 @@ def prompt(txt):
     val = None
     print("\n" + txt + ":")
     try:
-        val = raw_input().strip()
+        val = input().strip()
     except (EOFError, KeyboardInterrupt):
         print()
     return val
@@ -35,6 +35,9 @@ def parse_args():
         help='The path to the bbenv checkout. (default: "~/.bbenv/)"')
     return parser.parse_args()
 
+call = lambda cmd: subprocess.call(cmd, shell=True)
+
+
 # ======== SCRIPT START =========
 
 args = parse_args()
@@ -42,22 +45,56 @@ args = parse_args()
 os.chdir(HOME)
 
 if args.install:
-    subprocess.call(
-        'apt-get --ignore-missing install '
-        'zsh meld tmux python-pip exuberant-ctags silversearcher-ag',
-        shell=True)
-    subprocess.call(
-        'chsh -s $(which zsh)',
-        shell=True)
-    subprocess.call(
-        'pip install flake8 prettytable virtualenvwrapper',
-        shell=True)
-    subprocess.call(
-        'pip install git+git://github.com/Lokaltog/powerline',
-        shell=True)
+    APT_PKGS = (
+        'curl',
+        'exuberant-ctags',
+        'lua5.2',
+        'htop',
+        'ipython',
+        'ipython3',
+        'meld',
+        'python-pip',
+        'silversearcher-ag',
+        'tmux',
+        'zsh',
+    )
+    PIP_PKGS = (
+        'flake8',
+        'prettytable',
+        'pylama',
+        'virtualenvwrapper',
+    )
+
+    call('apt-get --ignore-missing install ' + ' '.join(APT_PKGS))
+    call('apt-get --ignore-missing install ' + ' '.join(PIP_PKGS))
+    call('curl -L http://install.ohmyz.sh | sh')
+    call('chsh -s $(which zsh)')
+    call('pip install git+git://github.com/Lokaltog/powerline')
 
 # Symlink dot files
-excluded = (
+Symlink = namedtuple('Symlink', ('src', 'target'))
+symlinks = []
+
+def link(*subdirs, excluded=None):
+    dot = lambda s: '.' + s
+
+    base_dir = os.path.join(args.root, *subdirs)
+
+    subdirs = list(subdirs)
+    if len(subdirs) > 0:
+        subdirs[0] = dot(subdirs[0])
+
+    for file_name in os.listdir(base_dir):
+        file_path = os.path.join(base_dir, file_name)
+        new_path = os.path.join(
+            HOME,
+            *(subdirs + [dot(file_name) if len(subdirs) == 0 else file_name])
+        )
+        if excluded is None or file_name not in excluded:
+            symlinks.append(Symlink(file_path, new_path))
+
+# Link dotfiles
+link(excluded=(
     "README.md",
     "config",
     ".git",
@@ -65,40 +102,10 @@ excluded = (
     "oh-my-zsh",
     "python_virtualenvs",
     os.path.basename(__file__),
-)
-Symlink = namedtuple('Symlink', ('src', 'target'))
-symlinks = []
-for dotfile in os.listdir(args.root):
-    new_path = os.path.join(HOME, '.' + dotfile)
-    if not dotfile in excluded:
-        dotfile = os.path.join(args.root, dotfile)
-        link = Symlink(dotfile, new_path)
-        symlinks.append(link)
-
-# Link config subdirs
-baseDir = os.path.join(args.root, 'config')
-for f in os.listdir(baseDir):
-    new_path = os.path.join(HOME, '.config', f)
-    f = os.path.join(baseDir, f)
-    link = Symlink(f, new_path)
-    symlinks.append(link)
-
-# Link oh-my-zsh custom subdir
-baseDir = os.path.join(args.root, 'oh-my-zsh', 'custom')
-for f in os.listdir(baseDir):
-    new_path = os.path.join(HOME, '.oh-my-zsh', 'custom', f)
-    f = os.path.join(baseDir, f)
-    link = Symlink(f, new_path)
-    symlinks.append(link)
-
-# Link custom python_virtualenvs hooks
-baseDir = os.path.join(args.root, 'python_virtualenvs')
-for f in os.listdir(baseDir):
-    new_path = os.path.join(HOME, '.python_virtualenvs', f)
-    f = os.path.join(baseDir, f)
-    link = Symlink(f, new_path)
-    symlinks.append(link)
-
+))
+link('config')
+link('oh-my-zsh', 'custom')
+link('python_virtualenvs')
 
 for sym in symlinks:
     print("symlinking '{}' to '{}'".format(sym.src, sym.target))
@@ -107,6 +114,7 @@ if prompt('Are you sure you wish to continue? [y/N]') != 'y':
 
 for sym in symlinks:
     try:
+        call('mkdir -p ' + os.path.join(HOME, os.path.dirname(sym.target)))
         os.symlink(sym.src, sym.target)
     except OSError:
         os.unlink(sym.target)
@@ -114,7 +122,5 @@ for sym in symlinks:
 
 if args.install:
     print("Cloning NeoBundle...")
-    subprocess.call(
-        'git clone git://github.com/Shougo/neobundle.vim '
-        '~/.vim/bundle/neobundle.vim',
-        shell=True)
+    call('git clone git://github.com/Shougo/neobundle.vim '
+         '~/.vim/bundle/neobundle.vim')
