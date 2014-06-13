@@ -263,20 +263,23 @@ autocmd BufWritePost *
 "" Unite settings
 let g:unite_source_history_yank_enable = 1
 let g:unite_data_directory='~/.vim/.cache/unite'
-let g:unite_source_rec_max_cache_files=5000
+let g:unite_source_rec_max_cache_files=0
 let g:unite_enable_start_insert = 1
 let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
 let g:unite_winheight = 10
 let g:unite_source_grep_command = 'ag'
 
-call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
+call unite#custom_source('file_mru,file_rec,file_rec/async,grepocate',
       \ 'ignore_pattern', join([
       \ '\.git/',
       \ 'git5/.*/review/',
       \ 'google/obj/',
       \ '\.pyc',
       \ ], '\|'))
+
+call unite#custom_source('file_mru,file_rec,file_rec/async,grepocate',
+      \ 'max_candidates', 0)
 
 " Use the fuzzy matcher for everything
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
