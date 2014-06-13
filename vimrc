@@ -128,9 +128,10 @@ augroup my-python
     autocmd!
     autocmd Filetype python setlocal list
     autocmd Filetype python setlocal listchars=tab:>-
+    autocmd Filetype python setlocal expandtab
     " autocmd Filetype python setlocal textwidth=80
     autocmd Filetype python setlocal colorcolumn=80
-    autocmd Filetype python highlight ColorColumn ctermbg=232
+    autocmd Filetype python highlight ColorColumn ctermbg=88
     autocmd Filetype python setlocal tabstop=4
     autocmd Filetype python setlocal shiftwidth=4
     autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
