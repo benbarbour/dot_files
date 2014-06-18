@@ -87,10 +87,9 @@ noremap <silent><leader>lc :lcl<CR>
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-characterize'  " Press ga on a character to view encodings
 NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
 NeoBundle 'tpope/vim-markdown'
 NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-sensible'
 NeoBundle 'tpope/vim-sleuth'
 NeoBundle 'tpope/vim-speeddating'   " Use increment/decrement on dates and times
 NeoBundle 'tpope/vim-surround'
@@ -102,6 +101,9 @@ nnoremap <silent> [g :tabprev<CR>
 NeoBundle 'vim-scripts/matchit.zip'
 NeoBundle 'vim-scripts/bufkill.vim'
 NeoBundle 'vim-scripts/hexman.vim'
+
+" All lazy files are sourced at the end of this one
+NeoBundleLazy 'tpope/vim-sensible'
 
 "" Colorschemes
 NeoBundle 'Lokaltog/vim-distinguished'
@@ -127,7 +129,6 @@ augroup end
 augroup my-python
     autocmd!
     autocmd Filetype python setlocal list
-    autocmd Filetype python setlocal listchars=tab:>-
     autocmd Filetype python setlocal expandtab
     " autocmd Filetype python setlocal textwidth=80
     autocmd Filetype python setlocal colorcolumn=80
@@ -142,10 +143,9 @@ augroup end
 augroup my-lua
     autocmd!
     autocmd Filetype lua setlocal list
-    autocmd Filetype lua setlocal listchars=tab:>-
     autocmd Filetype lua setlocal textwidth=79
     autocmd Filetype lua setlocal colorcolumn=+1
-    autocmd Filetype lua highlight ColorColumn ctermbg=68
+    autocmd Filetype lua highlight ColorColumn ctermbg=88
     autocmd Filetype lua setlocal expandtab
     autocmd Filetype lua setlocal tabstop=4
     autocmd Filetype lua setlocal shiftwidth=4
@@ -164,6 +164,7 @@ let g:gofmt_command="goimports"
 autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 "" Misc
+set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
 let mapleader = ","                             " setting leader to ,
 set tabstop=4                                   " tabs are 4 spaces
 set backspace=indent,eol,start                  " backspace through everything in insert mode
@@ -313,5 +314,7 @@ function! s:unite_settings()
 endfunction
 
 "" Highlight trailing whitespace
-highlight ExtraWhiteSpace ctermbg=red guibg=red
+highlight ExtraWhiteSpace ctermfg=196 guifg=#ff0000
 match ExtraWhiteSpace /\s\+$/
+
+NeoBundleSource
