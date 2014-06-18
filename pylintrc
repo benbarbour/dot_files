@@ -41,6 +41,7 @@ enable=I0021
 
 #   C0111: Missing docstring
 #   C0301: Line too long
+#   C0302: File too long
 #   C0321: Multiple statements per line are fine, if it really makes code clearer
 #   C0325: Unecessary parens after "print" keyword
 #   F0401: Unable to import (sometimes I work on code in an environment it won't be deployed in)
@@ -53,7 +54,7 @@ enable=I0021
 #   W0511: FIXME, XXX, TODO, etc.
 #   W0702: Bare "except:" statements. Sometimes you gotta catch 'em all.
 #   W0703: Catch Exception. Sometimes you gotta catch 'em all.
-disable=C0111,C0301,C0321,C0325,F0401,I0011,R0201,R0904,R0915,W0142,W0232,W0511,W0603,W0702
+disable=C0111,C0301,C0302,C0321,C0325,F0401,I0011,R0201,R0904,R0915,W0142,W0232,W0511,W0603,W0702
 
 
 [REPORTS]
@@ -128,7 +129,7 @@ class-attribute-rgx=([A-Za-z_][A-Za-z0-9_]{1,30}|(__.*__))$
 inlinevar-rgx=[A-Za-z_][A-Za-z0-9_]*$
 
 # Good variable names which should always be accepted, separated by a comma
-good-names=i,j,k,ex,Run,_
+good-names=i,j,k,ex,Run,_,d
 
 # Bad variable names which should always be refused, separated by a comma
 bad-names=foo,bar,baz,toto,tutu,tata
@@ -161,7 +162,6 @@ ignore-docstrings=yes
 
 # Ignore imports when computing similarities.
 ignore-imports=no
-
 
 [TYPECHECK]
 
@@ -239,7 +239,7 @@ valid-metaclass-classmethod-first-arg=mcs
 [DESIGN]
 
 # Maximum number of arguments for function / method
-max-args=5
+max-args=10
 
 # Argument names that match this expression will be ignored. Default to name
 # with leading underscore
@@ -261,7 +261,7 @@ max-statements=50
 max-parents=7
 
 # Maximum number of attributes for a class (see R0902).
-max-attributes=12
+max-attributes=15
 
 # Minimum number of public methods for a class (see R0903).
 min-public-methods=0
