@@ -45,7 +45,7 @@ ZSH_THEME="peregrinati"
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(history-substring-search git svn tmux rsync)
+plugins=(history-substring-search git svn tmux rsync golang)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -53,7 +53,7 @@ source $ZSH/oh-my-zsh.sh
 
 # source $HOME/src/golang-crosscompile/crosscompile.bash
 export GOPATH="$HOME/Code/go"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:/usr/local/go/bin:$GOPATH/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/src/go/bin:$GOPATH/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 setopt no_share_history
