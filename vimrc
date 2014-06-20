@@ -179,7 +179,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 " ignore these filetypes in menus
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
 set nostartofline                               " Don't jump to the start of the line when switching buffers
-set splitbelow                                  " Open splits, including preview windows, etc, on the bottom
+" set splitbelow                                  " Open splits, including preview windows, etc, on the bottom
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
