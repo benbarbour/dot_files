@@ -33,6 +33,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \: "\<TAB>"
 
 NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/neomru.vim'
 
 NeoBundle 'airblade/vim-gitgutter'
 let g:gitgutter_realtime=0
@@ -263,10 +264,7 @@ autocmd BufWritePost *
 let g:unite_source_history_yank_enable = 1
 let g:unite_data_directory='~/.vim/.cache/unite'
 let g:unite_source_rec_max_cache_files=0
-let g:unite_enable_start_insert = 1
-let g:unite_split_rule = "botright"
 let g:unite_force_overwrite_statusline = 0
-let g:unite_winheight = 10
 let g:unite_source_grep_command = 'ag'
 
 call unite#custom_source('file_mru,file_rec,file_rec/async,grepocate',
@@ -286,6 +284,13 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " Use the rank sorter for everything
 call unite#filters#sorter_default#use(['sorter_rank'])
 
+"Like ctrlp.vim settings
+call unite#custom#profile('default', 'context', {
+\   'start_insert': 1,
+\   'winheight': 10,
+\   'direction': 'top',
+\ })
+
 " Use ag for search
 if executable('ag')
   let g:unite_source_grep_command = 'ag'
@@ -297,6 +302,7 @@ nnoremap <leader>/ :Unite -no-split grep:.<cr>
 nnoremap <leader>y :Unite -no-split -start-insert history/yank<cr>
 nnoremap <leader>f :Unite -no-split -start-insert file_rec/async<cr>
 nnoremap <leader>b :Unite -no-split buffer<cr>
+" nnoremap <leader>g :Unite -no-split grep<cr>
 
 autocmd FileType unite call s:unite_settings()
 
@@ -304,8 +310,8 @@ function! s:unite_settings()
   let b:SuperTabDisabled=1
   imap <buffer> <C-j>   <Plug>(unite_select_next_line)
   imap <buffer> <C-k>   <Plug>(unite_select_previous_line)
-  imap <silent><buffer><expr> <C-x> unite#do_action('split')
-  imap <silent><buffer><expr> <C-v> unite#do_action('vsplit')
+  imap <silent><buffer><expr> - unite#do_action('split')
+  imap <silent><buffer><expr> \| unite#do_action('vsplit')
   imap <silent><buffer><expr> <C-t> unite#do_action('tabopen')
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
