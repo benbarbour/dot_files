@@ -53,11 +53,12 @@ let g:airline#extensions#default#layout = [
 \ [ 'x', 'z', 'warning' ]
 \ ]
 
-NeoBundle 'blackrush/vim-gocode'
-
 NeoBundle 'davidhalter/jedi-vim'
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
+
+NeoBundle 'fatih/vim-go'
+let g:go_snippet_engine = "neosnippet"
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'Lokaltog/vim-easymotion'
@@ -114,6 +115,16 @@ set t_Co=256
 set background=dark
 silent! colorscheme distinguished
 
+"" Go settings
+au BufRead,BufNewFile *.go set filetype=go
+augroup my-golang
+  autocmd!
+  au FileType go nmap <Leader>i <Plug>(go-info)
+  au FileType go nmap <Leader>gd <Plug>(go-doc)
+  au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
+  au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+augroup end
+
 "" Markdown settings
 augroup my-markdown
   autocmd!
@@ -150,17 +161,6 @@ augroup my-lua
     autocmd Filetype lua setlocal shiftwidth=4
     autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
-
-"" Go settings
-filetype off
-filetype plugin indent off
-let govim=system('go env GOROOT')
-let govim=substitute(govim, '\n$', '', '').'/misc/vim'
-let &runtimepath.=','.govim
-filetype plugin indent on
-syntax on
-let g:gofmt_command="goimports"
-autocmd FileType go autocmd BufWritePre <buffer> Fmt
 
 "" Misc
 set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
