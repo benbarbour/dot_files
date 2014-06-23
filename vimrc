@@ -74,15 +74,19 @@ NeoBundle 'sjl/gundo.vim'
 nmap <F3> :GundoToggle<CR>
 
 NeoBundle 'scrooloose/syntastic'
-let g:syntastic_python_checkers = ['flake8', 'pylint']
+let g:syntastic_python_checkers = ['pep8', 'pylint']
+let g:syntastic_aggregate_errors = 1
+let g:syntastic_sort_aggregated_errors = 1
 let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
 let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
+let g:syntastic_python_pylint_args = '--rcfile=/home/bbarbour/.pylintrc'
+" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
+let g:syntastic_python_pep8_post_args = '--ignore=E501'
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_always_populate_loc_list=1
-noremap <silent><leader>lc :lcl<CR>
 
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-characterize'  " Press ga on a character to view encodings
