@@ -109,6 +109,9 @@ NeoBundle 'vim-scripts/hexman.vim'
 " All lazy files are sourced at the end of this one
 NeoBundleLazy 'tpope/vim-sensible'
 
+" Auto close quotes, parens, etc
+NeoBundle 'raimondi/delimitMate'
+
 "" Colorschemes
 NeoBundle 'Lokaltog/vim-distinguished'
 
