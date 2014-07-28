@@ -10,17 +10,17 @@
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
-	allgraph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
-	g = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short --all
+	allgraph = !git graph --all
+	g = !git allgraph
 	co = checkout
 	s = status
 	ctags = !.git/hooks/ctags
 	d = diff
 	ds = diff --staged
-	whatadded = log --diff-filter=A
+	whatadded = log --diff-filter=A  # Takes a file as a parameter, returns the commit that added that file
 	cleanup = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
 	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
-	addnows = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"
+	addnows = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"  # Stages all non-whitespace changes
 [merge]
 	tool = meld
 [core]
