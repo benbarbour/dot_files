@@ -53,6 +53,8 @@ let g:airline#extensions#default#layout = [
 \ [ 'x', 'z', 'warning' ]
 \ ]
 
+NeoBundle 'cespare/vim-toml'
+
 NeoBundle 'davidhalter/jedi-vim'
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
