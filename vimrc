@@ -61,11 +61,39 @@ let g:jedi#popup_on_dot = 0
 
 NeoBundle 'fatih/vim-go'
 let g:go_snippet_engine = "neosnippet"
+let g:go_fmt_fail_silently = 1
 
 NeoBundle 'godlygeek/tabular'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'majutsushi/tagbar'
 nmap <F4> :TagbarToggle<CR>
+let g:tagbar_type_go = {
+    \ 'ctagstype' : 'go',
+    \ 'kinds'     : [
+        \ 'p:package',
+        \ 'i:imports:1',
+        \ 'c:constants',
+        \ 'v:variables',
+        \ 't:types',
+        \ 'n:interfaces',
+        \ 'w:fields',
+        \ 'e:embedded',
+        \ 'm:methods',
+        \ 'r:constructor',
+        \ 'f:functions'
+    \ ],
+    \ 'sro' : '.',
+    \ 'kind2scope' : {
+        \ 't' : 'ctype',
+        \ 'n' : 'ntype'
+    \ },
+    \ 'scope2kind' : {
+        \ 'ctype' : 't',
+        \ 'ntype' : 'n'
+    \ },
+    \ 'ctagsbin'  : 'gotags',
+    \ 'ctagsargs' : '-sort -silent'
+\ }
 
 NeoBundle 'myusuf3/numbers.vim'
 nmap <F2> :NumbersToggle<CR>
@@ -76,6 +104,7 @@ NeoBundle 'sjl/gundo.vim'
 nmap <F3> :GundoToggle<CR>
 
 NeoBundle 'scrooloose/syntastic'
+let g:syntastic_go_checkers = ['go', 'govet', 'golint']
 let g:syntastic_python_checkers = ['pep8', 'pylint']
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_sort_aggregated_errors = 1
@@ -128,10 +157,13 @@ silent! colorscheme distinguished
 au BufRead,BufNewFile *.go set filetype=go
 augroup my-golang
   autocmd!
-  au FileType go nmap <Leader>i <Plug>(go-info)
+  au FileType go nmap <Leader>gi <Plug>(go-info)
+  au FileType go nmap <Leader>gu <Plug>(go-install)
   au FileType go nmap <Leader>gd <Plug>(go-doc)
-  au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-  au FileType go nmap <Leader>gb <Plug>(go-doc-browser)
+  au Filetype go setlocal textwidth=100
+  au Filetype go set tabstop=2
+  au Filetype go set shiftwidth=2
+  au Filetype go set completeopt-=preview
 augroup end
 
 "" Markdown settings
