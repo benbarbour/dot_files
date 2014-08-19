@@ -146,6 +146,9 @@ NeoBundle 'raimondi/delimitMate'
 "" Colorschemes
 NeoBundle 'Lokaltog/vim-distinguished'
 
+"" Tags
+NeoBundle 'craigemery/vim-autotag'
+
 " MY CONFIG
 
 "" Colors
@@ -294,12 +297,6 @@ function! <SID>StripTrailingWhitespaces()
     let @/=_s
     call cursor(l, c)
 endfunction
-
-"" Generate ctags on save (at least for git repos)
-autocmd BufWritePost *
-      \ if exists('b:git_dir') && executable(b:git_dir.'/hooks/ctags') |
-      \   call system('"'.b:git_dir.'/hooks/ctags" &') |
-      \ endif
 
 "" Unite settings
 let g:unite_source_history_yank_enable = 1
