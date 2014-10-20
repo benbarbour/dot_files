@@ -161,50 +161,53 @@ silent! colorscheme distinguished
 au BufRead,BufNewFile *.go set filetype=go
 augroup my-golang
   autocmd!
-  au FileType go nmap <Leader>gi <Plug>(go-info)
-  au FileType go nmap <Leader>gu <Plug>(go-install)
-  au FileType go nmap <Leader>gd <Plug>(go-doc)
-  au Filetype go setlocal textwidth=100
-  au Filetype go set tabstop=2
-  au Filetype go set shiftwidth=2
-  au Filetype go set completeopt-=preview
+  autocmd FileType go nmap <Leader>gi <Plug>(go-info)
+  autocmd FileType go nmap <Leader>gu <Plug>(go-install)
+  autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
+  autocmd Filetype go setlocal textwidth=100
+  autocmd Filetype go setlocal tabstop=2
+  autocmd Filetype go setlocal shiftwidth=2
+  autocmd Filetype go setlocal completeopt-=preview
 augroup end
 
 "" Markdown settings
 augroup my-markdown
   autocmd!
-  autocmd Filetype markdown set wrap
-  autocmd Filetype markdown set linebreak
-  autocmd Filetype markdown set nolist
-  autocmd Filetype markdown set textwidth=0
-  autocmd Filetype markdown set wrapmargin=0
+  autocmd Filetype markdown setlocal wrap
+  autocmd Filetype markdown setlocal linebreak
+  autocmd Filetype markdown setlocal nolist
+  autocmd Filetype markdown setlocal textwidth=0
+  autocmd Filetype markdown setlocal wrapmargin=0
+  autocmd Filetype markdown setlocal spell spelllang=en_us
+  autocmd Filetype markdown setlocal mousemodel=popup_setpos
+  autocmd FileType markdown autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
 
 "" Python settings
 augroup my-python
-    autocmd!
-    autocmd Filetype python setlocal list
-    autocmd Filetype python setlocal expandtab
-    " autocmd Filetype python setlocal textwidth=80
-    autocmd Filetype python setlocal colorcolumn=80
-    autocmd Filetype python highlight ColorColumn ctermbg=88
-    autocmd Filetype python setlocal tabstop=4
-    autocmd Filetype python setlocal shiftwidth=4
-    autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-    autocmd FileType python setlocal completeopt=menuone,longest
+  autocmd!
+  autocmd Filetype python setlocal list
+  autocmd Filetype python setlocal expandtab
+  " autocmd Filetype python setlocal textwidth=80
+  autocmd Filetype python setlocal colorcolumn=80
+  autocmd Filetype python highlight ColorColumn ctermbg=88
+  autocmd Filetype python setlocal tabstop=4
+  autocmd Filetype python setlocal shiftwidth=4
+  autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd FileType python setlocal completeopt=menuone,longest
 augroup end
 
 "" Lua settings
 augroup my-lua
-    autocmd!
-    autocmd Filetype lua setlocal list
-    autocmd Filetype lua setlocal textwidth=79
-    autocmd Filetype lua setlocal colorcolumn=+1
-    autocmd Filetype lua highlight ColorColumn ctermbg=88
-    autocmd Filetype lua setlocal expandtab
-    autocmd Filetype lua setlocal tabstop=4
-    autocmd Filetype lua setlocal shiftwidth=4
-    autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd!
+  autocmd Filetype lua setlocal list
+  autocmd Filetype lua setlocal textwidth=79
+  autocmd Filetype lua setlocal colorcolumn=+1
+  autocmd Filetype lua highlight ColorColumn ctermbg=88
+  autocmd Filetype lua setlocal expandtab
+  autocmd Filetype lua setlocal tabstop=4
+  autocmd Filetype lua setlocal shiftwidth=4
+  autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
 augroup end
 
 "" Misc
