@@ -24,17 +24,6 @@
 				"name": "uptime",
 				"priority": 50
 			},
-			// {
-			// 	"name": "weather",
-			// 	"priority": 50
-			// },
-			{
-				"name": "date",
-				"args": {
-					"format": "%H:%M",
-					"istime": true
-				}
-			},
 			{
 				"name": "hostname"
 			}
