@@ -1,1 +1,2 @@
 DEBIAN_PREVENT_KEYBOARD_CHANGES=yes
+export TERM=xterm-256color
