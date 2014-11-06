@@ -12,16 +12,15 @@ This repo is primarily for me to sync my stuff around, but others may find some 
 useful, I guess.
 
 
-Install Prequisites
+Install Prerequisites
 -------------------
 To make your environment exactly like mine you should install these items first:
 
 1. [The Silver Searcher](https://github.com/ggreer/the\_silver\_searcher#building-from-source)
 2. sudo pip install pylama prettytable
-3. sudo pip install git+git://github.com/Lokaltog/powerline
-4. sudo apt-get install tmux ctags
-5. Compile vim 7.3.885 or greater from source, with lua-support (for neocompletion plugin)
-   - https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source 
+3. sudo apt-get install tmux ctags
+4. Compile vim 7.3.885 or greater from source, with lua-support (for neocompletion plugin)
+   - https://github.com/Valloric/YouCompleteMe/wiki/Building-Vim-from-source
 
 *Note: There might be more to install - if you find anything let me know and
 I'll add it here*
@@ -35,7 +34,7 @@ Install config files and scripts
 --------------------------------
 Then clone this repo into ~/.bbenv (or wherever you want)
 
-Then run `setup_bbenv.py` to create all the nessecary symlinks (it will
+Then run `setup_bbenv.py` to create all the necessary symlinks (it will
 prompt you with what it's going to create, so you can cancel if needed)
 
 *If you cloned to a location other than ~/.bbenv then pass the `-r /clone/location`

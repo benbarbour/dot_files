@@ -69,7 +69,6 @@ if args.install:
     call('apt-get --ignore-missing install ' + ' '.join(PIP_PKGS))
     call('curl -L http://install.ohmyz.sh | sh')
     call('chsh -s $(which zsh)')
-    call('pip install git+git://github.com/Lokaltog/powerline')
 
 # Symlink dot files
 Symlink = namedtuple('Symlink', ('src', 'target'))
