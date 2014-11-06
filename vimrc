@@ -57,6 +57,8 @@ let g:airline_linecolumn_prefix             = '⭡'
 let g:airline#extensions#hunks#enabled      = 0
 let g:airline#extensions#whitespace#enabled = 0
 
+NeoBundle 'edkolev/tmuxline.vim'
+
 NeoBundle 'cespare/vim-toml'
 
 NeoBundle 'davidhalter/jedi-vim'
