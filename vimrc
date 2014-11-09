@@ -181,7 +181,6 @@ augroup my-markdown
   autocmd!
   autocmd Filetype markdown setlocal wrap
   autocmd Filetype markdown setlocal linebreak
-  autocmd Filetype markdown setlocal nolist
   autocmd Filetype markdown setlocal textwidth=0
   autocmd Filetype markdown setlocal wrapmargin=0
   autocmd Filetype markdown setlocal spell spelllang=en_us
@@ -192,7 +191,6 @@ augroup end
 "" Python settings
 augroup my-python
   autocmd!
-  autocmd Filetype python setlocal list
   autocmd Filetype python setlocal expandtab
   " autocmd Filetype python setlocal textwidth=80
   autocmd Filetype python setlocal colorcolumn=80
@@ -206,7 +204,6 @@ augroup end
 "" Lua settings
 augroup my-lua
   autocmd!
-  autocmd Filetype lua setlocal list
   autocmd Filetype lua setlocal textwidth=79
   autocmd Filetype lua setlocal colorcolumn=+1
   autocmd Filetype lua highlight ColorColumn ctermbg=88
@@ -217,7 +214,9 @@ augroup my-lua
 augroup end
 
 "" Misc
+set list
 set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
+highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
 let mapleader = ","                             " setting leader to ,
 set tabstop=4                                   " tabs are 4 spaces
 set backspace=indent,eol,start                  " backspace through everything in insert mode
@@ -364,9 +363,5 @@ function! s:unite_settings()
 
   nmap <buffer> <ESC> <Plug>(unite_exit)
 endfunction
-
-"" Highlight trailing whitespace
-highlight ExtraWhiteSpace ctermfg=196 guifg=#ff0000
-match ExtraWhiteSpace /\s\+$/
 
 NeoBundleSource
