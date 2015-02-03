@@ -78,8 +78,9 @@ let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
 
 NeoBundle 'fatih/vim-go'
-let g:go_snippet_engine = "neosnippet"
-let g:go_fmt_fail_silently = 1
+let g:go_snippet_engine      = "neosnippet"
+let g:go_fmt_fail_silently   = 1
+let g:go_def_mapping_enabled = 1
 
 NeoBundle 'godlygeek/tabular'
 if exists(":Tabularize")
@@ -146,7 +147,7 @@ NeoBundle 'sjl/gundo.vim'
 nmap <F3> :GundoToggle<CR>
 
 NeoBundle 'scrooloose/syntastic'
-let g:syntastic_go_checkers = ['go', 'govet', 'golint']
+let g:syntastic_go_checkers = ['go', 'govet']
 let g:syntastic_python_checkers = ['pep8', 'pylint']
 let g:syntastic_aggregate_errors = 1
 let g:syntastic_sort_aggregated_errors = 1
@@ -359,6 +360,8 @@ augroup my-golang
   autocmd FileType go nmap <Leader>gi <Plug>(go-info)
   autocmd FileType go nmap <Leader>gu <Plug>(go-install)
   autocmd FileType go nmap <Leader>gd <Plug>(go-doc)
+  autocmd FileType go nmap <Leader>gs <Plug>(go-def-tab)
+  autocmd FileType go nmap <Leader>gr <Plug>(go-rename)
   autocmd Filetype go setlocal textwidth=100
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
