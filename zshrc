@@ -82,7 +82,7 @@ DISABLE_AUTO_TITLE=true
 # python virtualenvs
 export WORKON_HOME="$HOME/.python_virtualenvs"
 export VIRTUAL_ENV_DISABLE_PROMPT=1
-source /usr/local/bin/virtualenvwrapper.sh
+source $(which virtualenvwrapper.sh)
 
 #so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
