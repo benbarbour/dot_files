@@ -380,6 +380,8 @@ augroup my-python
   autocmd Filetype python setlocal shiftwidth=4
   autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
   autocmd FileType python setlocal completeopt=menuone,longest
+  autocmd FileType python nmap <Leader>ac :Tabularize / #<CR>
+  autocmd FileType python vmap <Leader>ac :Tabularize / #<CR>
 augroup end
 
 "" Lua settings
@@ -392,6 +394,8 @@ augroup my-lua
   autocmd Filetype lua setlocal tabstop=4
   autocmd Filetype lua setlocal shiftwidth=4
   autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd FileType lua nmap <Leader>ac :Tabularize /--<CR>
+  autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
 augroup end
 
 NeoBundleSource
