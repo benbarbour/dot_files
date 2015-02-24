@@ -57,8 +57,6 @@ if !exists('g:airline_symbols')
   let g:airline_symbols = {}
 endif
 let g:airline_powerline_fonts               = 0
-let g:airline_enable_branch                 = 1
-let g:airline_enable_syntastic              = 1
 let g:airline_left_sep                      = ''
 let g:airline_left_alt_sep                  = ''
 let g:airline_right_sep                     = ''
@@ -68,12 +66,15 @@ let g:airline_symbols.readonly              = ''
 let g:airline_symbols.linenr                = ''
 let g:airline#extensions#hunks#enabled      = 0
 let g:airline#extensions#whitespace#enabled = 0
+let g:airline#extensions#branch#enabled     = 1
+let g:airline#extensions#syntastic#enabled  = 1
 
 NeoBundle 'edkolev/tmuxline.vim'
 
 NeoBundle 'cespare/vim-toml'
 
 NeoBundle 'davidhalter/jedi-vim'
+let g:jedi#completions_enabled = 1
 let g:jedi#auto_vim_configuration = 0
 let g:jedi#popup_on_dot = 0
 
@@ -156,11 +157,11 @@ let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
 let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
 let g:syntastic_python_pylint_args = '--rcfile=/home/bbarbour/.pylintrc'
-" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
-let g:syntastic_python_pep8_post_args = '--ignore=E501'
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_always_populate_loc_list=1
+" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
+let g:syntastic_python_pep8_post_args = '--ignore=E501'
 
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-characterize'  " Press ga on a character to view encodings
@@ -203,7 +204,8 @@ silent! colorscheme distinguished
 set list
 set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
 highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
-let mapleader = ","                             " setting leader to ,
+highlight ColorColumn ctermbg=233
+let mapleader = ","                             " setting leader to ','
 set tabstop=4                                   " tabs are 4 spaces
 set backspace=indent,eol,start                  " backspace through everything in insert mode
 set confirm                                     " confirm saves, if needed
@@ -211,7 +213,7 @@ set mouse=a                                     " use the mouse
 set nowrap                                      " don't wrap lines
 set textwidth=0                                 " don't wrap lines
 set wrapmargin=0                                " disable line wrapping
-set hidden                                      " allow hidden buffers. Required by LustyJuggler
+set hidden                                      " allow hidden buffers
 set matchpairs+=<:>                             " Match angle brackets
 " give these suffixes lower priority when opening files
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.class
@@ -228,15 +230,15 @@ set smartcase                                   " ... unless they contain at lea
 set number                                      " enabled line numbers by default
 
 "" Folding
-set foldlevelstart=99				            "Don't fold anything when opening a new file
+set foldlevelstart=99                           " don't fold anything when opening a new file
 
 "" Backup and undo settings
-set backupdir=~/.vim/backup//                   "location of backups
-set directory=~/.vim/swp//                      "location of swap files
+set backupdir=~/.vim/backup//                   " location of backups
+set directory=~/.vim/swp//                      " location of swap files
 set undofile
 set undodir=~/.vim/undo//
-set undolevels=9000                             "maximum number of changes that can be undone
-set undoreload=9000                             "maximum number lines to save for undo on a buffer reload
+set undolevels=9000                             " maximum number of changes that can be undone
+set undoreload=9000                             " maximum number lines to save for undo on a buffer reload
 
 "" Mappings
 
@@ -384,9 +386,8 @@ augroup end
 augroup my-python
   autocmd!
   autocmd Filetype python setlocal expandtab
-  " autocmd Filetype python setlocal textwidth=80
-  autocmd Filetype python setlocal colorcolumn=80
-  autocmd Filetype python highlight ColorColumn ctermbg=88
+  autocmd Filetype python setlocal textwidth=79
+  autocmd Filetype python setlocal colorcolumn=+1
   autocmd Filetype python setlocal tabstop=4
   autocmd Filetype python setlocal shiftwidth=4
   autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
@@ -398,9 +399,8 @@ augroup end
 "" Lua settings
 augroup my-lua
   autocmd!
-  autocmd Filetype lua setlocal textwidth=79
+  autocmd Filetype lua setlocal textwidth=80
   autocmd Filetype lua setlocal colorcolumn=+1
-  autocmd Filetype lua highlight ColorColumn ctermbg=88
   autocmd Filetype lua setlocal expandtab
   autocmd Filetype lua setlocal tabstop=4
   autocmd Filetype lua setlocal shiftwidth=4
