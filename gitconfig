@@ -10,8 +10,9 @@
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
-	allgraph = !git graph --all
-	g = !git allgraph
+	graphall = !git graph --all
+	g = !git graph
+	ga = !git graph --all
 	co = checkout
 	s = status
 	ctags = !.git/hooks/ctags
@@ -21,6 +22,7 @@
 	cleanup = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
 	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
 	addnows = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"  # Stages all non-whitespace changes
+	pull = pull --ff-only
 [merge]
 	tool = meld
 [core]
@@ -30,3 +32,5 @@
 	default = simple
 [init]
 	templatedir = ~/.git_template
+[rerere]
+	enabled = true
