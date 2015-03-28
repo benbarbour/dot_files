@@ -11,6 +11,7 @@ ZSH_THEME="peregrinati"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias ll="ll --group-directories-first"
+alias ifconfig="echo 'ifconfig is deprecated - learn ip!'"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"

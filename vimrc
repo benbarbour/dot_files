@@ -83,6 +83,9 @@ let g:go_snippet_engine      = "neosnippet"
 let g:go_fmt_fail_silently   = 1
 let g:go_def_mapping_enabled = 1
 
+NeoBundle 'fisadev/vim-isort'
+let g:vim_isort_map = ''
+
 NeoBundle 'godlygeek/tabular'
 if exists(":Tabularize")
   nmap <Leader>a= :Tabularize /=<CR>
@@ -295,6 +298,12 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
+function! TrimEndLines()
+    let save_cursor = getpos(".")
+    :silent! %s#\($\n\s*\)\+\%$##
+    call setpos('.', save_cursor)
+endfunction
+
 "" Unite settings
 let g:unite_source_history_yank_enable = 1
 let g:unite_data_directory='~/.vim/.cache/unite'
@@ -394,6 +403,7 @@ augroup my-python
   autocmd FileType python setlocal completeopt=menuone,longest
   autocmd FileType python nmap <Leader>ac :Tabularize / #<CR>
   autocmd FileType python vmap <Leader>ac :Tabularize / #<CR>
+  autocmd FileType python call TrimEndLines()
 augroup end
 
 "" Lua settings
