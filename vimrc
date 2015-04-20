@@ -80,8 +80,10 @@ let g:jedi#popup_on_dot = 0
 
 NeoBundle 'fatih/vim-go'
 let g:go_snippet_engine      = "neosnippet"
-let g:go_fmt_fail_silently   = 1
+let g:go_fmt_fail_silently   = 0
 let g:go_def_mapping_enabled = 1
+let g:go_fmt_experimental    = 1
+let g:go_fmt_command         = "goimports"
 
 NeoBundle 'fisadev/vim-isort'
 let g:vim_isort_map = ''
@@ -159,12 +161,12 @@ let g:syntastic_check_on_open=1
 let g:syntastic_auto_loc_list=2
 let g:syntastic_loc_list_height = 5
 let g:syntastic_python_pylint_post_args = '--msg-template="{path}:{line}:{column}:{C}: {msg_id}[{symbol}] {msg}"'
-let g:syntastic_python_pylint_args = '--rcfile=/home/bbarbour/.pylintrc'
+let g:syntastic_python_pylint_args = '--rcfile=$HOME/.pylintrc'
+" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
+let g:syntastic_python_pep8_post_args = '--ignore=E501'
 let g:syntastic_error_symbol="✗"
 let g:syntastic_warning_symbol = '⚠'
 let g:syntastic_always_populate_loc_list=1
-" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
-let g:syntastic_python_pep8_post_args = '--ignore=E501'
 
 NeoBundle 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 NeoBundle 'tpope/vim-characterize'  " Press ga on a character to view encodings
@@ -231,6 +233,7 @@ set incsearch                                   " incremental searching
 set ignorecase                                  " searches are case insensitive...
 set smartcase                                   " ... unless they contain at least one capital letter
 set number                                      " enabled line numbers by default
+set smartindent                                 " Do smart indenting at the start of a new line
 
 "" Folding
 set foldlevelstart=99                           " don't fold anything when opening a new file
@@ -409,7 +412,7 @@ augroup end
 "" Lua settings
 augroup my-lua
   autocmd!
-  autocmd Filetype lua setlocal textwidth=80
+  autocmd Filetype lua setlocal textwidth=79
   autocmd Filetype lua setlocal colorcolumn=+1
   autocmd Filetype lua setlocal expandtab
   autocmd Filetype lua setlocal tabstop=4
