@@ -69,6 +69,7 @@ let g:airline#extensions#hunks#enabled      = 0
 let g:airline#extensions#whitespace#enabled = 0
 let g:airline#extensions#branch#enabled     = 1
 let g:airline#extensions#syntastic#enabled  = 0
+let g:airline#extensions#tmuxline#enabled   = 0
 
 NeoBundle 'edkolev/tmuxline.vim'
 
