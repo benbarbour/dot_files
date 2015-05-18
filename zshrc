@@ -55,7 +55,7 @@ source $ZSH/oh-my-zsh.sh
 
 # source $HOME/src/golang-crosscompile/crosscompile.bash
 export GOPATH="$HOME/Code/go"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/src/go/bin:$GOPATH/bin"
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/src/go/bin:$GOPATH/bin:$HOME/src/neovim/build/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 setopt no_share_history
