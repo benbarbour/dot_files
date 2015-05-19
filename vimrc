@@ -390,6 +390,12 @@ augroup my-golang
 augroup end
 
 "" Markdown settings
+
+" Generate markdown preview from current file
+:function! s:gen_markdown()
+    :!multimarkdown % > ~/.vim/markdown_preview.html 2>/dev/null
+    :!echo '<link href="file:///home/bbarbour/Work/wiki/local.css" rel="stylesheet"></link>' >> ~/.vim/markdown_preview.html
+:endfunction
 augroup my-markdown
   autocmd!
   autocmd Filetype markdown setlocal wrap
