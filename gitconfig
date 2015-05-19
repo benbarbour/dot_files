@@ -25,6 +25,7 @@
 	pull = pull --ff-only
 [merge]
 	tool = meld
+	log = true
 [core]
 	mergeoptions = --no-commit
 	editor = vim
