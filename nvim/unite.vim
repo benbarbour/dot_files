@@ -2,7 +2,7 @@ let g:unite_source_history_yank_enable = 1
 
 nnoremap <leader>/ :Unite -no-split grep:.<cr>
 nnoremap <leader>y :Unite -no-split -start-insert history/yank<cr>
-nnoremap <leader>f :Unite -no-split -start-insert file_rec/neovim<cr>
+nnoremap <leader>f :Unite -no-split -start-insert file_rec/async<cr>
 nnoremap <leader>b :Unite -no-split buffer<cr>
 
 autocmd FileType unite call s:unite_settings()
