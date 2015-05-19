@@ -7,7 +7,6 @@ if has('vim_starting')
 endif
 call neobundle#begin(expand('~/.vim/bundle/'))
 NeoBundleFetch 'Shougo/neobundle.vim'
-call neobundle#end()
 
 NeoBundle 'Shougo/vimproc', {
  \ 'build' : {
@@ -205,6 +204,8 @@ NeoBundle 'Lokaltog/vim-distinguished'
 "" Tags
 NeoBundle 'craigemery/vim-autotag'
 
+call neobundle#end()
+
 " MY CONFIG
 
 "" Colors
@@ -233,6 +234,7 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
 set nostartofline                               " Don't jump to the start of the line when switching buffers
 " set splitbelow                                  " Open splits, including preview windows, etc, on the bottom
+set regexpengine=2
 
 "" Searching
 set nohlsearch                                  " don't highlight matches
