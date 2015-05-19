@@ -79,8 +79,6 @@ Plug 'rking/ag.vim'
 Plug 'vim-scripts/bufkill.vim'
 
 call plug#end()
-source ~/.nvim/unite.vim
-source ~/.nvim/lightline.vim
 
 " Colors
 set t_Co=256
@@ -135,6 +133,18 @@ nnoremap x "_x
 nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
 "-change working directory to current file's directory
 nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
+"-Map <C-Up> to 'prev quickfix entry'
+noremap [A :cp<cr>
+"-Map <C-Down> to 'next quickfix entry'
+noremap [B :cn<cr>
+"-Map <C-I> to 'Increment number'
+noremap <C-I> <C-A>
+"-Map <C-D> to 'Decrement number'
+noremap <C-D> <C-X>
+"-Disable Ex-mode (I never use it and it's easy to get stuck in)
+map Q <Nop>
+"-Jump to first item in location list
+nnoremap <leader>ll :ll 1<CR>
 "-tab shortcuts
 nnoremap tt :tabnew 
 nnoremap td :tabdo 
@@ -210,7 +220,6 @@ augroup my-python
   autocmd Filetype python setlocal completeopt=menuone,longest
   autocmd Filetype python nmap <Leader>ac :Tabularize / #<CR>
   autocmd Filetype python vmap <Leader>ac :Tabularize / #<CR>
-  autocmd Filetype python call TrimEndLines()
 augroup end
 
 "" Lua settings
@@ -225,3 +234,8 @@ augroup my-lua
   autocmd FileType lua nmap <Leader>ac :Tabularize /--<CR>
   autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
 augroup end
+
+" External Files
+source $HOME/.nvim/unite.vim
+source $HOME/.nvim/lightline.vim
+
