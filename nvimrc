@@ -95,6 +95,7 @@ set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
 set matchpairs+=<:>                             " Match angle brackets
 set nowrap                                      " don't wrap lines
 set number                                      " show line numbers
+set mouse=a                                     " enable the mouse
 set tabstop=4                                   " tabs are 4 spaces
 set textwidth=0                                 " don't wrap lines
 set wrapmargin=0                                " disable line wrapping
@@ -105,6 +106,10 @@ set foldlevelstart=99                           " don't fold anything when openi
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.class
 " ignore these filetypes in menus
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
+
+" try and speed vim up
+set scrolljump=8        " Scroll 8 lines at a time at bottom/top
+let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
 " Searching
 set nohlsearch                                  " don't highlight matches
@@ -150,14 +155,7 @@ nnoremap tt :tabnew
 nnoremap td :tabdo 
 
 " Terminal Settings
-:tnoremap <A-h> <C-\><C-n><C-w>h
-:tnoremap <A-j> <C-\><C-n><C-w>j
-:tnoremap <A-k> <C-\><C-n><C-w>k
-:tnoremap <A-l> <C-\><C-n><C-w>l
-:nnoremap <A-h> <C-w>h
-:nnoremap <A-j> <C-w>j
-:nnoremap <A-k> <C-w>k
-:nnoremap <A-l> <C-w>l
+:tnoremap <C-w> <C-\><C-n><C-w>
 augroup my-terminal
   autocmd!
   autocmd TermOpen * setlocal nolist
