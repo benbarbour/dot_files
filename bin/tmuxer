@@ -10,18 +10,17 @@ from collections import OrderedDict
 
 
 # ===========DEFINITIONS=========== #
-def prompt(prompt):
+def prompt(prompt_msg):
     val = None
-    print("\n" + prompt + ":")
+    print("\n" + prompt_msg + ":")
     try:
         val = raw_input().strip()
     except (EOFError, KeyboardInterrupt):
-        print()
         pass
     return val
 
 
-class Window:
+class Window(object):
 
     def __init__(self, name, panes=1, layout='tiled', commands=()):
         self.name = name
@@ -38,9 +37,9 @@ class Window:
         if len(self.commands) > 0:
             args.append(self.commands[0])
         subprocess.call(args)
-        self._create_panes()
+        self.create_panes()
 
-    def _create_panes(self):
+    def create_panes(self):
         for i in range(1, self.panes):
             args = ['tmux', 'split-window']
             if len(self.commands) > i:
@@ -75,124 +74,144 @@ INITIAL_WINDOWS = []
 
 # ===========SCRIPT START=========== #
 
-parser = argparse.ArgumentParser(
-    description='Create a new, or attach to an existing, tmux session')
-parser.add_argument('-s', '--session',
-                    help='Choose a preset session (just a saved set of all '
-                         'the other args listed')
-parser.add_argument('-ls', '--list-sessions', action='store_true',
-                    help='List all preset sessions')
-parser.add_argument('-w', '--window-set',
-                    help='Choose a Window Set')
-parser.add_argument('-p', '--default-path',
-                    help='Set the default path for the session')
-parser.add_argument('-n', '--session-name',
-                    help='Set the name for the new session')
-parser.add_argument('-np', '--session-name-from-path', action='store_true',
-                    help='Set the name for the new session to the last ' +
-                         'directory specified by --session-path. Ignored if' +
-                         '--session-name is given or --default-path is not.')
-opts = parser.parse_args()
+def main():
+    parser = argparse.ArgumentParser(
+        description='Create a new, or attach to an existing, tmux session')
+    parser.add_argument(
+        '-s', '--session',
+        help=(
+            'Choose a preset session '
+            '(just a saved set of all the other args listed)'
+        )
+    )
+    parser.add_argument(
+        '-ls', '--list-sessions', action='store_true',
+        help='List all preset sessions')
+    parser.add_argument(
+        '-w', '--window-set',
+        help='Choose a Window Set'
+    )
+    parser.add_argument(
+        '-p', '--default-path',
+        help='Set the default path for the session'
+    )
+    parser.add_argument(
+        '-n', '--session-name',
+        help='Set the name for the new session'
+    )
+    parser.add_argument(
+        '-np', '--session-name-from-path', action='store_true',
+        help=(
+            'Set the name for the new session to the last directory specified '
+            'by --session-path. Ignored if --session-name is given or '
+            '--default-path is not.'
+        )
+    )
+    opts = parser.parse_args()
 
-if opts.list_sessions:
-    print("Available Sessions:")
-    for name, args in SESSIONS.items():
-        print("\t- {}: '{}'".format(name, args))
-    sys.exit()
+    if opts.list_sessions:
+        print("Available Sessions:")
+        for name, args in SESSIONS.items():
+            print("\t- {}: '{}'".format(name, args))
+        sys.exit()
 
-if opts.session:
-    if opts.session not in SESSIONS:
-        print("There is no session by that name (try -ls)")
-        sys.exit(1)
-    opts = parser.parse_args(SESSIONS[opts.session].split())
+    if opts.session:
+        if opts.session not in SESSIONS:
+            print("There is no session by that name (try -ls)")
+            sys.exit(1)
+        opts = parser.parse_args(SESSIONS[opts.session].split())
 
-session_name = opts.session_name
-if opts.default_path:
-    path = os.path.abspath(opts.default_path)
-    chdir = os.path.dirname(path) if not os.path.isdir(path) else path
-    os.chdir(chdir)
-    if not session_name and opts.session_name_from_path:
-        session_name = os.path.basename(path)
-winset = opts.window_set.lower() if opts.window_set else None
-if winset in WINDOW_SETS:
-    INITIAL_WINDOWS = WINDOW_SETS[winset]
+    session_name = opts.session_name
+    if opts.default_path:
+        path = os.path.abspath(opts.default_path)
+        chdir = os.path.dirname(path) if not os.path.isdir(path) else path
+        os.chdir(chdir)
+        if not session_name and opts.session_name_from_path:
+            session_name = os.path.basename(path)
+    winset = opts.window_set.lower() if opts.window_set else None
+    if winset in WINDOW_SETS:
+        global INITIAL_WINDOWS
+        INITIAL_WINDOWS = WINDOW_SETS[winset]
 
-sessions = {}
-try:
-    output = subprocess.check_output([
-        'tmux', 'ls', '-F',
-        '#{session_name}:' +
-        '#{session_attached} #{session_created_string}'
-    ], stderr=subprocess.STDOUT)
-    sessions = OrderedDict(
-        [s.split(':', 1) for s in output.strip().splitlines()])
-    for session, desc in sessions.items():
-        fields = desc.split(' ', 1)
-        sessions[session] = {'attached': fields[0],
-                             'created': fields[1]}
-except subprocess.CalledProcessError as e:
-    pass
-
-choice = None
-if session_name:
-    choice = session_name
-    print("choice: " + choice)
-elif not sessions:
-    print("No Existing Sessions")
-    choice = prompt("Enter a new session name (blank to quit):")
-else:
-    tbl = prettytable.PrettyTable([
-        "#", "Session Name", "Client Connected?", "Created Time"])
-    i = 1
-    for s, d in sessions.items():
-        tbl.add_row([
-            i, s,
-            'y' if int(d['attached']) else 'n',
-            d['created'],
-        ])
-        i += 1
-    print(tbl)
-    choice = prompt(
-        "Enter a [new] session name (blank to quit) " +
-        "or '#' and a session index (ie. #1)")
-
-
-if not choice:
-    sys.exit()
-
-if len(choice) > 1 and sessions and choice[0] == '#':
-    c = choice[1:]
+    sessions = {}
     try:
-        choice = int(c)
-    except ValueError:
+        output = subprocess.check_output([
+            'tmux', 'ls', '-F',
+            '#{session_name}:' +
+            '#{session_attached} #{session_created_string}'
+        ], stderr=subprocess.STDOUT)
+        sessions = OrderedDict(
+            [s.split(':', 1) for s in output.strip().splitlines()])
+        for session, desc in sessions.items():
+            fields = desc.split(' ', 1)
+            sessions[session] = {'attached': fields[0],
+                                 'created': fields[1]}
+    except subprocess.CalledProcessError:
         pass
 
-session = None
-if isinstance(choice, int):
-    if choice < 0 or choice > len(sessions):
-        print("Invalid session number")
-        sys.exit()
+    choice = None
+    if session_name:
+        choice = session_name
+        print("choice: " + choice)
+    elif not sessions:
+        print("No Existing Sessions")
+        choice = prompt("Enter a new session name (blank to quit):")
     else:
-        session = sessions.keys()[choice - 1]
-else:
-    session = choice
+        tbl = prettytable.PrettyTable([
+            "#", "Session Name", "Client Connected?", "Created Time"])
+        i = 1
+        for s, d in sessions.items():
+            tbl.add_row([
+                i, s,
+                'y' if int(d['attached']) else 'n',
+                d['created'],
+            ])
+            i += 1
+        print(tbl)
+        choice = prompt(
+            "Enter a [new] session name (blank to quit) " +
+            "or '#' and a session index (ie. #1)")
+
+    if not choice:
+        sys.exit()
+
+    if len(choice) > 1 and sessions and choice[0] == '#':
+        c = choice[1:]
+        try:
+            choice = int(c)
+        except ValueError:
+            pass
+
+    session = None
+    if isinstance(choice, int):
+        if choice < 0 or choice > len(sessions):
+            print("Invalid session number")
+            sys.exit()
+        else:
+            session = sessions.keys()[choice - 1]
+    else:
+        session = choice
 
 # If the session doesn't exist, create it and add INITIAL_WINDOWS
-if subprocess.call(
-        ['tmux', 'has', '-t', session], stderr=subprocess.PIPE) != 0:
-    args = ['tmux', 'new', '-d', '-s', session]
-    if len(INITIAL_WINDOWS) > 0:
-        w = INITIAL_WINDOWS[0]
-        args.extend(['-n', str(w.name)])
-        if len(w.commands) > 0:
-            args.append(w.commands[0])
-    subprocess.call(args)
-    if len(INITIAL_WINDOWS) > 1:
-        w._create_panes()
+    if subprocess.call(
+            ['tmux', 'has', '-t', session], stderr=subprocess.PIPE) != 0:
+        args = ['tmux', 'new', '-d', '-s', session]
+        if len(INITIAL_WINDOWS) > 0:
+            w = INITIAL_WINDOWS[0]
+            args.extend(['-n', str(w.name)])
+            if len(w.commands) > 0:
+                args.append(w.commands[0])
+        subprocess.call(args)
+        if len(INITIAL_WINDOWS) > 1:
+            w.create_panes()
 
-    if len(INITIAL_WINDOWS) > 0:
-        for w in INITIAL_WINDOWS[1:]:
-            w.create(session)
+        if len(INITIAL_WINDOWS) > 0:
+            for w in INITIAL_WINDOWS[1:]:
+                w.create(session)
 
-subprocess.call(['tmux', 'select-window', '-t', '1'])
-subprocess.call(['tmux', '-2', 'attach', '-t', session])
+    subprocess.call(['tmux', 'select-window', '-t', '1'])
+    subprocess.call(['tmux', 'attach', '-t', session])
+
+
+if __name__ == "__main__":
+    main()
