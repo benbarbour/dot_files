@@ -25,9 +25,6 @@ nmap <F2> :NumbersToggle<CR>
 
 Plug 'Lokaltog/vim-distinguished'
 
-Plug 'itchyny/lightline.vim'
-set noshowmode
-
 Plug 'scrooloose/syntastic'
 let g:syntastic_go_checkers = ['go', 'govet']
 let g:syntastic_python_checkers = ['pep8', 'pylint']
@@ -233,7 +230,9 @@ augroup my-lua
   autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
 augroup end
 
+" WORK ONLY
+nnoremap <leader>u :silent !copyvm -s bbs<CR><C-l>
+nnoremap <leader>U :silent !copyvm -s bbs1<CR><C-l>
+
 " External Files
 source $HOME/.nvim/unite.vim
-source $HOME/.nvim/lightline.vim
-
