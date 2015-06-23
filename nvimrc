@@ -50,6 +50,7 @@ nmap [h <Plug>GitGutterPrevHunk
 Plug 'cespare/vim-toml'
 
 Plug 'davidhalter/jedi-vim'
+let g:jedi#use_tabs_not_buffers = 0
 
 Plug 'fisadev/vim-isort'
 let g:vim_isort_map = ''
@@ -74,6 +75,9 @@ nmap <F3> :GundoToggle<CR>
 Plug 'rking/ag.vim'
 
 Plug 'vim-scripts/bufkill.vim'
+
+Plug 'majutsushi/tagbar'
+nmap <F4> :TagbarToggle<CR>
 
 call plug#end()
 
@@ -105,6 +109,11 @@ set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.i
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
 
 " try and speed vim up
+" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
+" set noshowmatch         " Don't match parentheses/brackets
+" set nocursorline        " Don't paint cursor line
+" set nocursorcolumn      " Don't paint cursor column
+" set lazyredraw          " Wait to redraw
 set scrolljump=8        " Scroll 8 lines at a time at bottom/top
 let html_no_rendering=1 " Don't render italic, bold, links in HTML
 
