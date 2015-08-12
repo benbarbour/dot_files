@@ -11,6 +11,8 @@ Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and c
 Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
+
+Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
 Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
@@ -108,6 +110,8 @@ set foldlevelstart=99                           " don't fold anything when openi
 set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.class
 " ignore these filetypes in menus
 set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
+" hide the tabline unless there's multiple tabs
+set showtabline=1
 
 " try and speed vim up
 " let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
