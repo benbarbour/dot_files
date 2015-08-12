@@ -3,6 +3,9 @@ call plug#begin('~/.nvim/plugged')
 
 Plug 'Shougo/vimproc', {'do': 'make'}
 Plug 'Shougo/unite.vim'
+nmap <silent> ]u :UniteNext<CR>
+nmap <silent> [u :UnitePrevious<CR>
+nmap <silent> \u :UniteResume<CR>
 
 Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
@@ -71,8 +74,6 @@ Plug 'Lokaltog/vim-easymotion'
 
 Plug 'simnalamburt/vim-mundo'
 nmap <F3> :GundoToggle<CR>
-
-Plug 'rking/ag.vim'
 
 Plug 'vim-scripts/bufkill.vim'
 

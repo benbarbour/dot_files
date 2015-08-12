@@ -50,7 +50,12 @@ call unite#custom#profile('default', 'context', {
 let g:unite_source_buffer_time_format = "%Y-%m-%d  %H:%M:%S  "
 let g:unite_source_file_mru_time_format = "%Y-%m-%d  %H:%M:%S  "
 
-if executable('ag')
+if executable('pt')
+  let g:unite_source_grep_command = 'pt'
+  let g:unite_source_grep_default_opts = '--nogroup --nocolor'
+  let g:unite_source_grep_recursive_opt = ''
+  let g:unite_source_grep_encoding = 'utf-8'
+elseif executable('ag')
   let g:unite_source_grep_command = 'ag'
   let g:unite_source_grep_default_opts = '--nocolor --nogroup --hidden --ignore-case --ignore tags'
   let g:unite_source_grep_recursive_opt = ''
