@@ -164,8 +164,11 @@ nnoremap <leader>ll :ll 1<CR>
 "-tab shortcuts
 nnoremap tt :tabnew 
 nnoremap td :tabdo 
+nnoremap [t :tabprev<CR>
+nnoremap ]t :tabnext<CR>
 
 " Terminal Settings
+:tnoremap <Esc> <C-\><C-n>
 :tnoremap <C-w> <C-\><C-n><C-w>
 augroup my-terminal
   autocmd!
