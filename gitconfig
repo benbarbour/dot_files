@@ -28,7 +28,7 @@
 	log = true
 [core]
 	mergeoptions = --no-commit
-	editor = vim
+	editor = nvim
 [push]
 	default = simple
 [init]
