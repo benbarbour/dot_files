@@ -1,49 +1,56 @@
 " Plugins
 call plug#begin('~/.nvim/plugged')
 
-Plug 'Shougo/vimproc', {'do': 'make'}
-Plug 'Shougo/unite.vim'
-nmap <silent> ]u :UniteNext<CR>
-nmap <silent> [u :UnitePrevious<CR>
-nmap <silent> \u :UniteResume<CR>
-
 Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-
 Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-Plug 'tpope/vim-markdown'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-speeddating'   " Use increment/decrement on dates and times
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-tbone'         " Tmux integration (:Tput :Tyank, etc)
+Plug 'tpope/vim-tbone'
 Plug 'tpope/vim-unimpaired'
 nnoremap <silent> ]g :tabnext<CR>
 nnoremap <silent> [g :tabprev<CR>
+
+" Plug 'cazador481/fakeclip.neovim' " + and * registers map to X clipboards, & register maps to tmux clipboard
+
+" Plug 'ctrlpvim/ctrlp.vim'
+" let g:ctrlp_map = '<leader>f'
+" let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:100'
+" let g:ctrlp_working_path_mode = 0
+" let g:ctrlp_lazy_update = 1
+" let g:ctrlp_user_command = {
+"   \ 'types': {
+"     \ 1: ['.git', 'cd %s && git ls-files'],
+"     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+"     \ },
+"   \ 'fallback': 'find %s -type f'
+"   \ }
+" nnoremap <leader>b :CtrlPBuffer<CR>
+
+Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 Plug 'myusuf3/numbers.vim'
 nmap <F2> :NumbersToggle<CR>
 
 Plug 'Lokaltog/vim-distinguished'
 
-Plug 'scrooloose/syntastic'
-let g:syntastic_go_checkers = ['go', 'govet']
-let g:syntastic_python_checkers = ['pep8', 'pylint']
-let g:syntastic_aggregate_errors = 1
-let g:syntastic_sort_aggregated_errors = 1
-let g:syntastic_check_on_open=1
-let g:syntastic_auto_loc_list=2
-let g:syntastic_loc_list_height = 5
-let g:syntastic_python_pylint_args = '--rcfile=$HOME/.pylintrc'
-" E501 is line too long, which will be picked up by pylint (if set in pylint.rc)
-let g:syntastic_python_pep8_post_args = '--ignore=E501'
-let g:syntastic_error_symbol="✗"
-let g:syntastic_warning_symbol = '⚠'
-let g:syntastic_always_populate_loc_list=1
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+" Disable tab (let ultisnips use it!)
+let g:ycm_key_list_select_completion=[]
+let g:ycm_key_list_previous_completion=[]
+nnoremap <leader>d :YcmCompleter GoTo<CR>
+nnoremap K :YcmCompleter GetDoc<CR>
+
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
+Plug 'junegunn/fzf.vim'
+nnoremap <leader>f :Files .<CR>
+nnoremap <leader>b :Buffers<CR>
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
@@ -53,9 +60,6 @@ nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
 Plug 'cespare/vim-toml'
-
-Plug 'davidhalter/jedi-vim'
-let g:jedi#use_tabs_not_buffers = 0
 
 Plug 'fisadev/vim-isort'
 let g:vim_isort_map = ''
@@ -81,6 +85,18 @@ Plug 'vim-scripts/bufkill.vim'
 
 Plug 'majutsushi/tagbar'
 nmap <F4> :TagbarToggle<CR>
+
+Plug 'vim-utils/vim-man'
+
+Plug 'mhinz/vim-grepper'
+let g:grepper        = {}
+let g:grepper.tools  = ['git', 'ag', 'pt', 'grep']
+let g:grepper.open   = 1
+let g:grepper.jump   = 0
+let g:grepper.switch = 1
+nmap gs  <plug>(GrepperOperator)
+xmap gs  <plug>(GrepperOperator)
+nnoremap <leader>/ :Grepper!<CR>
 
 call plug#end()
 
@@ -130,10 +146,10 @@ set smartcase                                   " ... unless they contain at lea
 set smartindent                                 " Do smart indenting at the start of a new line
 
 " Backup and undo settings
-set backupdir=~/.nvim/backup//                   " location of backups
-set directory=~/.nvim/swp//                      " location of swap files
+set backupdir=~/.config/nvim/backup//           " location of backups
+set directory=~/.config/nvim/swp//              " location of swap files
 set undofile
-set undodir=~/.nvim/undo//
+set undodir=~/.config/nvim/undo//
 set undolevels=900                              " maximum number of changes that can be undone
 set undoreload=900                              " maximum number lines to save for undo on a buffer reload
 
@@ -164,8 +180,6 @@ nnoremap <leader>ll :ll 1<CR>
 "-tab shortcuts
 nnoremap tt :tabnew 
 nnoremap td :tabdo 
-nnoremap [t :tabprev<CR>
-nnoremap ]t :tabnext<CR>
 
 " Terminal Settings
 :tnoremap <Esc> <C-\><C-n>
@@ -248,8 +262,5 @@ augroup my-lua
 augroup end
 
 " WORK ONLY
-nnoremap <leader>u :silent !copyvm -s bbs<CR><C-l>
-nnoremap <leader>U :silent !copyvm -s bbs1<CR><C-l>
-
-" External Files
-source $HOME/.nvim/unite.vim
+nnoremap <leader>u :silent !copyvm -n -s bbs<CR><C-l>
+nnoremap <leader>U :silent !copyvm -n -s bbs2<CR><C-l>
