@@ -58,6 +58,7 @@ export GOPATH="$HOME/Code/go"
 export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/src/go/bin:$GOPATH/bin:$HOME/src/neovim/build/bin"
 export VIMRUNTIME="$HOME/src/neovim/runtime"
 
+setopt histignoredups
 setopt no_share_history
 setopt HIST_IGNORE_DUPS
 setopt HIST_FIND_NO_DUPS
@@ -89,5 +90,7 @@ source $(which virtualenvwrapper.sh)
 stty -ixon
 
 # misc config
-export VISUAL=vim
-export EDITOR=vim
+export VISUAL=nvim
+export EDITOR=nvim
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
