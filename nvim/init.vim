@@ -17,22 +17,6 @@ Plug 'tpope/vim-unimpaired'
 nnoremap <silent> ]g :tabnext<CR>
 nnoremap <silent> [g :tabprev<CR>
 
-" Plug 'cazador481/fakeclip.neovim' " + and * registers map to X clipboards, & register maps to tmux clipboard
-
-" Plug 'ctrlpvim/ctrlp.vim'
-" let g:ctrlp_map = '<leader>f'
-" let g:ctrlp_match_window = 'top,order:ttb,min:1,max:10,results:100'
-" let g:ctrlp_working_path_mode = 0
-" let g:ctrlp_lazy_update = 1
-" let g:ctrlp_user_command = {
-"   \ 'types': {
-"     \ 1: ['.git', 'cd %s && git ls-files'],
-"     \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-"     \ },
-"   \ 'fallback': 'find %s -type f'
-"   \ }
-" nnoremap <leader>b :CtrlPBuffer<CR>
-
 Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
 
 Plug 'myusuf3/numbers.vim'
@@ -97,6 +81,8 @@ let g:grepper.switch = 1
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper!<CR>
+
+Plug 'fatih/vim-go'
 
 call plug#end()
 
@@ -211,15 +197,23 @@ au BufRead,BufNewFile *.go set filetype=go
 augroup my-golang
   autocmd!
   autocmd Filetype go setlocal nolist
-  autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
-  autocmd Filetype go nmap <Leader>gu <Plug>(go-install)
-  autocmd Filetype go nmap <Leader>gd <Plug>(go-doc)
-  autocmd Filetype go nmap <Leader>gs <Plug>(go-def-tab)
-  autocmd Filetype go nmap <Leader>gr <Plug>(go-rename)
   autocmd Filetype go setlocal textwidth=100
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
   autocmd Filetype go setlocal completeopt-=preview
+  " vim-go settings
+  let g:go_fmt_command = "goimports"
+  let g:go_fmt_experimental = 1
+  let g:go_def_mapping_enabled = 0
+  autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
+  autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
+  autocmd Filetype go nmap <Leader>gt <Plug>(go-test)
+  autocmd Filetype go nmap <Leader>gc <Plug>(go-coverage)
+  autocmd Filetype go nmap <Leader>gB <Plug>(go-doc-browser)
+  autocmd Filetype go nmap <Leader>gd <Plug>(go-def)
+  autocmd Filetype go nmap <Leader>gD <Plug>(go-def-split)
+  autocmd Filetype go nmap <Leader>gr <Plug>(go-rename)
+  autocmd Filetype go nmap <Leader>gI <Plug>(go-implements)
 augroup end
 
 "" Markdown settings
