@@ -53,9 +53,12 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-# source $HOME/src/golang-crosscompile/crosscompile.bash
+export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:$HOME/.bin:$HOME/src/neovim/build/bin"
+
 export GOPATH="$HOME/Code/go"
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:$HOME/.bin:$HOME/src/go/bin:$GOPATH/bin:$HOME/src/neovim/build/bin"
+export PATH="$PATH:$HOME/src/go/bin:$GOPATH/bin"
+
 export VIMRUNTIME="$HOME/src/neovim/runtime"
 
 setopt histignoredups
