@@ -1,12 +1,14 @@
 #! /usr/bin/env python2
 from __future__ import print_function
 
-import os
-import sys
 import argparse
+import os
 import subprocess
-import prettytable
+import sys
 from collections import OrderedDict
+from datetime import datetime
+
+import prettytable
 
 
 # ===========DEFINITIONS=========== #
@@ -138,14 +140,17 @@ def main():
         output = subprocess.check_output([
             'tmux', 'ls', '-F',
             '#{session_name}:' +
-            '#{session_attached} #{session_created_string}'
+            '#{session_attached} #{session_created}'
         ], stderr=subprocess.STDOUT)
         sessions = OrderedDict(
             [s.split(':', 1) for s in output.strip().splitlines()])
         for session, desc in sessions.items():
             fields = desc.split(' ', 1)
-            sessions[session] = {'attached': fields[0],
-                                 'created': fields[1]}
+            created_date = datetime.fromtimestamp(int(fields[1]))
+            sessions[session] = {
+                'attached': fields[0],
+                'created': created_date.strftime('%H:%M:%S %d-%m-%Y'),
+            }
     except subprocess.CalledProcessError:
         pass
 
