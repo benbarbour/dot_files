@@ -197,7 +197,8 @@ au BufRead,BufNewFile *.go set filetype=go
 augroup my-golang
   autocmd!
   autocmd Filetype go setlocal nolist
-  autocmd Filetype go setlocal textwidth=100
+  autocmd Filetype go setlocal textwidth=90
+  autocmd Filetype go setlocal colorcolumn=+1
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
   autocmd Filetype go setlocal completeopt-=preview
@@ -208,7 +209,8 @@ augroup my-golang
   autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
   autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
   autocmd Filetype go nmap <Leader>gt <Plug>(go-test)
-  autocmd Filetype go nmap <Leader>gc <Plug>(go-coverage)
+  autocmd Filetype go nmap <Leader>gC <Plug>(go-coverage)
+  autocmd Filetype go nmap <Leader>gb <Plug>(go-build)
   autocmd Filetype go nmap <Leader>gB <Plug>(go-doc-browser)
   autocmd Filetype go nmap <Leader>gd <Plug>(go-def)
   autocmd Filetype go nmap <Leader>gD <Plug>(go-def-split)
