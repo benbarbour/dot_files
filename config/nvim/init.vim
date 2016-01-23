@@ -17,6 +17,10 @@ Plug 'tpope/vim-unimpaired'
 nnoremap <silent> ]g :tabnext<CR>
 nnoremap <silent> [g :tabprev<CR>
 
+Plug 'benekastah/neomake'
+let g:neomake_python_enabled_makers = ['pylint']
+" let g:neomake_python_pylint_args = ['--rcfile=~/.pylintrc']
+
 Plug 'davidhalter/jedi-vim'
 autocmd FileType python setlocal omnifunc=jedi#completions
 let g:jedi#completions_enabled = 0
@@ -43,6 +47,8 @@ inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 " endfunction
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+set completeopt+=noinsert
+set completeopt-=longest
 Plug 'zchee/deoplete-go'
 
 Plug 'myusuf3/numbers.vim'
@@ -99,7 +105,7 @@ let g:grepper.jump   = 0
 let g:grepper.switch = 1
 nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
-nnoremap <leader>/ :Grepper!<CR>
+nnoremap <leader>/ :Grepper -nojump<CR>
 
 Plug 'fatih/vim-go'
 let g:go_fmt_command = "goimports"
@@ -200,6 +206,10 @@ augroup my-terminal
   autocmd TermOpen * setlocal nolist
 augroup end
 
+" Spell checking
+hi clear SpellBad
+hi SpellBad cterm=undercurl
+
 " Functions
 
 function! <SID>StripTrailingWhitespaces()
@@ -226,6 +236,7 @@ augroup my-golang
   autocmd Filetype go setlocal colorcolumn=+1
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
+  autocmd FileType go setlocal spell
   " vim-go settings
   autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
   autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
@@ -249,6 +260,7 @@ augroup my-markdown
   autocmd Filetype markdown setlocal spell spelllang=en_us
   autocmd Filetype markdown setlocal mousemodel=popup_setpos
   autocmd Filetype markdown autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd FileType markdown setlocal spell
 augroup end
 
 "" Python settings
@@ -260,8 +272,10 @@ augroup my-python
   autocmd Filetype python setlocal tabstop=4
   autocmd Filetype python setlocal shiftwidth=4
   autocmd Filetype python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+  autocmd BufWritePost,BufEnter *.py Neomake
   autocmd Filetype python nmap <Leader>ac :Tabularize / #<CR>
   autocmd Filetype python vmap <Leader>ac :Tabularize / #<CR>
+  autocmd FileType python setlocal spell
 augroup end
 
 "" Lua settings
@@ -275,4 +289,5 @@ augroup my-lua
   autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
   autocmd FileType lua nmap <Leader>ac :Tabularize /--<CR>
   autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
+  autocmd FileType lua setlocal spell
 augroup end
