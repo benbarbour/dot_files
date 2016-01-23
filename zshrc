@@ -53,13 +53,13 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
-export PATH="$PATH:$HOME/.bin:$HOME/src/neovim/build/bin"
+# export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
+export PATH="$PATH:$HOME/.bin"
 
 export GOPATH="$HOME/Code/go"
-export PATH="$PATH:$HOME/src/go/bin:$GOPATH/bin"
+export PATH="$PATH:$HOME/src/go/bin:$GOPATH/bin:/usr/lib/go/bin"
 
-export VIMRUNTIME="$HOME/src/neovim/runtime"
+# export VIMRUNTIME="$HOME/src/neovim/runtime"
 
 setopt histignoredups
 setopt no_share_history
@@ -69,9 +69,9 @@ setopt HIST_IGNORE_SPACE
 HISTSIZE=99999
 SAVEHIST=99999
 
-# # Preferred editor for local and remote sessions
+# Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+#   export EDITOR='nvim'
 # else
 #   export EDITOR='mvim'
 # fi
@@ -83,11 +83,6 @@ SAVEHIST=99999
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
 
 DISABLE_AUTO_TITLE=true
-
-# python virtualenvs
-export WORKON_HOME="$HOME/.python_virtualenvs"
-export VIRTUAL_ENV_DISABLE_PROMPT=1
-source $(which virtualenvwrapper.sh)
 
 #so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
 stty -ixon
