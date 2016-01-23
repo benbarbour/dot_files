@@ -1,5 +1,5 @@
 " Plugins
-call plug#begin('~/.nvim/plugged')
+call plug#begin('~/.config/nvim/plugged')
 
 Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
@@ -17,19 +17,36 @@ Plug 'tpope/vim-unimpaired'
 nnoremap <silent> ]g :tabnext<CR>
 nnoremap <silent> [g :tabprev<CR>
 
-Plug 'SirVer/ultisnips' | Plug 'honza/vim-snippets'
+Plug 'davidhalter/jedi-vim'
+autocmd FileType python setlocal omnifunc=jedi#completions
+let g:jedi#completions_enabled = 0
+let g:jedi#auto_vim_configuration = 0
+let g:jedi#smart_auto_mappings = 0
+let g:jedi#show_call_signatures = 0
+
+Plug 'xolox/vim-misc'
+Plug 'xolox/vim-lua-ftplugin'
+let g:lua_check_syntax = 0
+let g:lua_complete_omni = 1
+let g:lua_complete_dynamic = 0
+let g:lua_define_completion_mappings = 0
+
+Plug 'Shougo/deoplete.nvim'
+let g:deoplete#enable_at_startup = 1
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
+inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
+" <CR>: close popup and save indent.
+" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+" function! s:my_cr_function() abort
+"   return deoplete#mappings#close_popup() . "\<CR>"
+" endfunction
+let g:deoplete#omni#functions = {}
+let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
+Plug 'zchee/deoplete-go'
 
 Plug 'myusuf3/numbers.vim'
 nmap <F2> :NumbersToggle<CR>
-
-Plug 'Lokaltog/vim-distinguished'
-
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-" Disable tab (let ultisnips use it!)
-let g:ycm_key_list_select_completion=[]
-let g:ycm_key_list_previous_completion=[]
-nnoremap <leader>d :YcmCompleter GoTo<CR>
-nnoremap K :YcmCompleter GetDoc<CR>
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
@@ -38,6 +55,7 @@ nnoremap <leader>b :Buffers<CR>
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
+let g:gitgutter_realtime = 0
 nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hr <Plug>GitGutterRevertHunk
 nmap ]h <Plug>GitGutterNextHunk
@@ -60,7 +78,8 @@ if exists(":Tabularize")
   vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
 endif
 
-Plug 'Lokaltog/vim-easymotion'
+Plug 'unblevable/quick-scope'
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 Plug 'simnalamburt/vim-mundo'
 nmap <F3> :GundoToggle<CR>
@@ -83,15 +102,21 @@ xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper!<CR>
 
 Plug 'fatih/vim-go'
+let g:go_fmt_command = "goimports"
+let g:go_fmt_experimental = 1
+let g:go_def_mapping_enabled = 0
+
+Plug 'itchyny/lightline.vim'
+
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 call plug#end()
 
 " Colors
-set t_Co=256
 set background=dark
-silent! colorscheme distinguished
+colorscheme solarized
 highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
-highlight ColorColumn ctermbg=233
+highlight ColorColumn ctermbg=DarkBlue
 
 " Misc Settings
 set expandtab                                   " don't use tab characters
@@ -201,11 +226,7 @@ augroup my-golang
   autocmd Filetype go setlocal colorcolumn=+1
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
-  autocmd Filetype go setlocal completeopt-=preview
   " vim-go settings
-  let g:go_fmt_command = "goimports"
-  let g:go_fmt_experimental = 1
-  let g:go_def_mapping_enabled = 0
   autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
   autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
   autocmd Filetype go nmap <Leader>gt <Plug>(go-test)
@@ -239,7 +260,6 @@ augroup my-python
   autocmd Filetype python setlocal tabstop=4
   autocmd Filetype python setlocal shiftwidth=4
   autocmd Filetype python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-  autocmd Filetype python setlocal completeopt=menuone,longest
   autocmd Filetype python nmap <Leader>ac :Tabularize / #<CR>
   autocmd Filetype python vmap <Leader>ac :Tabularize / #<CR>
 augroup end
@@ -256,7 +276,3 @@ augroup my-lua
   autocmd FileType lua nmap <Leader>ac :Tabularize /--<CR>
   autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
 augroup end
-
-" WORK ONLY
-nnoremap <leader>u :silent !copyvm -n -s bbs<CR><C-l>
-nnoremap <leader>U :silent !copyvm -n -s bbs2<CR><C-l>

@@ -48,25 +48,25 @@ if args.install:
     APT_PKGS = (
         'curl',
         'exuberant-ctags',
-        'lua5.2',
         'htop',
         'ipython',
         'ipython3',
         'meld',
         'python-pip',
-        'silversearcher-ag',
-        'tmux',
+        'python3-pip',
+        'xsel',
         'zsh',
     )
     PIP_PKGS = (
-        'flake8',
         'prettytable',
-        'pylama',
-        'virtualenvwrapper',
+    )
+    PIP3_PKGS = (
+        'neovim',
     )
 
     call('apt-get --ignore-missing install ' + ' '.join(APT_PKGS))
-    call('apt-get --ignore-missing install ' + ' '.join(PIP_PKGS))
+    call('pip install ' + ' '.join(PIP_PKGS))
+    call('pip3 install ' + ' '.join(PIP3_PKGS))
     call('curl -L http://install.ohmyz.sh | sh')
     call('chsh -s $(which zsh)')
 
@@ -99,12 +99,10 @@ link(excluded=(
     ".git",
     ".gitignore",
     "oh-my-zsh",
-    "python_virtualenvs",
     os.path.basename(__file__),
 ))
 link('config')
 link('oh-my-zsh', 'custom')
-link('python_virtualenvs')
 
 for sym in symlinks:
     print("symlinking '{}' to '{}'".format(sym.src, sym.target))
@@ -118,8 +116,3 @@ for sym in symlinks:
     except OSError:
         os.unlink(sym.target)
         os.symlink(sym.src, sym.target)
-
-if args.install:
-    print("Cloning NeoBundle...")
-    call('git clone git://github.com/Shougo/neobundle.vim '
-         '~/.vim/bundle/neobundle.vim')
