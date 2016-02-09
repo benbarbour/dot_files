@@ -5,7 +5,6 @@ Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and c
 Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-flagship'
 Plug 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-sensible'
@@ -20,13 +19,6 @@ nnoremap <silent> [g :tabprev<CR>
 Plug 'benekastah/neomake'
 let g:neomake_python_enabled_makers = ['pylint']
 " let g:neomake_python_pylint_args = ['--rcfile=~/.pylintrc']
-
-Plug 'davidhalter/jedi-vim'
-autocmd FileType python setlocal omnifunc=jedi#completions
-let g:jedi#completions_enabled = 0
-let g:jedi#auto_vim_configuration = 0
-let g:jedi#smart_auto_mappings = 0
-let g:jedi#show_call_signatures = 0
 
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-lua-ftplugin'
@@ -47,9 +39,8 @@ inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
 " endfunction
 let g:deoplete#omni#functions = {}
 let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
-set completeopt+=noinsert
-set completeopt-=longest
 Plug 'zchee/deoplete-go'
+Plug 'zchee/deoplete-jedi'
 
 Plug 'myusuf3/numbers.vim'
 nmap <F2> :NumbersToggle<CR>
@@ -58,6 +49,14 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
 Plug 'junegunn/fzf.vim'
 nnoremap <leader>f :Files .<CR>
 nnoremap <leader>b :Buffers<CR>
+function! s:fzf_statusline()
+  " Override statusline as you like
+  highlight fzf1 ctermfg=161 ctermbg=251
+  highlight fzf2 ctermfg=23 ctermbg=251
+  highlight fzf3 ctermfg=237 ctermbg=251
+  setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+endfunction
+autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
 Plug 'airblade/vim-gitgutter'
 let g:gitgutter_map_keys = 0
@@ -88,7 +87,7 @@ Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
 Plug 'simnalamburt/vim-mundo'
-nmap <F3> :GundoToggle<CR>
+nmap <F3> :MundoToggle<CR>
 
 Plug 'vim-scripts/bufkill.vim'
 
@@ -113,18 +112,80 @@ let g:go_fmt_experimental = 1
 let g:go_def_mapping_enabled = 0
 
 Plug 'itchyny/lightline.vim'
+let g:lightline = {
+    \ 'colorscheme': 'wombat',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'fugitive' ],
+    \             [ 'filename' ] ],
+    \   'right': [ [ 'lineinfo' ], [ 'percent' ] ],
+    \ },
+    \ 'component_function': {
+    \   'fugitive': 'LightLineFugitive',
+    \   'readonly': 'LightLineReadonly',
+    \   'modified': 'LightLineModified',
+    \   'filename': 'LightLineFilename'
+    \ },
+\ }
+
+function! LightLineModified()
+  if &filetype == "help"
+    return ""
+  elseif &modified
+    return "+"
+  elseif &modifiable
+    return ""
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineReadonly()
+  if &filetype == "help"
+    return ""
+  elseif &readonly
+    return "⭤"
+  else
+    return ""
+  endif
+endfunction
+
+function! LightLineFugitive()
+  if exists("*fugitive#head")
+    let _ = fugitive#head()
+    return strlen(_) ? '⭠ '._ : ''
+  endif
+  return ''
+endfunction
+
+function! LightLineFilePath()
+  if expand('%:p:h') =~ getcwd()
+    return expand('%:f')
+  else
+    return expand('%:t')
+  end
+endfunction
+
+function! LightLineFilename()
+  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+       \ ('' != LightLineFilePath() ? fnamemodify(LightLineFilePath(), ':~:.') : '[No Name]') .
+       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+endfunction
 
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 call plug#end()
 
-" Colors
+" Colors and Theme
 set background=dark
 colorscheme solarized
 highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
 highlight ColorColumn ctermbg=DarkBlue
 
 " Misc Settings
+set completeopt+=noinsert
+set completeopt-=longest
+set completeopt-=preview
 set expandtab                                   " don't use tab characters
 set hidden                                      " allow hidden buffers
 set list                                        " show special characters as defined in listchars
@@ -209,6 +270,14 @@ augroup end
 " Spell checking
 hi clear SpellBad
 hi SpellBad cterm=undercurl
+hi SpellCap cterm=NONE ctermbg=NONE
+hi SpellLocal cterm=NONE
+hi SpellRare cterm=NONE
+
+" Shows hilight markers on selected character
+map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " Functions
 
