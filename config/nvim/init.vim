@@ -193,7 +193,7 @@ set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
 set matchpairs+=<:>                             " Match angle brackets
 set nowrap                                      " don't wrap lines
 set number                                      " show line numbers
-set mouse=a                                     " enable the mouse
+set mouse=                                      " disable the mouse
 set tabstop=4                                   " tabs are 4 spaces
 set textwidth=0                                 " don't wrap lines
 set wrapmargin=0                                " disable line wrapping
