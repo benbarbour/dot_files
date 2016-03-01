@@ -51,7 +51,7 @@ class Window(object):
             subprocess.call(['tmux', 'select-layout', self._layout])
 
 SESSIONS = {
-    'wt': '-w client_server -p /home/bbarbour/Work/achilles -np',
+    'wt': '-w client_server -p /home/bbarbour/Work/achilles/achilles-engine -np',
     'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np',
     'wt-delphi-dj': '-p /home/bbarbour/Work/delphi -n django-delphi',
 }
