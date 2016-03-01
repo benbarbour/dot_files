@@ -175,6 +175,12 @@ endfunction
 
 Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
+Plug 'hynek/vim-python-pep8-indent'
+Plug 'Chiel92/vim-autoformat'
+noremap <F5> :Autoformat<CR>
+let g:formatdef_autopep8 = "'autopep8 - --range '.a:firstline.' '.a:lastline"
+let g:formatters_python = ['autopep8']
+
 call plug#end()
 
 " Colors and Theme
@@ -337,6 +343,8 @@ augroup end
 augroup my-python
   autocmd!
   autocmd Filetype python setlocal expandtab
+  autocmd Filetype python setlocal smarttab
+  autocmd Filetype python setlocal nosmartindent
   autocmd Filetype python setlocal textwidth=79
   autocmd Filetype python setlocal colorcolumn=+1
   autocmd Filetype python setlocal tabstop=4
