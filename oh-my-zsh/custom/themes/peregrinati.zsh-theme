@@ -31,7 +31,7 @@ fi
 local sep_clr="$FG[243]"
 local sep="$sep_clr├┈┤%{$PR_NO_COLOR%}"
 
-local return_code="%(?..$sep%{$PR_RED%}%? ↵ %{$PR_NO_COLOR%})"
+local return_code="%(?..┤%{$PR_RED%}↵%?%{$PR_NO_COLOR%})"
 
 local user_host='${PR_USER}${PR_BOLD}${PR_CYAN}@${PR_HOST}'
 local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%d%{$PR_NO_COLOR%}'
@@ -40,8 +40,8 @@ local git_branch='$(git_prompt_info)%{$PR_NO_COLOR%}'
 local jobs="%(1j.$sep$PR_BOLD$PR_MAGENTA%j job%(2j.s.)$PR_NO_COLOR.)"
 
 PROMPT="
-$sep_clr╭┤${user_host}${jobs}${return_code}${current_dir}${rvm_ruby}${git_branch}$sep_clr├┈╼
-$sep_clr╰─┤$PR_PROMPT "
+$sep_clr╭┤${user_host}${current_dir}${jobs}${rvm_ruby}${git_branch}$sep_clr├┈╼
+$sep_clr╰┈${return_code}$sep_clr┤$PR_PROMPT"
 RPS1=""
 
 ZSH_THEME_GIT_PROMPT_PREFIX="$sep%{$PR_YELLOW%}‹"
