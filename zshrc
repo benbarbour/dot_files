@@ -13,6 +13,7 @@ ZSH_THEME="peregrinati"
 alias ll="ll --group-directories-first"
 alias ifconfig="echo 'ifconfig is deprecated - learn ip!'"
 alias units="units -v -o %f"
+alias oo="gnome-open"
 
 # Set to this to use case-sensitive completion
 # CASE_SENSITIVE="true"
