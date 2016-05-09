@@ -23,7 +23,7 @@ let g:neomake_python_enabled_makers = ['pylint']
 Plug 'xolox/vim-misc'
 Plug 'xolox/vim-lua-ftplugin'
 let g:lua_check_syntax = 0
-let g:lua_complete_omni = 1
+let g:lua_complete_omni = 0
 let g:lua_complete_dynamic = 0
 let g:lua_define_completion_mappings = 0
 
@@ -108,6 +108,9 @@ xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper -nojump<CR>
 
 Plug 'fatih/vim-go'
+let g:go_metalinter_autosave = 0
+let g:go_jump_to_error = 0
+let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
 let g:go_fmt_experimental = 1
 let g:go_def_mapping_enabled = 0
@@ -190,7 +193,7 @@ call plug#end()
 set background=dark
 colorscheme solarized
 highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
-highlight ColorColumn ctermbg=DarkBlue
+highlight ColorColumn ctermbg=52
 
 " Misc Settings
 set completeopt+=noinsert
@@ -315,7 +318,7 @@ augroup my-golang
   autocmd Filetype go setlocal colorcolumn=+1
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
-  autocmd FileType go setlocal spell
+  autocmd Filetype go setlocal spell
   " vim-go settings
   autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
   autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
