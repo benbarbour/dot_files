@@ -31,7 +31,7 @@ fi
 local sep_clr="$FG[243]"
 local sep="$sep_clr├┈┤%{$PR_NO_COLOR%}"
 
-local return_code="%(?..┤%{$PR_RED%}↵%?%{$PR_NO_COLOR%})"
+local return_code="%(?..┤%{$PR_RED%}↵ %?%{$PR_NO_COLOR%})"
 
 local user_host='${PR_USER}${PR_BOLD}${PR_CYAN}@${PR_HOST}'
 local current_dir='$sep%{$PR_BOLD$PR_YELLOW%}%d%{$PR_NO_COLOR%}'
