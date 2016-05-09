@@ -30,7 +30,7 @@
 	mergeoptions = --no-commit
 	editor = nvim
 [push]
-	default = simple
+	default = current
 [init]
 	templatedir = ~/.git_template
 [rerere]
