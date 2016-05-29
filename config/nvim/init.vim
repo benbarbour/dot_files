@@ -108,7 +108,6 @@ xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper -nojump<CR>
 
 Plug 'fatih/vim-go'
-let g:go_metalinter_autosave = 0
 let g:go_jump_to_error = 0
 let g:go_auto_type_info = 1
 let g:go_fmt_command = "goimports"
@@ -319,6 +318,7 @@ augroup my-golang
   autocmd Filetype go setlocal tabstop=2
   autocmd Filetype go setlocal shiftwidth=2
   autocmd Filetype go setlocal spell
+  autocmd BufWritePost,BufEnter *.go Neomake!
   " vim-go settings
   autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
   autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
