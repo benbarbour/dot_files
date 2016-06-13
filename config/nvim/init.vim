@@ -87,8 +87,8 @@ endif
 Plug 'unblevable/quick-scope'
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-Plug 'simnalamburt/vim-mundo'
-nmap <F3> :MundoToggle<CR>
+Plug 'mbbill/undotree'
+nmap <F3> :UndotreeToggle<CR>
 
 Plug 'vim-scripts/bufkill.vim'
 
