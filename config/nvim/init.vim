@@ -108,8 +108,8 @@ xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper -nojump<CR>
 
 Plug 'fatih/vim-go'
-let g:go_jump_to_error = 0
-let g:go_auto_type_info = 1
+let g:go_jump_to_error = 1
+let g:go_auto_type_info = 0
 let g:go_fmt_command = "goimports"
 let g:go_fmt_experimental = 1
 let g:go_def_mapping_enabled = 0
