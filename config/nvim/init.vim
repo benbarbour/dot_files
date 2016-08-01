@@ -1,55 +1,305 @@
-" Plugins
+" based heavily on https://github.com/fatih/dotfiles/blob/master/init.vim
+
 call plug#begin('~/.config/nvim/plugged')
 
-Plug 'tpope/vim-abolish'       " Case-matching substitution, abbreviation, and coercion
-Plug 'tpope/vim-characterize'  " Press ga on a character to view encodings
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'Raimondi/delimitMate'            " auto insertion of closing tokens like parens and quotes.
+Plug 'SirVer/ultisnips'
+Plug 'airblade/vim-gitgutter'
+Plug 'fatih/vim-go'                    " utilities for the go programming language
+Plug 'fisadev/vim-isort'
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'majutsushi/tagbar'               " display file outline in tagbar
+Plug 'mbbill/undotree'
+Plug 'mhinz/vim-grepper'
+Plug 'myusuf3/numbers.vim'             " Relative line numbers
+Plug 'qpkorr/vim-bufkill'              " add uppercase BD and BW commands that don't mess up splits
+Plug 'tpope/vim-abolish'               " Case-matching substitution, abbreviation, and coercion
+Plug 'tpope/vim-characterize'          " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
-Plug 'tpope/vim-endwise'
-Plug 'tpope/vim-fugitive', { 'augroup' : 'fugitive' }
-Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-repeat'                " allows repeate key (.) to work with more things
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'
-Plug 'tpope/vim-speeddating'   " Use increment/decrement on dates and times
+Plug 'tpope/vim-sleuth'                " detect indent settings from related files
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-tbone'
-Plug 'tpope/vim-unimpaired'
-nnoremap <silent> ]g :tabnext<CR>
-nnoremap <silent> [g :tabprev<CR>
+Plug 'tpope/vim-tbone'                 " back Tmux commanys (:Tyank, :Tput)
+Plug 'tpope/vim-unimpaired'            " short normal mode aliases for commonly used ex commands
+Plug 'unblevable/quick-scope'
 
-Plug 'benekastah/neomake'
-let g:neomake_python_enabled_makers = ['pylint']
-" let g:neomake_python_pylint_args = ['--rcfile=~/.pylintrc']
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }  " fuzzy finder
+Plug 'junegunn/fzf.vim'                                             " fuzzy finder vim settings
 
-Plug 'xolox/vim-misc'
-Plug 'xolox/vim-lua-ftplugin'
-let g:lua_check_syntax = 0
-let g:lua_complete_omni = 0
-let g:lua_complete_dynamic = 0
-let g:lua_define_completion_mappings = 0
+if has('nvim')
+  function! DoRemote(arg)
+    UpdateRemotePlugins
+  endfunction
+  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+  Plug 'zchee/deoplete-go', { 'do': 'make'}
+  Plug 'zchee/deoplete-jedi'
+else
+  Plug 'Shougo/neocomplete.vim'
+endif
 
-Plug 'Shougo/deoplete.nvim'
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-" <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><C-h> deoplete#mappings#smart_close_popup()."\<C-h>"
-inoremap <expr><BS>  deoplete#mappings#smart_close_popup()."\<C-h>"
-" <CR>: close popup and save indent.
-" inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-" function! s:my_cr_function() abort
-"   return deoplete#mappings#close_popup() . "\<CR>"
-" endfunction
-let g:deoplete#omni#functions = {}
-let g:deoplete#omni#functions.lua = 'xolox#lua#omnifunc'
-Plug 'zchee/deoplete-go'
-Plug 'zchee/deoplete-jedi'
+if has('nvim')
+  Plug 'frankier/neovim-colors-solarized-truecolor-only'
+else
+  Plug 'altercation/vim-colors-solarized'
+endif
 
-Plug 'myusuf3/numbers.vim'
-nmap <F2> :NumbersToggle<CR>
+" filetype plugins
+Plug 'vim-ruby/vim-ruby'
+Plug 'elzr/vim-json', {'for' : 'json'}
+Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
+Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
+Plug 'corylanou/vim-present', {'for' : 'present'}
 
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }
-Plug 'junegunn/fzf.vim'
+Plug 'sudar/vim-arduino-syntax'
+Plug 'stevearc/vim-arduino'
+
+call plug#end()
+
+"=====================================================
+"===================== SETTINGS ======================
+set nowrap
+
+" I'm still using Vim from time to time. These needs to enabled so we can make
+" Vim usable again (these are default on NeoVim)
+if !has('nvim')
+  set nocompatible
+  filetype off
+  filetype plugin indent on
+
+  set ttyfast
+  set ttymouse=xterm2
+  set ttyscroll=3
+
+  set laststatus=2
+  set encoding=utf-8              " Set default encoding to UTF-8
+  set autoread                    " Automatically reread changed files without asking me anything
+  set autoindent
+  set backspace=indent,eol,start  " Makes backspace key more powerful.
+  set incsearch                   " Shows the match while typing
+  set hlsearch                    " Highlight found searches
+  set mouse=a
+endif
+
+set noerrorbells             " No beeps
+set number                   " Show line numbers
+set showcmd                  " Show me what I'm typing
+set noswapfile               " Don't use swapfile
+set nobackup                 " Don't create annoying backup files
+set splitright               " Split vertical windows right to the current windows
+set splitbelow               " Split horizontal windows below to the current windows
+set autowrite                " Automatically save before :next, :make etc.
+set hidden
+set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
+set noshowmatch              " Do not show matching brackets by flickering
+set nocursorcolumn
+set noshowmode               " We show the mode with airline or lightline
+set ignorecase               " Search case insensitive...
+set smartcase                " ... but not it begins with upper case
+set completeopt=menu,menuone
+set nocursorcolumn           " speed up syntax highlighting
+set nocursorline
+
+set pumheight=10             " Completion window max size
+
+set lazyredraw          " Wait to redraw
+
+if has('persistent_undo')
+  set undofile
+  set undodir=~/.config/nvim/undo//
+  set undolevels=900  " maximum number of changes that can be undone
+  set undoreload=900  " maximum number lines to save for undo on a buffer reload
+endif
+
+if has('!nvim')
+  syntax enable
+  set t_Co=256
+  let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+endif
+
+set background=dark
+colorscheme solarized
+
+" open help vertically
+command! -nargs=* -complete=help Help vertical belowright help <args>
+autocmd FileType help wincmd L
+
+autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
+autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
+autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
+autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
+autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
+
+autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
+autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
+
+augroup filetypedetect
+  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+augroup END
+
+"=====================================================
+"===================== MAPPINGS ======================
+
+" This comes first, because we have mappings that depend on leader
+" With a map leader it's possible to do extra key combinations
+" i.e: <leader>w saves the current file
+let mapleader = ","
+let g:mapleader = ","
+
+nmap <leader>ev :vsplit $MYVIMRC<cr>
+nmap <leader>sv :source $MYVIMRC<cr>
+" Use ALT-d to drop to null register
+nmap <A-d> "_d
+"-X drops to null register
+nnoremap x "_x
+
+" Fast saving
+nnoremap <leader>w :w!<cr>
+nnoremap <silent> <leader>q :q!<CR>
+
+" Center the screen
+nnoremap <space> zz
+
+" Remove search highlight
+nnoremap <leader><space> :nohlsearch<CR>
+
+" Source the current Vim file
+nnoremap <leader>pr :Runtime<CR>
+
+" Close all but the current one
+nnoremap <leader>o :only<CR>
+
+" Better split switching
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
+" Print full path
+map <C-f> :echo expand("%:p")<cr>
+
+" Terminal settings
+if has('nvim')
+  " Leader q to exit terminal mode. Somehow it jumps to the end, so jump to
+  " the top again
+  tnoremap <Leader>q <C-\><C-n>gg<cr>
+
+  " mappings to move out from terminal to other views
+  tnoremap <C-h> <C-\><C-n><C-w>h
+  tnoremap <C-j> <C-\><C-n><C-w>j
+  tnoremap <C-k> <C-\><C-n><C-w>k
+  tnoremap <C-l> <C-\><C-n><C-w>l
+
+  " Open terminal in vertical, horizontal and new tab
+  nnoremap <leader>tv :vsplit term://zsh<CR>
+  nnoremap <leader>ts :split term://zsh<CR>
+  nnoremap <leader>tt :tabnew term://zsh<CR>
+
+  " always start terminal in insert mode
+  autocmd BufWinEnter,WinEnter term://* startinsert
+endif
+
+" Visual linewise up and down by default (and use gj gk to go quicker)
+noremap <Up> gk
+noremap <Down> gj
+noremap j gj
+noremap k gk
+
+" Just go out in insert mode
+imap jk <ESC>l
+
+" Source (reload configuration)
+nnoremap <silent> <F5> :source $MYNVIMRC<CR>
+
+nnoremap <F6> :setlocal spell! spell?<CR>
+
+" Search mappings: These will make it so that going to the next one in a
+" search will center on the line it's found in.
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" Same when moving up and down
+noremap <C-d> <C-d>zz
+noremap <C-u> <C-u>zz
+
+" Remap H and L (top, bottom of screen to left and right end of line)
+nnoremap H ^
+nnoremap L $
+vnoremap H ^
+vnoremap L g_
+
+" Act like D and C
+nnoremap Y y$
+
+" Do not show stupid q: window
+map q: :q
+
+" Don't move on * I'd use a function for this but Vim clobbers the last search
+" when you're in a function so fuck it, practicality beats purity.
+nnoremap <silent> * :let stay_star_view = winsaveview()<cr>*:call winrestview(stay_star_view)<cr>
+
+" Time out on key codes but not mappings.
+" Basically this makes terminal Vim work sanely.
+if !has('gui_running')
+  set notimeout
+  set ttimeout
+  set ttimeoutlen=10
+  augroup FastEscape
+    autocmd!
+    au InsertEnter * set timeoutlen=0
+    au InsertLeave * set timeoutlen=1000
+  augroup END
+endif
+
+" Visual Mode */# from Scrooloose {{{
+function! s:VSetSearch()
+  let temp = @@
+  norm! gvy
+  let @/ = '\V' . substitute(escape(@@, '\'), '\n', '\\n', 'g')
+  let @@ = temp
+endfunction
+
+vnoremap * :<C-u>call <SID>VSetSearch()<CR>//<CR><c-o>
+vnoremap # :<C-u>call <SID>VSetSearch()<CR>??<CR><c-o>
+
+
+" prependend
+function! s:CreateGoDocComment()
+  norm "zyiw
+  execute ":put! z"
+  execute ":norm I# \<Esc>$"
+endfunction
+
+nnoremap <leader>ui :<C-u>call <SID>CreateGoDocComment()<CR>
+
+"====================================================
+"===================== PLUGINS ======================
+
+" ===================Easy Align =====================
+nmap ga <Plug>(EasyAlign)
+xmap ga <Plug>(EasyAlign)
+
+" ===================== FZF =========================
 nnoremap <leader>f :Files .<CR>
 nnoremap <leader>b :Buffers<CR>
+let g:fzf_buffers_jump = 1
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
 function! s:fzf_statusline()
   " Override statusline as you like
   highlight fzf1 ctermfg=161 ctermbg=251
@@ -59,7 +309,11 @@ function! s:fzf_statusline()
 endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-Plug 'airblade/vim-gitgutter'
+" ==================== Fugitive ====================
+vnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gb :Gblame<CR>
+
+" ===================== Git Gutter =================
 let g:gitgutter_map_keys = 0
 let g:gitgutter_realtime = 0
 nmap <Leader>hs <Plug>GitGutterStageHunk
@@ -67,37 +321,49 @@ nmap <Leader>hr <Plug>GitGutterRevertHunk
 nmap ]h <Plug>GitGutterNextHunk
 nmap [h <Plug>GitGutterPrevHunk
 
-Plug 'cespare/vim-toml'
+" ==================== vim-go ====================
+let g:go_list_type = "quickfix"
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_command = "goimports"
+let g:go_autodetect_gopath = 1
+let g:go_def_mode = 'godef'
 
-Plug 'fisadev/vim-isort'
-let g:vim_isort_map = ''
+let g:go_highlight_space_tab_error = 0
+let g:go_highlight_array_whitespace_error = 0
+let g:go_highlight_trailing_whitespace_error = 0
+let g:go_highlight_extra_types = 0
+let g:go_highlight_operators = 0
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_types = 1
 
-Plug 'godlygeek/tabular'
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-  nmap <Leader>a, :Tabularize /,\zs<CR>
-  vmap <Leader>a, :Tabularize /,\zs<CR>
-  nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-  vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-endif
+nmap <C-g> :GoDecls<cr>
+imap <C-g> <esc>:<C-u>GoDecls<cr>
 
-Plug 'unblevable/quick-scope'
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+augroup go
+  autocmd!
 
-Plug 'mbbill/undotree'
-nmap <F3> :UndotreeToggle<CR>
+  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
 
-Plug 'vim-scripts/bufkill.vim'
+  autocmd FileType go nmap <Leader>i <Plug>(go-info)
+  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
 
-Plug 'majutsushi/tagbar'
-nmap <F4> :TagbarToggle<CR>
+  autocmd FileType go nmap <leader>b  <Plug>(go-build)
+  autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
-Plug 'vim-utils/vim-man'
+  autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
-Plug 'mhinz/vim-grepper'
+  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
+  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+
+  " I like these more!
+  autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
+  autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
+  autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
+  autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
+augroup END
+
+" ==================== vim-grepper ====================
 let g:grepper        = {}
 let g:grepper.tools  = ['git', 'ag', 'pt', 'grep']
 let g:grepper.open   = 1
@@ -107,29 +373,42 @@ nmap gs  <plug>(GrepperOperator)
 xmap gs  <plug>(GrepperOperator)
 nnoremap <leader>/ :Grepper -nojump<CR>
 
-Plug 'fatih/vim-go'
-let g:go_jump_to_error = 1
-let g:go_auto_type_info = 0
-let g:go_fmt_command = "goimports"
-let g:go_fmt_experimental = 1
-let g:go_def_mapping_enabled = 0
+" ==================== delimitMate ====================
+let g:delimitMate_expand_cr = 1
+let g:delimitMate_expand_space = 1
+let g:delimitMate_smart_quotes = 1
+let g:delimitMate_expand_inside_quotes = 0
+let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
-Plug 'itchyny/lightline.vim'
+imap <expr> <CR> pumvisible() ? "\<c-y>" : "<Plug>delimitMateCR"
+
+" ==================== Lightline ====================
+"
 let g:lightline = {
-    \ 'colorscheme': 'wombat',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'fugitive' ],
-    \             [ 'filename' ] ],
-    \   'right': [ [ 'lineinfo' ], [ 'percent' ] ],
-    \ },
-    \ 'component_function': {
-    \   'fugitive': 'LightLineFugitive',
-    \   'readonly': 'LightLineReadonly',
-    \   'modified': 'LightLineModified',
-    \   'filename': 'LightLineFilename'
-    \ },
-\ }
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste'],
+      \             [ 'fugitive', 'filename', 'modified' ],
+      \             [ 'go'] ],
+      \   'right': [ [ 'lineinfo' ],
+      \              [ 'percent' ],
+      \              [ 'fileformat', 'fileencoding', 'filetype' ] ]
+      \ },
+      \ 'inactive': {
+      \   'left': [ [ 'go'] ],
+      \ },
+      \ 'component_function': {
+      \   'lineinfo': 'LightLineInfo',
+      \   'percent': 'LightLinePercent',
+      \   'modified': 'LightLineModified',
+      \   'filename': 'LightLineFilename',
+      \   'go': 'LightLineGo',
+      \   'fileformat': 'LightLineFileformat',
+      \   'filetype': 'LightLineFiletype',
+      \   'fileencoding': 'LightLineFileencoding',
+      \   'mode': 'LightLineMode',
+      \   'fugitive': 'LightLineFugitive',
+      \ },
+      \ }
 
 function! LightLineModified()
   if &filetype == "help"
@@ -143,156 +422,127 @@ function! LightLineModified()
   endif
 endfunction
 
-function! LightLineReadonly()
-  if &filetype == "help"
-    return ""
-  elseif &readonly
-    return "⭤"
-  else
-    return ""
-  endif
+function! LightLineFileformat()
+  return winwidth(0) > 70 ? &fileformat : ''
+endfunction
+
+function! LightLineFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype : 'no ft') : ''
+endfunction
+
+function! LightLineFileencoding()
+  return winwidth(0) > 70 ? (strlen(&fenc) ? &fenc : &enc) : ''
+endfunction
+
+function! LightLineInfo()
+  return winwidth(0) > 60 ? printf("%3d:%-2d", line('.'), col('.')) : ''
+endfunction
+
+function! LightLinePercent()
+  return &ft =~? 'vimfiler' ? '' : (100 * line('.') / line('$')) . '%'
 endfunction
 
 function! LightLineFugitive()
-  if exists("*fugitive#head")
-    let _ = fugitive#head()
-    return strlen(_) ? '⭠ '._ : ''
-  endif
-  return ''
+  return exists('*fugitive#head') ? fugitive#head() : ''
 endfunction
 
-function! LightLineFilePath()
-  if expand('%:p:h') =~ getcwd()
-    return expand('%:f')
-  else
-    return expand('%:t')
-  end
+function! LightLineGo()
+  " return ''
+  return exists('*go#jobcontrol#Statusline') ? go#jobcontrol#Statusline() : ''
+endfunction
+
+function! LightLineMode()
+  let fname = expand('%:t')
+  return fname == 'ControlP' ? 'CtrlP' :
+        \ &ft == 'vimfiler' ? 'VimFiler' :
+        \ winwidth(0) > 60 ? lightline#mode() : ''
 endfunction
 
 function! LightLineFilename()
-  return ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
-       \ ('' != LightLineFilePath() ? fnamemodify(LightLineFilePath(), ':~:.') : '[No Name]') .
-       \ ('' != LightLineModified() ? ' ' . LightLineModified() : '')
+  let fname = expand('%:t')
+  if mode() == 't'
+    return ''
+  endif
+
+  return fname == 'ControlP' ? g:lightline.ctrlp_item :
+        \ &ft == 'vimfiler' ? vimfiler#get_status_string() :
+        \ ('' != LightLineReadonly() ? LightLineReadonly() . ' ' : '') .
+        \ ('' != fname ? fname : '[No Name]')
 endfunction
 
-Plug 'frankier/neovim-colors-solarized-truecolor-only'
+function! LightLineReadonly()
+  return &ft !~? 'help' && &readonly ? 'RO' : ''
+endfunction
 
-Plug 'hynek/vim-python-pep8-indent', {'for': 'python'}
-Plug 'Chiel92/vim-autoformat'
-noremap <F5> :Autoformat<CR>
-let g:formatdef_autopep8 = "'autopep8 --experimental -a -a - --range '.a:firstline.' '.a:lastline"
-let g:formatters_python = ['autopep8']
+" ==================== vim-json ====================
+let g:vim_json_syntax_conceal = 0
 
-Plug 'fs111/pydoc.vim'
-let g:pydoc_window_lines=0.25
+" ==================== Completion =========================
+" I use deoplete for Neovim and neocomplete for Vim.
+if has('nvim')
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#ignore_sources = {}
+  let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+  let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+  let g:deoplete#sources#go#align_class = 1
 
-call plug#end()
+  " Use partial fuzzy matches like YouCompleteMe
+  call deoplete#custom#set('_', 'matchers', ['matcher_fuzzy'])
+  call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
+  call deoplete#custom#set('_', 'disabled_syntaxes', ['Comment', 'String'])
+else
+  let g:neocomplete#enable_at_startup = 1
+  let g:neocomplete#enable_smart_case = 1
+  let g:neocomplete#sources#syntax#min_keyword_length = 3
 
-" Colors and Theme
-set background=dark
-colorscheme solarized
-highlight SpecialKey term=standout ctermfg=LightMagenta ctermbg=DarkMagenta
-highlight ColorColumn ctermbg=52
+  if !exists('g:neocomplete#sources')
+    let g:neocomplete#sources = {}
+  endif
+  let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
+  let g:neocomplete#sources.go = ['omni']
 
-" Misc Settings
-set completeopt+=noinsert
-set completeopt-=longest
-set completeopt-=preview
-set expandtab                                   " don't use tab characters
-set hidden                                      " allow hidden buffers
-set list                                        " show special characters as defined in listchars
-set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
-set matchpairs+=<:>                             " Match angle brackets
-set nowrap                                      " don't wrap lines
-set number                                      " show line numbers
-set mouse=                                      " disable the mouse
-set tabstop=4                                   " tabs are 4 spaces
-set textwidth=0                                 " don't wrap lines
-set wrapmargin=0                                " disable line wrapping
-set laststatus=2                                " two line status setting
-set nostartofline                               " don't jump to the start of the line when switching buffers
-set foldlevelstart=99                           " don't fold anything when opening a new file
-" give these suffixes lower priority when opening files
-set suffixes=.bak,~,.swp,.o,.info,.aux,.log,.dvi,.bbl,.blg,.brf,.cb,.ind,.idx,.ilg,.inx,.out,.toc,.pyc,.class
-" ignore these filetypes in menus
-set wildignore=*.o,*.png,*.jpg,*.zip,*.tar*,*.pyc,*.min.js
-" hide the tabline unless there's multiple tabs
-set showtabline=1
+  " disable sorting
+  call neocomplete#custom#source('_', 'sorters', [])
+endif
 
-" try and speed vim up
-" let loaded_matchparen=1 " Don't load matchit.vim (paren/bracket matching)
-" set noshowmatch         " Don't match parentheses/brackets
-" set nocursorline        " Don't paint cursor line
-" set nocursorcolumn      " Don't paint cursor column
-" set lazyredraw          " Wait to redraw
-set scrolljump=8        " Scroll 8 lines at a time at bottom/top
-let html_no_rendering=1 " Don't render italic, bold, links in HTML
+" ==================== UltiSnips ====================
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
 
-" Searching
-set nohlsearch                                  " don't highlight matches
-set incsearch                                   " incremental searching
-set ignorecase                                  " searches are case insensitive...
-set smartcase                                   " ... unless they contain at least one capital letter
-set smartindent                                 " Do smart indenting at the start of a new line
+function! g:UltiSnips_Reverse()
+  call UltiSnips#JumpBackwards()
+  if g:ulti_jump_backwards_res == 0
+    return "\<C-P>"
+  endif
 
-" Backup and undo settings
-set backupdir=~/.config/nvim/backup//           " location of backups
-set directory=~/.config/nvim/swp//              " location of swap files
-set undofile
-set undodir=~/.config/nvim/undo//
-set undolevels=900                              " maximum number of changes that can be undone
-set undoreload=900                              " maximum number lines to save for undo on a buffer reload
+  return ""
+endfunction
 
-" Mappings
-let mapleader = ","                             " setting leader to ','
-nmap <leader>ev :vsplit $MYVIMRC<cr>
-nmap <leader>sv :source $MYVIMRC<cr>
-" Use ALT-d to drop to null register
-nmap <A-d> "_d
-"-X drops to null register
-nnoremap x "_x
-"-strip trailing whitespace
-nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
-"-change working directory to current file's directory
-nnoremap ,cd :cd %:p:h<CR>:pwd<CR>
-"-Map <C-Up> to 'prev quickfix entry'
-noremap [A :cp<cr>
-"-Map <C-Down> to 'next quickfix entry'
-noremap [B :cn<cr>
-"-Map <C-I> to 'Increment number'
-noremap <C-I> <C-A>
-"-Map <C-D> to 'Decrement number'
-noremap <C-D> <C-X>
-"-Disable Ex-mode (I never use it and it's easy to get stuck in)
-map Q <Nop>
-"-Jump to first item in location list
-nnoremap <leader>ll :ll 1<CR>
-"-tab shortcuts
-nnoremap tt :tabnew 
-nnoremap td :tabdo 
 
-" Terminal Settings
-:tnoremap <Esc> <C-\><C-n>
-:tnoremap <C-w> <C-\><C-n><C-w>
-augroup my-terminal
-  autocmd!
-  autocmd TermOpen * setlocal nolist
-augroup end
+if !exists("g:UltiSnipsJumpForwardTrigger")
+  let g:UltiSnipsJumpForwardTrigger = "<tab>"
+endif
 
-" Spell checking
-hi clear SpellBad
-hi SpellBad cterm=undercurl
-hi SpellCap cterm=NONE ctermbg=NONE
-hi SpellLocal cterm=NONE
-hi SpellRare cterm=NONE
+if !exists("g:UltiSnipsJumpBackwardTrigger")
+  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+endif
 
-" Shows hilight markers on selected character
-map <F10> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-\ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-\ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
-" Functions
-
+" ========================= Functions ===================================
 function! <SID>StripTrailingWhitespaces()
     " Preparation: save last search, and cursor position.
     let _s=@/
@@ -306,73 +556,15 @@ function! <SID>StripTrailingWhitespaces()
     call cursor(l, c)
 endfunction
 
+" ==================== Various other plugin settings ====================
+nmap  -  <Plug>(choosewin)
 
-" FILETYPE SPECIFIC SETTINGS
+" Trigger a highlight in the appropriate direction when pressing these keys:
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 
-"" Go settings
-au BufRead,BufNewFile *.go set filetype=go
-augroup my-golang
-  autocmd!
-  autocmd Filetype go setlocal nolist
-  autocmd Filetype go setlocal textwidth=90
-  autocmd Filetype go setlocal colorcolumn=+1
-  autocmd Filetype go setlocal tabstop=2
-  autocmd Filetype go setlocal shiftwidth=2
-  autocmd Filetype go setlocal spell
-  autocmd BufWritePost,BufEnter *.go Neomake!
-  " vim-go settings
-  autocmd Filetype go nmap <Leader>gi <Plug>(go-info)
-  autocmd Filetype go nmap <Leader>gg <Plug>(go-generate)
-  autocmd Filetype go nmap <Leader>gt <Plug>(go-test)
-  autocmd Filetype go nmap <Leader>gC <Plug>(go-coverage)
-  autocmd Filetype go nmap <Leader>gb <Plug>(go-build)
-  autocmd Filetype go nmap <Leader>gB <Plug>(go-doc-browser)
-  autocmd Filetype go nmap <Leader>gd <Plug>(go-def)
-  autocmd Filetype go nmap <Leader>gD <Plug>(go-def-split)
-  autocmd Filetype go nmap <Leader>gr <Plug>(go-rename)
-  autocmd Filetype go nmap <Leader>gI <Plug>(go-implements)
-augroup end
+nmap <F3>  :UndotreeToggle<CR>
+nmap <F4>  :TagbarToggle<CR>
+nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
 
-"" Markdown settings
-augroup my-markdown
-  autocmd!
-  autocmd Filetype markdown setlocal wrap
-  autocmd Filetype markdown setlocal linebreak
-  autocmd Filetype markdown setlocal textwidth=0
-  autocmd Filetype markdown setlocal wrapmargin=0
-  autocmd Filetype markdown setlocal spell spelllang=en_us
-  autocmd Filetype markdown setlocal mousemodel=popup_setpos
-  autocmd Filetype markdown autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-  autocmd FileType markdown setlocal spell
-augroup end
-
-"" Python settings
-augroup my-python
-  autocmd!
-  autocmd Filetype python setlocal expandtab
-  autocmd Filetype python setlocal smarttab
-  autocmd Filetype python setlocal nosmartindent
-  autocmd Filetype python setlocal textwidth=79
-  autocmd Filetype python setlocal colorcolumn=+1
-  autocmd Filetype python setlocal tabstop=4
-  autocmd Filetype python setlocal shiftwidth=4
-  autocmd Filetype python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-  autocmd BufWritePost,BufEnter *.py Neomake
-  autocmd Filetype python nmap <Leader>ac :Tabularize / #<CR>
-  autocmd Filetype python vmap <Leader>ac :Tabularize / #<CR>
-  autocmd FileType python setlocal spell
-augroup end
-
-"" Lua settings
-augroup my-lua
-  autocmd!
-  autocmd Filetype lua setlocal textwidth=79
-  autocmd Filetype lua setlocal colorcolumn=+1
-  autocmd Filetype lua setlocal expandtab
-  autocmd Filetype lua setlocal tabstop=4
-  autocmd Filetype lua setlocal shiftwidth=4
-  autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
-  autocmd FileType lua nmap <Leader>ac :Tabularize /--<CR>
-  autocmd FileType lua vmap <Leader>ac :Tabularize /--<CR>
-  autocmd FileType lua setlocal spell
-augroup end
+" disable visual isort mapping
+let g:vim_isort_map = ''
