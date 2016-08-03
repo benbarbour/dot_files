@@ -157,6 +157,10 @@ nmap <A-d> "_d
 "-X drops to null register
 nnoremap x "_x
 
+"-Map <C-I> to 'Increment number' and <C-D> to 'Decrement number'
+noremap <C-I> <C-A>
+noremap <C-D> <C-X>
+
 " Fast saving
 nnoremap <leader>w :w!<cr>
 nnoremap <silent> <leader>q :q!<CR>
