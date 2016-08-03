@@ -9,7 +9,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go'                    " utilities for the go programming language
 Plug 'fisadev/vim-isort'
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/vim-easy-align'
+Plug 'junegunn/vim-easy-align'         " align text to columns in an interactive manner
 Plug 'majutsushi/tagbar'               " display file outline in tagbar
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
