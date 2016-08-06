@@ -313,10 +313,6 @@ function! s:fzf_statusline()
 endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
 
-" ==================== Fugitive ====================
-vnoremap <leader>gb :Gblame<CR>
-nnoremap <leader>gb :Gblame<CR>
-
 " ===================== Git Gutter =================
 let g:gitgutter_map_keys = 0
 let g:gitgutter_realtime = 0
