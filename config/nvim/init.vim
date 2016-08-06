@@ -342,19 +342,19 @@ imap <C-g> <esc>:<C-u>GoDecls<cr>
 augroup go
   autocmd!
 
-  autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
-  autocmd FileType go nmap <Leader>s <Plug>(go-def-split)
+  autocmd FileType go nmap <leader>v <Plug>(go-def-vertical)
+  autocmd FileType go nmap <leader>s <Plug>(go-def-split)
 
-  autocmd FileType go nmap <Leader>i <Plug>(go-info)
-  autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
+  autocmd FileType go nmap <leader>i <Plug>(go-info)
+  autocmd FileType go nmap <leader>l <Plug>(go-metalinter)
 
-  autocmd FileType go nmap <leader>b  <Plug>(go-build)
+  autocmd FileType go nmap <leader>m  <Plug>(go-build)
   autocmd FileType go nmap <leader>t  <Plug>(go-test)
 
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
-  autocmd FileType go nmap <Leader>d <Plug>(go-doc)
-  autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
+  autocmd FileType go nmap <leader>d <Plug>(go-doc)
+  autocmd FileType go nmap <leader>c <Plug>(go-coverage-toggle)
 
   " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
