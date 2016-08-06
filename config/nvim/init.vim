@@ -15,13 +15,13 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'myusuf3/numbers.vim'             " Relative line numbers
 Plug 'qpkorr/vim-bufkill'              " add uppercase BD and BW commands that don't mess up splits
+Plug 't9md/vim-choosewin'              " tmux-like window chooser
 Plug 'tpope/vim-abolish'               " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'          " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-repeat'                " allows repeate key (.) to work with more things
 Plug 'tpope/vim-sensible'
-Plug 'tpope/vim-sleuth'                " detect indent settings from related files
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'                 " back Tmux commanys (:Tyank, :Tput)
 Plug 'tpope/vim-unimpaired'            " short normal mode aliases for commonly used ex commands
@@ -58,7 +58,6 @@ call plug#end()
 
 "=====================================================
 "===================== SETTINGS ======================
-set nowrap
 
 " I'm still using Vim from time to time. These needs to enabled so we can make
 " Vim usable again (these are default on NeoVim)
@@ -81,28 +80,31 @@ if !has('nvim')
   set mouse=a
 endif
 
-set noerrorbells             " No beeps
-set number                   " Show line numbers
-set showcmd                  " Show me what I'm typing
-set noswapfile               " Don't use swapfile
-set nobackup                 " Don't create annoying backup files
-set splitright               " Split vertical windows right to the current windows
-set splitbelow               " Split horizontal windows below to the current windows
 set autowrite                " Automatically save before :next, :make etc.
-set hidden
+set completeopt=menu,menuone " Autocompletion using pop up menu
 set fileformats=unix,dos,mac " Prefer Unix over Windows over OS 9 formats
+set hidden                   " Allow hidden buffers
+set lazyredraw               " Wait to redraw
+set matchpairs+=<:>          " Match angle brackets
+set nobackup                 " Don't create annoying backup files
+set nocursorcolumn           " Don't highlight cursor column
+set nocursorline             " Don't highlight cursor line
+set noerrorbells             " No beeps
 set noshowmatch              " Do not show matching brackets by flickering
-set nocursorcolumn
 set noshowmode               " We show the mode with airline or lightline
-set ignorecase               " Search case insensitive...
-set smartcase                " ... but not it begins with upper case
-set completeopt=menu,menuone
-set nocursorcolumn           " speed up syntax highlighting
-set nocursorline
-
+set noswapfile               " Don't use swapfile
+set nowrap                   " No soft wrapping
+set number                   " Show line numbers
 set pumheight=10             " Completion window max size
+set showcmd                  " Show me what I'm typing
+set splitbelow               " Split horizontal windows below to the current windows
+set splitright               " Split vertical windows right to the current windows
 
-set lazyredraw          " Wait to redraw
+set list                     " show special characters as defined in listchars
+set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
+
+set ignorecase               " Search case insensitive...
+set smartcase                " ... but not if it begins with upper case
 
 if has('persistent_undo')
   set undofile
@@ -119,24 +121,13 @@ endif
 
 set background=dark
 colorscheme solarized
+highlight ColorColumn ctermbg=52
+highlight clear SpellBad
+highlight SpellBad cterm=underline ctermfg=196
 
 " open help vertically
 command! -nargs=* -complete=help Help vertical belowright help <args>
 autocmd FileType help wincmd L
-
-autocmd BufNewFile,BufRead *.go setlocal noet ts=4 sw=4 sts=4
-autocmd BufNewFile,BufRead *.ino setlocal noet ts=4 sw=4 sts=4
-autocmd BufNewFile,BufRead *.txt setlocal noet ts=4 sw=4
-autocmd BufNewFile,BufRead *.md setlocal noet ts=4 sw=4
-autocmd BufNewFile,BufRead *.vim setlocal expandtab shiftwidth=2 tabstop=2
-
-autocmd FileType json setlocal expandtab shiftwidth=2 tabstop=2
-autocmd FileType ruby setlocal expandtab shiftwidth=2 tabstop=2
-
-augroup filetypedetect
-  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
-  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
-augroup END
 
 "=====================================================
 "===================== MAPPINGS ======================
@@ -329,7 +320,7 @@ function! s:build_go_files()
   endif
 endfunction
 
-augroup go
+augroup vim-go-cmds
   autocmd!
 
   autocmd FileType go nmap <Leader>v <Plug>(go-def-vertical)
@@ -345,12 +336,11 @@ augroup go
   autocmd FileType go nmap <Leader>d <Plug>(go-doc)
   autocmd FileType go nmap <Leader>c <Plug>(go-coverage-toggle)
 
-  " I like these more!
   autocmd Filetype go command! -bang A call go#alternate#Switch(<bang>0, 'edit')
   autocmd Filetype go command! -bang AV call go#alternate#Switch(<bang>0, 'vsplit')
   autocmd Filetype go command! -bang AS call go#alternate#Switch(<bang>0, 'split')
   autocmd Filetype go command! -bang AT call go#alternate#Switch(<bang>0, 'tabe')
-augroup END
+augroup end
 
 " prependend
 function! s:CreateGoDocComment()
@@ -566,5 +556,60 @@ nmap <F12> :call <SID>StripTrailingWhitespaces()<CR>
 
 " disable visual isort mapping
 let g:vim_isort_map = ''
+
+"====================================================
+"==================== FILE TYPES ====================
+
+augroup filetypedetect
+  autocmd BufNewFile,BufRead .tmux.conf*,tmux.conf* setf tmux
+  autocmd BufNewFile,BufRead .nginx.conf*,nginx.conf* setf nginx
+  autocmd BufNewFile,BufRead *.go setf go
+augroup END
+
+augroup python-cmds
+  autocmd!
+  autocmd FileType python setlocal expandtab ts=4 sw=4 sts=4
+  autocmd FileType python setlocal textwidth=79 colorcolumn=+1
+  autocmd FileType python autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+augroup end
+
+augroup lua-cmds
+  autocmd!
+  autocmd FileType lua setlocal expandtab ts=4 sw=4 sts=4
+  autocmd FileType lua setlocal textwidth=79 colorcolumn=+1
+  autocmd FileType lua setlocal spell
+  autocmd FileType lua autocmd BufWritePre <buffer> :call <SID>StripTrailingWhitespaces()
+augroup end
+
+augroup markdown-cmds
+  autocmd!
+  autocmd FileType markdown setlocal wrap
+  autocmd FileType markdown setlocal nolist
+  autocmd FileType markdown setlocal linebreak
+  autocmd FileType markdown setlocal noexpandtab ts=4 sw=4 sts=4
+  autocmd FileType markdown setlocal textwidth=79 colorcolumn=+1
+  autocmd FileType markdown setlocal spell
+augroup end
+
+augroup go-cmds
+  autocmd!
+  autocmd FileType go setlocal nolist
+  autocmd FileType go setlocal noexpandtab ts=2 sw=2 sts=2
+  autocmd FileType go setlocal textwidth=89 colorcolumn=+1
+  autocmd FileType go setlocal spell
+augroup end
+
+augroup make-cmds
+  autocmd!
+  autocmd FileType make setlocal nolist
+  autocmd FileType make setlocal noexpandtab ts=4 sw=4 sts=4
+  autocmd FileType make setlocal spell
+augroup end
+
+"====================================================
+"===================== WORK ONLY ======================
+
+nnoremap <leader>u :!copyvm -s -n bbs1<CR>
+nnoremap <leader>U :!copyvm -s -n bbs2<CR>
 
 " vim: ts=2 sw=2 et
