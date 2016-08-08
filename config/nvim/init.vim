@@ -602,10 +602,4 @@ augroup make-cmds
   autocmd FileType make setlocal spell
 augroup end
 
-"====================================================
-"===================== WORK ONLY ======================
-
-nnoremap <leader>u :!copyvm -s -n bbs1<CR>
-nnoremap <leader>U :!copyvm -s -n bbs2<CR>
-
 " vim: ts=2 sw=2 et
