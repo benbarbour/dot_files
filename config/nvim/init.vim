@@ -210,10 +210,6 @@ nnoremap <F6> :setlocal spell! spell?<CR>
 nnoremap n nzzzv
 nnoremap N Nzzzv
 
-" Same when moving up and down
-noremap <C-d> <C-d>zz
-noremap <C-u> <C-u>zz
-
 " Remap H and L (top, bottom of screen to left and right end of line)
 nnoremap H ^
 nnoremap L $
