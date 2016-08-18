@@ -58,7 +58,7 @@ source $ZSH/oh-my-zsh.sh
 # export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games"
 export PATH="$PATH:$HOME/.bin"
 
-export GOPATH="$HOME/Code/go"
+export GOPATH=$(readlink -f "$HOME/Code/go")
 export PATH="$PATH:$GOPATH/bin:/usr/lib/go/bin"
 
 # export VIMRUNTIME="$HOME/src/neovim/runtime"
