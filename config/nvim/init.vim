@@ -119,11 +119,20 @@ if has('!nvim')
   let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 endif
 
+" set highlights and restore them after colorscheme is set
+function! s:sethighlights()
+  highlight ColorColumn ctermbg=52
+  highlight clear SpellBad
+  highlight SpellBad cterm=underline
+endfunction
+
+augroup highlights
+  autocmd!
+  autocmd ColorScheme * call s:sethighlights()
+augroup end
+
 set background=dark
 colorscheme solarized
-highlight ColorColumn ctermbg=52
-highlight clear SpellBad
-highlight SpellBad cterm=underline ctermfg=196
 
 " open help vertically
 command! -nargs=* -complete=help Help vertical belowright help <args>
@@ -137,8 +146,13 @@ autocmd FileType help wincmd L
 " i.e: <leader>w saves the current file
 let mapleader = ","
 
+" quickly close quickfix/location list window
+nnoremap <leader>x :lclose <bar> cclose<CR>
+
+"easily edit/source vim config
 nmap <leader>ev :vsplit $MYVIMRC<cr>
 nmap <leader>sv :source $MYVIMRC<cr>
+
 " Use ALT-d to drop to null register
 nmap <A-d> "_d
 "-X drops to null register
@@ -186,9 +200,9 @@ if has('nvim')
   tnoremap <C-l> <C-\><C-n><C-w>l
 
   " Open terminal in vertical, horizontal and new tab
-  nnoremap <leader>tv :vsplit term://zsh<CR>
-  nnoremap <leader>ts :split term://zsh<CR>
-  nnoremap <leader>tt :tabnew term://zsh<CR>
+  nnoremap <leader>Tv :vsplit term://zsh<CR>
+  nnoremap <leader>Ts :split term://zsh<CR>
+  nnoremap <leader>Tt :tabnew term://zsh<CR>
 
   " always start terminal in insert mode
   autocmd BufWinEnter,WinEnter term://* startinsert
