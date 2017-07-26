@@ -51,17 +51,10 @@ class Window(object):
             subprocess.call(['tmux', 'select-layout', self._layout])
 
 SESSIONS = {
-    'wt': '-w client_server -p /home/bbarbour/Work/achilles/achilles-engine -np',
-    'wt-delphi': '-w code -p /home/bbarbour/Work/delphi -np',
-    'wt-delphi-dj': '-p /home/bbarbour/Work/delphi -n django-delphi',
+    'wt': '-w client_server -p /Users/212413468/Work/achilles/achilles-engine -np',
 }
 
 WINDOW_SETS = {
-    'ftnt': [
-        Window("FortiGate", panes=2, layout='even-horizontal'),
-        Window("Terminal"),
-        Window("Code1"),
-    ],
     'code': [
         Window("Code"),
         Window("Shell"),
