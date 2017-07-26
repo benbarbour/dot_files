@@ -5,15 +5,6 @@
 	ui = true
 [color "diff"]
 	whitespace = red reverse
-[diff]
-	tool = p4merge
-[difftool]
-	prompt = false
-[difftool "p4merge"]
-	cmd = p4merge "$LOCAL" "$REMOTE"
-	keepTemporaries = false
-	trustExitCode = false
-	keepBackup = false
 [alias]
 	stash-unapply = !git stash show -p | git apply -R
 	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
@@ -30,27 +21,45 @@
 	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
 	addnows = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"  # Stages all non-whitespace changes
 	pull = pull --ff-only
-[merge]
-	tool = p4mergetool
-	log = true
+	# Submit a patch to review as a draft and run the Jenkins builds.
+	rev-draft = review --draft --reviewers build --no-rebase
+	# Submit a patch to review as a draft and run the Jenkins extensive (extensive, data and data-secure) builds.
+	rev-draft-extensive = review --draft --reviewers build --topic=extensive-test --no-rebase
 [core]
 	mergeoptions = --no-commit
 	editor = nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
+	trustctime = false
 [push]
 	default = current
 [init]
 	templatedir = ~/.git_template
 [rerere]
 	enabled = true
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false
+[difftool "vimdiff"]
+	cmd = nvim -d "$LOCAL" "$REMOTE"
+[difftool "p4merge"]
+	cmd = p4merge "$LOCAL" "$REMOTE"
+	keepTemporaries = false
+	trustExitCode = false
+	keepBackup = false
+[merge]
+	tool = vimdiff
+	log = true
+[mergetool]
+	prompt = false
+	keepBackup = false
 [mergetool "p4mergetool"]
 	cmd = p4merge "$BASE" "$REMOTE" "$LOCAL" "$MERGED"
 	trustExitCode = false
 	keepTemporaries = false
 	keepBackup = false
-[mergetool]
-	prompt = false
-	keepBackup = false
+[mergetool "vimdiff"]
+	cmd = nvim -d "$BASE" "$LOCAL" "$REMOTE" "$MERGED" -c '$wincmd w' -c 'wincmd J'
 [color "diff-highlight"]
 	oldNormal = red bold
 	oldHighlight = red bold 52
@@ -58,3 +67,5 @@
 	newHighlight = green bold 22
 [diff-so-fancy]
 	markEmptyLines = false
+[credential]
+	helper = osxkeychain
