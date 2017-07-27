@@ -51,9 +51,12 @@ if ask "Install debian packages?" N; then
     tree \
     curl \
     python-pip python3-pip \
+    python3-venv \
     neovim \
     git \
     coreutils \
+    boxes \
+    figlet \
     ;
   echo -e "done installing debian packages\n\n"
 fi
