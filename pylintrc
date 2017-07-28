@@ -54,7 +54,7 @@ enable=I0021
 #   W0603: Use of global statement - not a great idea, but I'd only do it when really needed.
 #   W0702: Bare "except:" statements. Sometimes you gotta catch 'em all.
 #   W0703: Catch Exception. Sometimes you gotta catch 'em all.
-disable=C0111,C0302,C0321,F0401,I0011,R0201,R0904,R0915,W0142,W0232,W0511,W0603,W0702,W0703
+disable=C0111,C0302,C0321,F0401,I0011,R0201,R0904,R0915,W0142,W0232,W0511,W0603,W0702,W0703,old-style-class
 
 
 [REPORTS]
