@@ -76,6 +76,7 @@ if ask "Install pip packages?" N; then
 
   pip3 install \
     neovim \
+    neovim-remote \
     ;
   echo -e "done installing pip packages\n\n"
 fi
