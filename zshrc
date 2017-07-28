@@ -1,7 +1,7 @@
 # PATHS
 
 # Add my tools to path
-PATH="$HOME/.bin:$PATH"
+PATH="$HOME/.bin:$HOME/.local/bin:$PATH"
 export PATH
 
 # Path to your oh-my-zsh configuration.
