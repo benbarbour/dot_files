@@ -1,7 +1,5 @@
 #!/bin/zsh
 
-set -e
-
 which nvr > /dev/null
 HAS_NVR=$?
 
