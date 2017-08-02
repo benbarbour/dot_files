@@ -165,6 +165,7 @@ nmap <F12> :call StripTrailingWhitespaces()<CR>
 
 " ==================== vim-choosewin ======================
 nmap <C-W>c <Plug>(choosewin)
+tnoremap <C-w>c <C-\><C-n>:ChooseWin<CR>
 
 " ====================== Easy Align =======================
 nmap gA <Plug>(EasyAlign)
