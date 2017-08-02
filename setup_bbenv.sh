@@ -57,6 +57,7 @@ if ask "Install debian packages?" N; then
     coreutils \
     boxes \
     figlet \
+    silversearcher-ag \
     ;
   echo -e "done installing debian packages\n\n"
 fi

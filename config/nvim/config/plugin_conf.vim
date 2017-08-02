@@ -21,6 +21,7 @@ function! s:fzf_statusline()
   setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
 endfunction
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+let $FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'
 
 
 " ===================== Git Gutter =================
