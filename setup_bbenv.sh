@@ -76,6 +76,7 @@ if ask "Install pip packages?" N; then
     ;
 
   pip3 install \
+    pylint \
     neovim \
     neovim-remote \
     ;
