@@ -23,4 +23,8 @@ call <SID>SourceConf('types')
 " local file, which should be untracked by git.
 call <SID>SourceConf('local')
 
+" Use global python even if launched in venv
+let g:python_host_prog = '/usr/bin/python'
+let g:python3_host_prog = '/usr/bin/python3'
+
 " vim: ts=2 sw=2 et
