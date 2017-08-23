@@ -102,9 +102,9 @@ fi
 
 if ask "Install/update symlinks?" N; then
   me="$(basename $0)"
-  excluded=($me "README.md" ".gitignore" "config")
+  excluded=($me "README.md" ".gitignore" "config" "oh-my-zsh")
 
-  links=("config/nvim")
+  links=("config/nvim" "oh-my-zsh/custom")
   for f in *; do
     if ! elementIn $f "${excluded[@]}"; then
       links+=($f)
@@ -118,7 +118,10 @@ if ask "Install/update symlinks?" N; then
 
   if ask "Are you sure?" Y; then
     for link in ${links[*]}; do
-      ln -s -i "$(realpath $link)" "$HOME/.$link"
+      if [ -d "$HOME/.$link" ]; then
+        rm -r -f -I -v "$HOME/.$link"
+      fi
+      ln -n -s -f -T "$(realpath $link)" "$HOME/.$link"
     done
   fi
 
