@@ -30,6 +30,7 @@
 	editor = nvim
 	pager = diff-so-fancy | less --tabs=4 -RFX
 	trustctime = false
+	excludesfile = /home/ben/.gitignore_global
 [push]
 	default = current
 [init]
