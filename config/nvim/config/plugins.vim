@@ -13,7 +13,7 @@ Plug 'majutsushi/tagbar'               " display file outline in tagbar
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'qpkorr/vim-bufkill'              " add uppercase BD and BW commands that don't mess up splits
-Plug 't9md/vim-choosewin', { 'commit': '7795149689f4793439eb2c402e0c74d172311a6f' }              " tmux-like window chooser
+Plug 't9md/vim-choosewin'              " tmux-like window chooser
 Plug 'tpope/vim-abolish'               " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'          " Press ga on a character to view encodings
 Plug 'tpope/vim-commentary'
