@@ -45,10 +45,10 @@ prompt_retval() {
   prompt_item "%(?..[↵%?])" red
 }
 
-ZSH_THEME_GIT_PROMPT_PREFIX="git:"
-ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_PREFIX="‹git:"
+ZSH_THEME_GIT_PROMPT_SUFFIX="›"
 prompt_git() {
-  prompt_item "‹$(git_prompt_info)›" yellow
+  prompt_item "$(git_prompt_info)" yellow
 }
 
 build_prompt() {
