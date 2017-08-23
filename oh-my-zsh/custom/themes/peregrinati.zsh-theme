@@ -52,7 +52,7 @@ prompt_git() {
 }
 
 build_prompt() {
-  echo -e -n "╭─"
+  echo -e -n "\n╭─"
   prompt_user_host
   prompt_cur_dir
   prompt_py_venv
