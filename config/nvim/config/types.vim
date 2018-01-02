@@ -46,11 +46,17 @@ augroup make-cmds
   autocmd FileType make setlocal spell
 augroup end
 
+augroup cpp-cmds
+  autocmd!
+  autocmd FileType cpp,cc setlocal commentstring=//\ %s
+  autocmd FileType cpp,cc let b:delimitMate_matchpairs = "(:),[:],{:}"
+augroup end
+
 autocmd BufNewFile,BufRead /**/COMMIT_EDITMSG setlocal spell
 
-" augroup fmt
-"   autocmd!
-"   autocmd BufWritePre *.c,*.h undojoin | Neoformat
-" augroup end
+augroup fmt
+  autocmd!
+  autocmd BufWritePre *.c,*.cc,*.cpp,*.h Neoformat
+augroup end
 
 " vim: ts=2 sw=2 et
