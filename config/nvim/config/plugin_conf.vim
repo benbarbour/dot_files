@@ -63,11 +63,13 @@ augroup end
 
 
 " ==================== vim-grepper ====================
-let g:grepper        = {}
+runtime plugin/grepper.vim    " initialize g:grepper with default values
 let g:grepper.tools  = ['git', 'ag', 'pt', 'grep']
 let g:grepper.open   = 1
 let g:grepper.jump   = 0
 let g:grepper.switch = 1
+let g:grepper.prompt_quote = 1
+let g:grepper.dir = 'repo,cwd'
 
 
 " ==================== delimitMate ====================
