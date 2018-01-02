@@ -177,4 +177,16 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " disable visual isort mapping
 let g:vim_isort_map = ''
 
+" =================== neoformat ====================
+let g:neoformat_cpp_clangformat = {
+            \ 'exe': 'clang-format',
+            \ 'args': ['-style=file', '-assume-filename=' . getcwd() . '/.clang-format'],
+            \ 'stdin': 1,
+            \ }
+let g:neoformat_c_clangformat = {
+            \ 'exe': 'clang-format',
+            \ 'args': ['-style=file', '-assume-filename=' . getcwd() . '/.clang-format'],
+            \ 'stdin': 1,
+            \ }
+
 " vim: ts=2 sw=2 et
