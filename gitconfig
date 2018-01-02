@@ -25,6 +25,7 @@
 	rev-draft = review --draft --reviewers build --no-rebase
 	# Submit a patch to review as a draft and run the Jenkins extensive (extensive, data and data-secure) builds.
 	rev-draft-extensive = review --draft --reviewers build --topic=extensive-test --no-rebase
+	ignored = ls-files --others -i --exclude-standard
 [core]
 	mergeoptions = --no-commit
 	editor = nvim
