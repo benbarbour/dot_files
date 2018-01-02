@@ -79,6 +79,7 @@ if ask "Install pip packages?" N; then
     pylint \
     neovim \
     neovim-remote \
+    psutil \
     ;
   echo -e "done installing pip packages\n\n"
 fi
