@@ -25,6 +25,7 @@ Plug 'tpope/vim-unimpaired'            " short normal mode aliases for commonly 
 Plug 'tpope/vim-sleuth'                " autmatically detect indent settings
 Plug 'severin-lemaignan/vim-minimap'
 Plug 'unblevable/quick-scope'
+Plug 'godlygeek/tabular'
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }  " fuzzy finder
 Plug 'junegunn/fzf.vim'                                             " fuzzy finder vim settings
