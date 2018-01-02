@@ -90,6 +90,8 @@ if has('nvim')
   let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
   let g:deoplete#sources#go#align_class = 1
 
+  let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+
   " Use partial fuzzy matches like YouCompleteMe
   call deoplete#custom#set('_', 'matchers', ['matcher_fuzzy'])
   call deoplete#custom#set('_', 'converters', ['converter_remove_paren'])
