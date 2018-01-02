@@ -70,17 +70,14 @@ if has('nvim')
   tnoremap <C-w>w <C-\><C-n><C-w>w
 
   " Open terminal in vertical, horizontal and new tab
-  nnoremap <leader>Tb :e term://zsh<CR>
-  tnoremap <leader>Tb <C-\><C-n>:e term://zsh<CR>
-  nnoremap <leader>Tv :vsplit term://zsh<CR>
-  tnoremap <leader>Tv <C-\><C-n>:vsplit term://zsh<CR>
-  nnoremap <leader>Ts :split term://zsh<CR>
-  tnoremap <leader>Ts <C-\><C-n>:split term://zsh<CR>
-  nnoremap <leader>Tt :tabnew term://zsh<CR>
-  tnoremap <leader>Tt <C-\><C-n>:tabnew term://zsh<CR>
-
-  " always start terminal in insert mode
-  autocmd BufWinEnter,WinEnter term://* startinsert
+  nnoremap <leader>Tb :e term://zsh<CR>i
+  tnoremap <leader>Tb <C-\><C-n>:e term://zsh<CR>i
+  nnoremap <leader>Tv :vsplit term://zsh<CR>i
+  tnoremap <leader>Tv <C-\><C-n>:vsplit term://zsh<CR>i
+  nnoremap <leader>Ts :split term://zsh<CR>i
+  tnoremap <leader>Ts <C-\><C-n>:split term://zsh<CR>i
+  nnoremap <leader>Tt :tabnew term://zsh<CR>i
+  tnoremap <leader>Tt <C-\><C-n>:tabnew term://zsh<CR>i
 
   " turn off line numbering
   autocmd BufWinEnter,WinEnter term://* set nonumber
