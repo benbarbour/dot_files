@@ -17,7 +17,7 @@ Install
 -------
 Next, clone this repo into ~/.bbenv (or wherever you want)
 
-To make your OS X environment exactly like mine you can run
+To make your Ubuntu/Debian environment exactly like mine you can run
 `cd ~/.bbenv && setup_bbenv.sh`.
 
 
