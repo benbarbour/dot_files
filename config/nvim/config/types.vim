@@ -9,7 +9,6 @@ augroup python-cmds
   autocmd FileType python setlocal expandtab ts=4 sw=4 sts=4
   autocmd FileType python setlocal textwidth=79 colorcolumn=+1
   autocmd FileType python autocmd BufWritePre <buffer> :call StripTrailingWhitespaces()
-  autocmd FileType python autocmd BufWritePost * Neomake
   autocmd FileType python :iabbrev <buffer> pdb import pdb; pdb.set_trace()
 augroup end
 
