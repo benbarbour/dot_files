@@ -111,12 +111,12 @@ else
   call neocomplete#custom#source('_', 'sorters', [])
 endif
 
-" ===================== Neomake =====================
-augroup my_error_signs
-au!
-augroup END
 
-let g:neomake_javascript_enabled_makers = ['eslint']
+
+" ======================= ALE =======================
+let g:ale_linters = {'c': [], 'cpp': []}
+
+
 
 " ==================== UltiSnips ====================
 function! g:UltiSnips_Complete()

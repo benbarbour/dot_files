@@ -31,7 +31,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }  " fuzzy find
 Plug 'junegunn/fzf.vim'                                             " fuzzy finder vim settings
 
 Plug 'sbdchd/neoformat'
-Plug 'neomake/neomake'
+Plug 'w0rp/ale'
 
 if has('nvim')
   function! DoRemote(arg)
