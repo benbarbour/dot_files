@@ -116,6 +116,8 @@ augroup my_error_signs
 au!
 augroup END
 
+let g:neomake_javascript_enabled_makers = ['eslint']
+
 " ==================== UltiSnips ====================
 function! g:UltiSnips_Complete()
   call UltiSnips#ExpandSnippet()
