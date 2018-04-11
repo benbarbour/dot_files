@@ -62,7 +62,7 @@ source $ZSH/oh-my-zsh.sh
 
 setopt histignoredups
 setopt no_share_history
-setopt HIST_IGNORE_DUPS
+setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_SPACE
 setopt prompt_subst
