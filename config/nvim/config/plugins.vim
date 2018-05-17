@@ -26,6 +26,7 @@ Plug 'tpope/vim-sleuth'                " autmatically detect indent settings
 Plug 'severin-lemaignan/vim-minimap'
 Plug 'unblevable/quick-scope'
 Plug 'godlygeek/tabular'
+Plug 'pangloss/vim-javascript'         " up-to-date javascript syntax highlighting
 
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }  " fuzzy finder
 Plug 'junegunn/fzf.vim'                                             " fuzzy finder vim settings
