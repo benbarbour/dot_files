@@ -3,14 +3,8 @@
 let mapleader = ","
 
 " vim-unimpaired like tab navigation
-nmap [t :tabprev<CR>
-nmap ]t :tabnext<CR>
-
-" vim-unimpaired mappings in terminal mode
-tmap [b <C-\><C-n>:bprev<CR>
-tmap ]b <C-\><C-n>:bnext<CR>
-tmap [t <C-\><C-n>:tabprev<CR>
-tmap ]t <C-\><C-n>:tabnext<CR>
+nnoremap [t :tabprev<CR>
+nnoremap ]t :tabnext<CR>
 
 " quickly open quickfix/location list window
 nnoremap <leader>L :lopen<CR>
