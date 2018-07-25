@@ -53,7 +53,7 @@ if has('nvim')
   " <leader>-q to exit terminal mode.
   tnoremap <leader>q <C-\><C-n>
 
-  " mappings to move out from terminal to other views
+  " mappings to move focus other windows
   tnoremap <C-w>h <C-\><C-n><C-w>h
   tnoremap <C-w>j <C-\><C-n><C-w>j
   tnoremap <C-w>k <C-\><C-n><C-w>k
@@ -62,6 +62,13 @@ if has('nvim')
   tnoremap <C-w>v <C-\><C-n><C-w>v
   tnoremap <C-w>o <C-\><C-n><C-w>o
   tnoremap <C-w>w <C-\><C-n><C-w>w
+
+  " mappings to arrange windows
+  tnoremap <C-w>H <C-\><C-n><C-w>H
+  tnoremap <C-w>J <C-\><C-n><C-w>J
+  tnoremap <C-w>K <C-\><C-n><C-w>K
+  tnoremap <C-w>L <C-\><C-n><C-w>L
+  tnoremap <C-w>= <C-\><C-n><C-w>=
 
   " Open terminal in vertical, horizontal and new tab
   nnoremap <leader>Tb :e term://zsh<CR>i
@@ -72,6 +79,13 @@ if has('nvim')
   tnoremap <leader>Ts <C-\><C-n>:split term://zsh<CR>i
   nnoremap <leader>Tt :tabnew term://zsh<CR>i
   tnoremap <leader>Tt <C-\><C-n>:tabnew term://zsh<CR>i
+
+  " vim-unimpaired mappings in terminal mode
+  tmap [b <C-\><C-n>:bprev<CR>
+  tmap ]b <C-\><C-n>:bnext<CR>
+  tmap [t <C-\><C-n>:tabprev<CR>
+  tmap ]t <C-\><C-n>:tabnext<CR>
+
 
   " turn off line numbering
   autocmd BufWinEnter,WinEnter term://* set nonumber
