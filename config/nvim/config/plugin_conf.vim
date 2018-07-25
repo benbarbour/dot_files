@@ -114,7 +114,19 @@ endif
 
 
 " ======================= ALE =======================
-let g:ale_linters = {'c': [], 'cpp': []}
+let g:ale_linters = {
+\   'c': [], 'cpp': [],
+\   'javascript': ['eslint', 'flow', 'jscs', 'jshint', 'xo'],
+\}
+
+let g:ale_fixers = {
+\   'javascript': [
+\      'remove_trailing_lines',
+\      'importjs', 'eslint',
+\      'prettier', 'prettier_eslint',
+\   ],
+\}
+
 
 
 
