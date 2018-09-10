@@ -46,7 +46,7 @@ else
   Plug 'tpope/vim-sensible'
 endif
 
-Plug 'romainl/Apprentice'
+Plug 'altercation/vim-colors-solarized'
 
 " filetype plugins
 Plug 'vim-ruby/vim-ruby'

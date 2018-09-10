@@ -1,4 +1,5 @@
 let g:lightline = {
+      \ 'colorscheme': 'solarized',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste'],
       \             [ 'fugitive', 'filename', 'modified' ],
@@ -9,6 +10,7 @@ let g:lightline = {
       \ },
       \ 'inactive': {
       \   'left': [ [ 'filename' ], [ 'go' ] ],
+      \   'right': [ [] ],
       \ },
       \ 'component_function': {
       \   'lineinfo': 'LightLineInfo',
@@ -89,6 +91,9 @@ function! LightLineReadonly()
   return &ft !~? 'help' && &readonly ? 'RO' : ''
 endfunction
 
+let s:palette = g:lightline#colorscheme#{g:lightline.colorscheme}#palette
+let s:palette.inactive.left = [ [ '#002b36', '#586e75', 'NONE', 'NONE' ] ]
+let s:palette.inactive.middle = [ [ '#586e75', '#586e75', 'NONE', 'NONE' ] ]
+
 " ==================== vim-json ====================
 let g:vim_json_syntax_conceal = 0
-
