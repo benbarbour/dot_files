@@ -24,7 +24,7 @@ prompt_sep() {
 }
 
 prompt_user_host() {
-  local color='green'
+  local color='yellow'
   if [[ $UID -eq 0 ]]; then
     color='red'
   fi
@@ -32,7 +32,7 @@ prompt_user_host() {
 }
 
 prompt_cur_dir() {
-  prompt_item "%{$terminfo[bold]%}%~" blue
+  prompt_item "%{$terminfo[bold]%}%~" green
 }
 
 prompt_py_venv() {
@@ -48,7 +48,7 @@ prompt_retval() {
 ZSH_THEME_GIT_PROMPT_PREFIX="‹git:"
 ZSH_THEME_GIT_PROMPT_SUFFIX="›"
 prompt_git() {
-  prompt_item "$(git_prompt_info)" yellow
+  prompt_item "$(git_prompt_info)" cyan
 }
 
 build_prompt() {
