@@ -82,34 +82,18 @@ let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
 
 " ==================== Completion =========================
-" I use deoplete for Neovim and neocomplete for Vim.
-if has('nvim')
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#ignore_sources = {}
-  let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
-  let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
-  let g:deoplete#sources#go#align_class = 1
+let g:deoplete#enable_at_startup = 1
+let g:deoplete#ignore_sources = {}
+let g:deoplete#ignore_sources._ = ['buffer', 'member', 'tag', 'file', 'neosnippet']
+let g:deoplete#sources#go#sort_class = ['func', 'type', 'var', 'const']
+let g:deoplete#sources#go#align_class = 1
 
-  let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
+let g:deoplete#sources#go#gocode_binary = $GOPATH.'/bin/gocode'
 
-  " Use partial fuzzy matches like YouCompleteMe
-  call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
-  call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
-  call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
-else
-  let g:neocomplete#enable_at_startup = 1
-  let g:neocomplete#enable_smart_case = 1
-  let g:neocomplete#sources#syntax#min_keyword_length = 3
-
-  if !exists('g:neocomplete#sources')
-    let g:neocomplete#sources = {}
-  endif
-  let g:neocomplete#sources._ = ['buffer', 'member', 'tag', 'file', 'dictionary']
-  let g:neocomplete#sources.go = ['omni']
-
-  " disable sorting
-  call neocomplete#custom#source('_', 'sorters', [])
-endif
+" Use partial fuzzy matches like YouCompleteMe
+call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
+call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
+call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 
 
 

@@ -1,5 +1,9 @@
 call plug#begin('~/.config/nvim/plugged')
 
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
+
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Raimondi/delimitMate'            " auto insertion of closing tokens like parens and quotes.
 Plug 'SirVer/ultisnips'
@@ -34,17 +38,9 @@ Plug 'junegunn/fzf.vim'                                             " fuzzy find
 Plug 'sbdchd/neoformat'
 Plug 'w0rp/ale'
 
-if has('nvim')
-  function! DoRemote(arg)
-    UpdateRemotePlugins
-  endfunction
-  Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-  Plug 'zchee/deoplete-go', { 'do': 'make'}
-  Plug 'zchee/deoplete-jedi'
-else
-  Plug 'Shougo/neocomplete.vim'
-  Plug 'tpope/vim-sensible'
-endif
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
+Plug 'zchee/deoplete-go', { 'do': 'make'}
+Plug 'zchee/deoplete-jedi'
 
 Plug 'altercation/vim-colors-solarized'
 
