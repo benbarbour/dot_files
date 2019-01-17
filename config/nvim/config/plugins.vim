@@ -49,12 +49,7 @@ endif
 Plug 'altercation/vim-colors-solarized'
 
 " filetype plugins
-Plug 'vim-ruby/vim-ruby'
-Plug 'elzr/vim-json', {'for' : 'json'}
-Plug 'ekalinin/Dockerfile.vim', {'for' : 'Dockerfile'}
-Plug 'fatih/vim-nginx' , {'for' : 'nginx'}
-Plug 'corylanou/vim-present', {'for' : 'present'}
-Plug 'lepture/vim-jinja'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
