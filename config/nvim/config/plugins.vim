@@ -1,12 +1,7 @@
 call plug#begin('~/.config/nvim/plugged')
 
-function! DoRemote(arg)
-  UpdateRemotePlugins
-endfunction
-
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Raimondi/delimitMate'            " auto insertion of closing tokens like parens and quotes.
-Plug 'SirVer/ultisnips'
 Plug 'airblade/vim-gitgutter'
 Plug 'fatih/vim-go'                    " utilities for the go programming language
 Plug 'fisadev/vim-isort'
@@ -27,7 +22,6 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'                 " back Tmux commanys (:Tyank, :Tput)
 Plug 'tpope/vim-unimpaired'            " short normal mode aliases for commonly used ex commands
 Plug 'tpope/vim-sleuth'                " autmatically detect indent settings
-Plug 'severin-lemaignan/vim-minimap'
 Plug 'unblevable/quick-scope'
 Plug 'godlygeek/tabular'
 Plug 'pangloss/vim-javascript'         " up-to-date javascript syntax highlighting
@@ -35,12 +29,7 @@ Plug 'pangloss/vim-javascript'         " up-to-date javascript syntax highlighti
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': 'yes \| ./install' }  " fuzzy finder
 Plug 'junegunn/fzf.vim'                                             " fuzzy finder vim settings
 
-Plug 'sbdchd/neoformat'
-Plug 'w0rp/ale'
-
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') }
-Plug 'zchee/deoplete-go', { 'do': 'make'}
-Plug 'zchee/deoplete-jedi'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 
 Plug 'altercation/vim-colors-solarized'
 

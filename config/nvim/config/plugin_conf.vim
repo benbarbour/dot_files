@@ -80,7 +80,6 @@ let g:delimitMate_expand_inside_quotes = 0
 let g:delimitMate_smart_matchpairs = '^\%(\w\|\$\)'
 
 
-
 " ==================== Completion =========================
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#ignore_sources = {}
@@ -95,61 +94,6 @@ call deoplete#custom#source('_', 'matchers', ['matcher_fuzzy'])
 call deoplete#custom#source('_', 'converters', ['converter_remove_paren'])
 call deoplete#custom#source('_', 'disabled_syntaxes', ['Comment', 'String'])
 
-
-
-" ======================= ALE =======================
-let g:ale_linters = {
-\   'c': [], 'cpp': [],
-\   'javascript': ['eslint', 'flow', 'jscs', 'jshint', 'xo'],
-\}
-
-let g:ale_fixers = {
-\   'javascript': [
-\      'remove_trailing_lines',
-\      'importjs', 'eslint',
-\      'prettier', 'prettier_eslint',
-\   ],
-\}
-
-
-
-
-" ==================== UltiSnips ====================
-function! g:UltiSnips_Complete()
-  call UltiSnips#ExpandSnippet()
-  if g:ulti_expand_res == 0
-    if pumvisible()
-      return "\<C-n>"
-    else
-      call UltiSnips#JumpForwards()
-      if g:ulti_jump_forwards_res == 0
-        return "\<TAB>"
-      endif
-    endif
-  endif
-  return ""
-endfunction
-
-function! g:UltiSnips_Reverse()
-  call UltiSnips#JumpBackwards()
-  if g:ulti_jump_backwards_res == 0
-    return "\<C-P>"
-  endif
-
-  return ""
-endfunction
-
-
-if !exists("g:UltiSnipsJumpForwardTrigger")
-  let g:UltiSnipsJumpForwardTrigger = "<tab>"
-endif
-
-if !exists("g:UltiSnipsJumpBackwardTrigger")
-  let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
-endif
-
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
-au InsertEnter * exec "inoremap <silent> " . g:UltiSnipsJumpBackwardTrigger . " <C-R>=g:UltiSnips_Reverse()<cr>"
 
 " ==================== vim-choosewin ======================
 let g:choosewin_keymap = {
@@ -167,24 +111,15 @@ let g:choosewin_keymap = {
 let g:choosewin_label = '1234567890'
 let g:choosewin_tablabel = 'ABCDEFGHIJKLMNOPQRTUVWYZ'
 
+
 " ================== Quick Scope ===================
 " Trigger a highlight in the appropriate direction when pressing these keys:
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+
 
 " =================== vim-isort ====================
 " disable visual isort mapping
 let g:vim_isort_map = ''
 
-" =================== neoformat ====================
-let g:neoformat_cpp_clangformat = {
-            \ 'exe': 'clang-format',
-            \ 'args': ['-style=file', '-assume-filename=' . getcwd() . '/.clang-format'],
-            \ 'stdin': 1,
-            \ }
-let g:neoformat_c_clangformat = {
-            \ 'exe': 'clang-format',
-            \ 'args': ['-style=file', '-assume-filename=' . getcwd() . '/.clang-format'],
-            \ 'stdin': 1,
-            \ }
 
 " vim: ts=2 sw=2 et
