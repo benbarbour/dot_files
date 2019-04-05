@@ -9,6 +9,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'
 Plug 'altercation/vim-colors-solarized' " colorscheme
+Plug 'brodie/cram', {'do': 'mkdir -p syntax; cp -f contrib/*.vim syntax/'}
 Plug 'fatih/vim-go'                     " utilities for the go programming language
 Plug 'fisadev/vim-isort'
 Plug 'godlygeek/tabular'
