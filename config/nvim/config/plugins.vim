@@ -7,9 +7,7 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'Raimondi/delimitMate'             " auto insertion of closing tokens like parens and quotes.
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
-Plug 'altercation/vim-colors-solarized'
 Plug 'altercation/vim-colors-solarized' " colorscheme
-Plug 'brodie/cram', {'do': 'mkdir -p syntax; cp -f contrib/*.vim syntax/'}
 Plug 'fatih/vim-go'                     " utilities for the go programming language
 Plug 'fisadev/vim-isort'
 Plug 'godlygeek/tabular'
@@ -23,7 +21,7 @@ Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
 Plug 'pangloss/vim-javascript'          " up-to-date javascript syntax highlighting
 Plug 'qpkorr/vim-bufkill'               " add uppercase BD and BW commands that don't mess up splits
-Plug 'sheerun/vim-polyglot'             " filetype plugins
+Plug 'sbdchd/neoformat'
 Plug 't9md/vim-choosewin'               " tmux-like window chooser
 Plug 'tpope/vim-abolish'                " Case-matching substitution, abbreviation, and coercion
 Plug 'tpope/vim-characterize'           " Press ga on a character to view encodings
@@ -35,9 +33,11 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-tbone'                  " back Tmux commanys (:Tyank, :Tput)
 Plug 'tpope/vim-unimpaired'             " short normal mode aliases for commonly used ex commands
 Plug 'unblevable/quick-scope'
+Plug 'w0rp/ale'
 
 " filetype plugins
 Plug 'sheerun/vim-polyglot'
+Plug 'brodie/cram', {'do': 'mkdir -p syntax; cp -f contrib/*.vim syntax/'}
 
 call plug#end()
 
