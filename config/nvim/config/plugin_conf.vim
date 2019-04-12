@@ -121,5 +121,15 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 " disable visual isort mapping
 let g:vim_isort_map = ''
 
+" =================== ALE ====================
+let g:ale_set_loclist = 0
+let g:ale_set_quickfix = 1
+let g:ale_linters = {
+\  'javascript': ['eslint'],
+\}
+let g:ale_fixers = {
+\  'javascript': ['eslint'],
+\}
+let g:ale_fix_on_save = 1
 
 " vim: ts=2 sw=2 et
