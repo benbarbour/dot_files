@@ -122,8 +122,8 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:vim_isort_map = ''
 
 " =================== ALE ====================
-let g:ale_set_loclist = 0
-let g:ale_set_quickfix = 1
+let g:ale_set_loclist = 1
+let g:ale_set_quickfix = 0
 let g:ale_linters = {
 \  'javascript': ['eslint'],
 \}
