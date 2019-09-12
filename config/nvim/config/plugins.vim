@@ -8,7 +8,7 @@ Plug 'Raimondi/delimitMate'                                         " auto inser
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'airblade/vim-gitgutter'
 Plug 'altercation/vim-colors-solarized'                             " colorscheme
-Plug 'fatih/vim-go'                                                 " utilities for the go programming language
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }                  " utilities for the go programming language
 Plug 'fisadev/vim-isort'
 Plug 'godlygeek/tabular'
 Plug 'hynek/vim-python-pep8-indent'
