@@ -19,7 +19,7 @@
 	whatadded = log --diff-filter=A  # Takes a file as a parameter, returns the commit that added that file
 	cleanup = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
 	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
-	addnows = "!sh -c 'git diff -w --no-color "$@" | git apply --cached --ignore-whitespace' -"  # Stages all non-whitespace changes
+	addnows = !sh -c 'git diff -U0 -w --no-color "$@" | git apply --cached --ignore-whitespace --unidiff-zero -'  # Stages all non-whitespace changes
 	pull = pull --ff-only
 	# Submit a patch to review as a draft and run the Jenkins builds.
 	rev-draft = review --draft --reviewers build --no-rebase
