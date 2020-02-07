@@ -19,7 +19,6 @@ Plug 'junegunn/vim-easy-align'                                      " align text
 Plug 'majutsushi/tagbar'                                            " display file outline in tagbar
 Plug 'mbbill/undotree'
 Plug 'mhinz/vim-grepper'
-Plug 'pangloss/vim-javascript'                                      " up-to-date javascript syntax highlighting
 Plug 'qpkorr/vim-bufkill'                                           " add uppercase BD and BW commands that don't mess up splits
 Plug 'sbdchd/neoformat'
 Plug 't9md/vim-choosewin'                                           " tmux-like window chooser
