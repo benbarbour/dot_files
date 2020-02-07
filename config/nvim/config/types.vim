@@ -58,4 +58,9 @@ augroup fmt
   " autocmd BufWritePre *.c,*.cc,*.cpp,*.h Neoformat
 augroup end
 
+augroup javascript
+    au!
+    au FileType javascript setlocal foldmethod=syntax
+augroup END
+
 " vim: ts=2 sw=2 et

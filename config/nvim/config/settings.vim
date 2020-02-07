@@ -46,6 +46,7 @@ set pumheight=10             " Completion window max size
 set showcmd                  " Show me what I'm typing
 set splitbelow               " Split horizontal windows below to the current windows
 set splitright               " Split vertical windows right to the current windows
+set foldlevelstart=99        " Open new buffers with all folds open
 
 set list                     " show special characters as defined in listchars
 set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
