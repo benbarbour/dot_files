@@ -171,8 +171,8 @@ tnoremap <leader>B <C-\><C-n>:Buffers<CR>
 " ===================== Git Gutter ========================
 nmap <Leader>hs <Plug>GitGutterStageHunk
 nmap <Leader>hr <Plug>GitGutterRevertHunk
-nmap ]h <Plug>GitGutterNextHunk
-nmap [h <Plug>GitGutterPrevHunk
+nmap ]h <Plug>(GitGutterNextHunk)
+nmap [h <Plug>(GitGutterPrevHunk)
 
 " ======================== vim-go =========================
 augroup vim-go-cmds
