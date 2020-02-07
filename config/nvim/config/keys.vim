@@ -184,7 +184,6 @@ augroup vim-go-cmds
   autocmd FileType go nmap <Leader>i <Plug>(go-info)
   autocmd FileType go nmap <Leader>l <Plug>(go-metalinter)
 
-  autocmd FileType go nmap <leader>m :<C-u>call <SID>build_go_files()<CR>
   autocmd FileType go nmap <leader>t  <Plug>(go-test)
   autocmd FileType go nmap <leader>r  <Plug>(go-run)
 
