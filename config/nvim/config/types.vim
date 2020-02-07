@@ -55,7 +55,7 @@ autocmd BufNewFile,BufRead /**/COMMIT_EDITMSG setlocal spell
 
 augroup fmt
   autocmd!
-  " autocmd BufWritePre *.c,*.cc,*.cpp,*.h Neoformat
+  autocmd BufWritePre *.c,*.cc,*.cpp,*.h Neoformat
 augroup end
 
 augroup javascript
