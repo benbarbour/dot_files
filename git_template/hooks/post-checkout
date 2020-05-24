@@ -1,3 +1,0 @@
-#!/bin/sh
-cwd=`dirname $0`
-$cwd/cleanpyc > /dev/null 2>&1 &
