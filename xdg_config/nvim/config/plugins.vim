@@ -1,5 +1,6 @@
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'ntpeters/vim-better-whitespace'
@@ -7,6 +8,12 @@ Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-unimpaired'
 
 call plug#end()
+
+" ----------------------------------------------------------------------------
+" Shougo/deoplete.nvim
+" ----------------------------------------------------------------------------
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " ----------------------------------------------------------------------------
 " lotabout/skim
