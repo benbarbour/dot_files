@@ -22,7 +22,7 @@ set splitbelow               " Split horizontal windows below to the current win
 set splitright               " Split vertical windows right to the current windows
 
 set list                     " show special characters as defined in listchars
-set listchars=tab:↦\ ,trail:·,extends:…,precedes:…,nbsp:¤
+set listchars=tab:↦\ ,extends:…,precedes:…,nbsp:¤
 
 set ignorecase               " Search case insensitive...
 set smartcase                " ... but not if it begins with upper case
