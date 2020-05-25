@@ -3,6 +3,7 @@ call plug#begin(stdpath('data') . '/plugged')
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'tpope/vim-unimpaired'
 
 call plug#end()
 
