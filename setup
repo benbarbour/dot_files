@@ -18,3 +18,10 @@ sudo apt-get -y install \
     grep \
     zip unzip \
     ;
+
+
+# =============================================================================
+# setup XDG_CONFIG_HOME
+# =============================================================================
+mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
+ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
