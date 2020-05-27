@@ -2,7 +2,7 @@
 
 set -e
 
-BBENV="$( cd "$( dirname "$0" )" && pwd )"
+export BBENV="$( cd "$( dirname "$0" )" && pwd )"
 
 sudo apt-get -y update
 
@@ -17,6 +17,7 @@ sudo apt-get -y install \
     git \
     grep \
     zip unzip \
+    zsh \
     ;
 
 
@@ -25,3 +26,31 @@ sudo apt-get -y install \
 # =============================================================================
 mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
 ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
+
+
+# =============================================================================
+# setup zsh
+# =============================================================================
+sudo chsh -s "$(which zsh)" "$USER"
+
+CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+touch "$CONF_DIR/.zshrc.local"
+ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
+
+PLUGIN_DIR="$CONF_DIR/plugins"
+curl --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
+    https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+
+if [ -d "$HOME/src/powerlevel10k" ]; then
+    git --git-dir="$HOME/src/powerlevel10k/.git" pull
+elif [ ! -d "$HOME/src/powerlevel10k" ]; then
+    mkdir -p ~/src
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
+fi
+
+ln -sf "$BBENV/.p10k.zsh" "$HOME/.p10k.zsh"
+
+
+# =============================================================================
+# install other components using zsh so that they have paths from .zshenv
+# =============================================================================
