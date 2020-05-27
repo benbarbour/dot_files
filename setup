@@ -1,0 +1,20 @@
+#!/bin/bash
+
+set -e
+
+BBENV="$( cd "$( dirname "$0" )" && pwd )"
+
+sudo apt-get -y update
+
+
+# =============================================================================
+# apt packages used by the rest of the script
+# =============================================================================
+sudo apt-get -y install \
+    build-essential \
+    coreutils \
+    curl \
+    git \
+    grep \
+    zip unzip \
+    ;
