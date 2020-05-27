@@ -1,0 +1,52 @@
+[alias]
+	cleanup = "!git branch --merged | grep -v '\\*' | xargs -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
+	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
+	co = checkout
+	d = diff
+	ds = diff --staged
+	graph = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cd) %C(bold blue)<%an>%Creset' --abbrev-commit --date=short
+	g = !git graph
+	graphall = !git graph --all
+	ga = !git graph --all
+	ignored = ls-files --others -i --exclude-standard
+	pull = pull --ff-only
+	s = status
+	whatadded = log --diff-filter=A  # Takes a file as a parameter, returns the commit that added that file
+[core]
+	mergeoptions = --no-commit
+	editor = nvim
+	pager = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -r
+	excludesfile = /home/ben/.gitignore_global
+[color]
+	ui = true
+[color "diff-highlight"]
+	oldNormal = red bold
+	oldHighlight = red bold 52
+	newNormal = green bold
+	newHighlight = green bold 22
+[color "diff"]
+	meta = 11
+	frag = magenta bold
+	commit = yellow bold
+	old = red
+	new = green
+	whitespace = red reverse
+[rerere]
+	enabled = true
+[rebase]
+	autosquash = true
+[diff]
+	tool = vimdiff
+[difftool "vimdiff"]
+	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+[merge]
+	tool = vimdiff
+[mergetool "vimdiff"]
+	cmd = nvim -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c \"$wincmd w\" -c \"wincmd J\"
+[user]
+	name = Ben Barbour
+	email = ben.barbour@gmail.com
+[include]
+	path = config.local
+[push]
+	default = current
