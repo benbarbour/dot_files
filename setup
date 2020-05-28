@@ -61,6 +61,7 @@ if dpkg -s gnome-shell >/dev/null 2>&1; then
 fi
 zsh -e ./setup-git.zsh
 zsh -e ./setup-go.zsh
+zsh -e ./setup-rust.zsh
 
 # =============================================================================
 # run post-install configurations
