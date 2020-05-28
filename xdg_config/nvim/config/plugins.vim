@@ -5,6 +5,7 @@ Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'mhinz/vim-grepper'
 Plug 'ntpeters/vim-better-whitespace'
+Plug 'rbong/vim-crystalline'
 Plug 'rhysd/git-messenger.vim'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -43,6 +44,19 @@ tnoremap <leader>/ <C-\><C-n>:Grepper -nojump<CR>
 " ntpeters/vim-better-whitespace
 " ----------------------------------------------------------------------------
 nmap <F12> :StripWhitespace<CR>
+
+" ----------------------------------------------------------------------------
+" rbong/vim-crystalline
+" ----------------------------------------------------------------------------
+function! StatusLine(...)
+  return crystalline#mode() . crystalline#right_mode_sep('')
+        \ . ' %f%h%w%m%r ' . crystalline#right_sep('', 'Fill') . '%='
+        \ . crystalline#left_sep('', 'Fill') . ' %{&ft}[%{&fenc!=#""?&fenc:&enc}][%{&ff}] %l/%L %c%V %P '
+endfunction
+let g:crystalline_enable_sep = 1
+let g:crystalline_statusline_fn = 'StatusLine'
+let g:crystalline_theme = 'default'
+set laststatus=2
 
 " ----------------------------------------------------------------------------
 " rhysd/git-messenger.vim
