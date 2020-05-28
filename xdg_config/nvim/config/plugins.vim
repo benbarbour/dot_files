@@ -4,6 +4,7 @@ Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'mhinz/vim-grepper'
+Plug 'mhinz/vim-signify'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rbong/vim-crystalline'
 Plug 'rhysd/git-messenger.vim'
@@ -39,6 +40,15 @@ let g:grepper.dir = 'repo,cwd'
 nnoremap <leader>* :Grepper -cword -noprompt<cr>
 nnoremap <leader>/ :Grepper -nojump<CR>
 tnoremap <leader>/ <C-\><C-n>:Grepper -nojump<CR>
+
+" ----------------------------------------------------------------------------
+" mhinz/vim-signify
+" ----------------------------------------------------------------------------
+set updatetime=100
+highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
+highlight SignifySignAdd    ctermfg=22  guifg=#00ff00 cterm=NONE gui=NONE
+highlight SignifySignDelete ctermfg=red guifg=#ff0000 cterm=NONE gui=NONE
+highlight SignifySignChange ctermfg=220 guifg=#ffff00 cterm=NONE gui=NONE
 
 " ----------------------------------------------------------------------------
 " ntpeters/vim-better-whitespace
