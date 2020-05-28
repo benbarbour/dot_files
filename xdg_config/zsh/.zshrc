@@ -38,4 +38,7 @@ export SKIM_DEFAULT_COMMAND='fd --type f'
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
+export VISUAL=nvim
+export EDITOR=nvim
+
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
