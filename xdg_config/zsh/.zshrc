@@ -27,7 +27,12 @@ done
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 
-alias ls="ls --group-directories-first"
-alias ll="ls -l"
+alias cat='bat'
+alias fd='fd --follow'
+alias ll='ls -l'
+alias ls='exa --icons --group-directories-first'
+alias tree='exa --tree --icons'
+
+export SKIM_DEFAULT_COMMAND='fd --type f'
 
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
