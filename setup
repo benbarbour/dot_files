@@ -54,6 +54,9 @@ ln -sf "$BBENV/.p10k.zsh" "$HOME/.p10k.zsh"
 # =============================================================================
 # install other components using zsh so that they have paths from .zshenv
 # =============================================================================
+if dpkg -s gnome-shell >/dev/null 2>&1; then
+    zsh -e ./setup-gnome.zsh
+fi
 zsh -e ./setup-git.zsh
 
 # =============================================================================
