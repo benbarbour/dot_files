@@ -1,5 +1,9 @@
 call plug#begin(stdpath('data') . '/plugged')
 
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
@@ -15,6 +19,32 @@ Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
 call plug#end()
+
+" ----------------------------------------------------------------------------
+" autozimu/LanguageClient-neovim
+" ----------------------------------------------------------------------------
+set hidden
+set signcolumn=yes
+let g:LanguageClient_serverCommands = {
+    \ }
+
+function SetLSPShortcuts()
+  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
+  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
+  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
+  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
+  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
+  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
+  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
+  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
+  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
+  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
+endfunction()
+
+augroup LSP
+  autocmd!
+"  autocmd FileType rust call SetLSPShortcuts()
+augroup END
 
 " ----------------------------------------------------------------------------
 " Shougo/deoplete.nvim
