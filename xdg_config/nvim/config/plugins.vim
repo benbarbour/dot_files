@@ -8,6 +8,7 @@ Plug 'mhinz/vim-signify'
 Plug 'ntpeters/vim-better-whitespace'
 Plug 'rbong/vim-crystalline'
 Plug 'rhysd/git-messenger.vim'
+Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
@@ -76,3 +77,8 @@ let g:git_messenger_no_default_mappings = v:false
 command! GBlame GitMessenger
 command! Gblame GitMessenger
 nmap <leader>gb <Plug>(git-messenger)
+
+" ----------------------------------------------------------------------------
+" simnalamburt/vim-mundo
+" ----------------------------------------------------------------------------
+nmap <F3> :MundoToggle<CR>
