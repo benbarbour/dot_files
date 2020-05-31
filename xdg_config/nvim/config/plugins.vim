@@ -26,6 +26,7 @@ call plug#end()
 set hidden
 set signcolumn=yes
 let g:LanguageClient_serverCommands = {
+    \ 'rust': [$CARGO_HOME.'/bin/rustup', 'run', 'stable', 'rls'],
     \ }
 
 function SetLSPShortcuts()
@@ -43,7 +44,7 @@ endfunction()
 
 augroup LSP
   autocmd!
-"  autocmd FileType rust call SetLSPShortcuts()
+  autocmd FileType rust call SetLSPShortcuts()
 augroup END
 
 " ----------------------------------------------------------------------------
