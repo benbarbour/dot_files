@@ -62,6 +62,7 @@ fi
 zsh -e ./setup-git.zsh
 zsh -e ./setup-go.zsh
 zsh -e ./setup-rust.zsh
+zsh -e ./setup-nodejs.zsh
 
 # =============================================================================
 # run post-install configurations
