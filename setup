@@ -64,6 +64,7 @@ zsh -e ./setup-go.zsh
 zsh -e ./setup-rust.zsh
 zsh -e ./setup-nodejs.zsh
 zsh -e ./setup-neovim.zsh
+zsh -e ./setup-rust-language-server.zsh
 
 # =============================================================================
 # run post-install configurations
