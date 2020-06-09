@@ -4,6 +4,7 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ 'branch': 'next',
     \ 'do': 'bash install.sh',
     \ }
+Plug 'iCyMind/NeoSolarized'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
@@ -46,6 +47,20 @@ augroup LSP
   autocmd!
   autocmd FileType rust call SetLSPShortcuts()
 augroup END
+
+" ----------------------------------------------------------------------------
+" iCyMind/NeoSolarized
+" ----------------------------------------------------------------------------
+set background=dark
+set termguicolors
+let g:neosolarized_contrast = "high"
+let g:neosolarized_vertSplitBgTrans = 1
+let g:neosolarized_termBoldAsBright = 1
+colorscheme NeoSolarized
+highlight clear SignColumn
+highlight clear LineNr
+highlight clear CursorLineNr
+highlight clear FoldColumn
 
 " ----------------------------------------------------------------------------
 " Shougo/deoplete.nvim
