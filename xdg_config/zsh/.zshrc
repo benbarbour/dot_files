@@ -32,6 +32,7 @@ alias fd='fd --follow'
 alias ll='ls -l'
 alias ls='exa --icons --group-directories-first'
 alias sed='echo "Consider using sd instead!\n"; sed'
+alias top='top; echo "Consider using ytop next time!\n"'
 alias tree='exa --tree --icons'
 
 export SKIM_DEFAULT_COMMAND='fd --type f'
