@@ -18,4 +18,5 @@ cargo install \
     ripgrep \
     sd \
     skim \
+    tokei \
     ;
