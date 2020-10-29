@@ -19,4 +19,5 @@ cargo install \
     sd \
     skim \
     tokei \
+    ytop \
     ;
