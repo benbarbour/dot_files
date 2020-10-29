@@ -16,5 +16,6 @@ cargo install \
     grex \
     procs \
     ripgrep \
+    sd \
     skim \
     ;
