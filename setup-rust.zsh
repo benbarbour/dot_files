@@ -13,6 +13,7 @@ cargo install \
     bat \
     exa \
     fd-find \
+    grex \
     procs \
     ripgrep \
     skim \
