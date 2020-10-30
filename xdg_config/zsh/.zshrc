@@ -44,4 +44,20 @@ export SKIM_DEFAULT_COMMAND='fd --type f'
 export VISUAL=nvim
 export EDITOR=nvim
 
+function new-node-project() {
+  echo $CWD
+  pwd
+  if [ -f LICENSE ]; then
+    echo "Skipping LICENSE generation because file already exists"
+  else
+    npx license $(npm get init.license) -o "$(npm get init.author.name)" > LICENSE
+  fi
+  if [ -f .gitignore ]; then
+    echo "Skipping gitignore generation because file already exists"
+  else
+    npx gitignore node
+  fi
+  npm init -y
+}
+
 source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
