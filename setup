@@ -16,6 +16,7 @@ sudo apt-get -y install \
     curl \
     git \
     grep \
+    python3-venv \
     zip unzip \
     zsh \
     ;
