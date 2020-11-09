@@ -1,11 +1,6 @@
 call plug#begin(stdpath('data') . '/plugged')
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'iCyMind/NeoSolarized'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'lotabout/skim', { 'dir': '~/.skim', 'do': './install' }
 Plug 'lotabout/skim.vim'
 Plug 'mhinz/vim-grepper'
@@ -22,34 +17,13 @@ Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-unimpaired'
 
+" LSP and autocompletion plugins
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'mattn/vim-lsp-settings'
+
 call plug#end()
-
-" ----------------------------------------------------------------------------
-" autozimu/LanguageClient-neovim
-" ----------------------------------------------------------------------------
-set hidden
-set signcolumn=yes
-let g:LanguageClient_serverCommands = {
-    \ 'rust': [$CARGO_HOME.'/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-
-function SetLSPShortcuts()
-  nnoremap <leader>ld :call LanguageClient#textDocument_definition()<CR>
-  nnoremap <leader>lr :call LanguageClient#textDocument_rename()<CR>
-  nnoremap <leader>lf :call LanguageClient#textDocument_formatting()<CR>
-  nnoremap <leader>lt :call LanguageClient#textDocument_typeDefinition()<CR>
-  nnoremap <leader>lx :call LanguageClient#textDocument_references()<CR>
-  nnoremap <leader>la :call LanguageClient_workspace_applyEdit()<CR>
-  nnoremap <leader>lc :call LanguageClient#textDocument_completion()<CR>
-  nnoremap <leader>lh :call LanguageClient#textDocument_hover()<CR>
-  nnoremap <leader>ls :call LanguageClient_textDocument_documentSymbol()<CR>
-  nnoremap <leader>lm :call LanguageClient_contextMenu()<CR>
-endfunction()
-
-augroup LSP
-  autocmd!
-  autocmd FileType rust call SetLSPShortcuts()
-augroup END
 
 " ----------------------------------------------------------------------------
 " iCyMind/NeoSolarized
@@ -64,12 +38,6 @@ highlight clear SignColumn
 highlight clear LineNr
 highlight clear CursorLineNr
 highlight clear FoldColumn
-
-" ----------------------------------------------------------------------------
-" Shougo/deoplete.nvim
-" ----------------------------------------------------------------------------
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 " ----------------------------------------------------------------------------
 " lotabout/skim
@@ -100,6 +68,7 @@ highlight SignColumn ctermbg=NONE cterm=NONE guibg=NONE gui=NONE
 highlight SignifySignAdd    ctermfg=22  guifg=#00ff00 cterm=NONE gui=NONE
 highlight SignifySignDelete ctermfg=red guifg=#ff0000 cterm=NONE gui=NONE
 highlight SignifySignChange ctermfg=220 guifg=#ffff00 cterm=NONE gui=NONE
+let g:signify_priority = 5
 
 " ----------------------------------------------------------------------------
 " ntpeters/vim-better-whitespace
@@ -131,3 +100,64 @@ nmap <leader>gb <Plug>(git-messenger)
 " simnalamburt/vim-mundo
 " ----------------------------------------------------------------------------
 nmap <F3> :MundoToggle<CR>
+
+" ----------------------------------------------------------------------------
+" prabirshrestha/vim-lsp | mattn/vim-lsp-settings
+" ----------------------------------------------------------------------------
+function! s:on_lsp_buffer_enabled() abort
+    setlocal omnifunc=lsp#complete
+    setlocal signcolumn=yes
+    if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+    nmap <buffer> gd <plug>(lsp-definition)
+    nmap <buffer> gr <plug>(lsp-references)
+    nmap <buffer> gi <plug>(lsp-implementation)
+    nmap <buffer> gt <plug>(lsp-type-definition)
+    nmap <buffer> <leader>rn <plug>(lsp-rename)
+    nmap <buffer> [g <Plug>(lsp-previous-diagnostic)
+    nmap <buffer> ]g <Plug>(lsp-next-diagnostic)
+    nmap <buffer> K <plug>(lsp-hover)
+    nmap <buffer> A <plug>(lsp-code-action)
+    nmap <buffer> F <plug>(lsp-document-format)
+    vmap <buffer> F <plug>(lsp-document-range-format)
+
+    autocmd BufWritePre <buffer> LspDocumentFormatSync
+endfunction
+
+augroup lsp_install
+    au!
+    autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+set foldmethod=expr
+  \ foldexpr=lsp#ui#vim#folding#foldexpr()
+  \ foldtext=lsp#ui#vim#folding#foldtext()
+
+let g:lsp_diagnostics_echo_cursor = 1
+let g:lsp_documentation_float = 0
+let g:lsp_signs_enabled = 1
+let g:lsp_signs_error = {'text': '✗'}
+let g:lsp_signs_hint = {'text': '☛'}
+let g:lsp_signs_information = {'text': '➤'}
+let g:lsp_signs_priority = 11
+let g:lsp_signs_warning = {'text': '⚠'}
+let g:lsp_virtual_text_enabled = 0
+
+" let g:lsp_log_verbose = 1
+" let g:lsp_log_file = expand('~/vim-lsp.log')
+" let g:asyncomplete_log_file = expand('~/asyncomplete.log')
+
+" ----------------------------------------------------------------------------
+" prabirshrestha/asyncomplete.vim
+" ----------------------------------------------------------------------------
+let g:asyncomplete_auto_popup = 0
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ asyncomplete#force_refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
