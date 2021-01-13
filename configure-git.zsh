@@ -1,5 +1,5 @@
 prompt_gitconf() {
-    printf 'Enter your git %s [%s]: ' "$1" "$(git config --global $1)"
+    printf 'Enter your git %s [%s]: ' "$1" "$(git config --file xdg_config/git/config.local $1)"
     read x
     if [ ! -z "$x" ]; then
         git config --file xdg_config/git/config.local "$1" "$x"
