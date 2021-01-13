@@ -20,7 +20,7 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt no_share_history
 unsetopt share_history
 
-for file in ~/.config/zsh/plugins/*.zsh; do
+for file in ~/.config/zsh/plugins/*.zsh(N); do
     source "$file"
 done
 
@@ -60,4 +60,6 @@ function new-node-project() {
   npm init -y
 }
 
-source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
+fi
