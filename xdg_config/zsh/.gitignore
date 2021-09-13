@@ -1,0 +1,4 @@
+plugins/
+.zcompdump
+.zsh_history
+.zshrc.local

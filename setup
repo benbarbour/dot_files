@@ -1,0 +1,74 @@
+#!/bin/bash
+
+set -e
+
+export BBENV="$( cd "$( dirname "$0" )" && pwd )"
+
+sudo apt-get -y update
+
+
+# =============================================================================
+# apt packages used by the rest of the script
+# =============================================================================
+sudo apt-get -y install \
+    build-essential \
+    coreutils \
+    curl \
+    git \
+    grep \
+    python3-venv \
+    zip unzip \
+    zsh \
+    ;
+
+
+# =============================================================================
+# setup XDG_CONFIG_HOME
+# =============================================================================
+mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
+ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
+
+
+# =============================================================================
+# setup zsh
+# =============================================================================
+sudo chsh -s "$(which zsh)" "$USER"
+
+CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+touch "$CONF_DIR/.zshrc.local"
+ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
+
+PLUGIN_DIR="$CONF_DIR/plugins"
+curl --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
+    https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+
+if [ -d "$HOME/src/powerlevel10k" ]; then
+    git --git-dir="$HOME/src/powerlevel10k/.git" pull
+elif [ ! -d "$HOME/src/powerlevel10k" ]; then
+    mkdir -p ~/src
+    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
+fi
+
+ln -sf "$BBENV/.p10k.zsh" "$HOME/.p10k.zsh"
+
+
+# =============================================================================
+# install other components using zsh so that they have paths from .zshenv
+# =============================================================================
+if dpkg -s gnome-shell >/dev/null 2>&1; then
+    zsh -e ./setup-gnome.zsh
+    zsh -e ./setup-fonts.zsh
+    zsh -e ./setup-alacritty.zsh
+fi
+zsh -e ./setup-git.zsh
+zsh -e ./setup-go.zsh
+zsh -e ./setup-rust.zsh
+zsh -e ./setup-nodejs.zsh
+zsh -e ./setup-neovim.zsh
+zsh -e ./setup-rust-language-server.zsh
+
+# =============================================================================
+# run post-install configurations
+# =============================================================================
+printf '\n'
+zsh -e ./configure-git.zsh
