@@ -18,6 +18,7 @@ cargo install \
     ripgrep \
     sd \
     skim \
+    starship \
     tokei \
     ytop \
     ;

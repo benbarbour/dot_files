@@ -42,16 +42,6 @@ PLUGIN_DIR="$CONF_DIR/plugins"
 curl --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
     https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
-if [ -d "$HOME/src/powerlevel10k" ]; then
-    git --git-dir="$HOME/src/powerlevel10k/.git" pull
-elif [ ! -d "$HOME/src/powerlevel10k" ]; then
-    mkdir -p ~/src
-    git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/src/powerlevel10k
-fi
-
-ln -sf "$BBENV/.p10k.zsh" "$HOME/.p10k.zsh"
-
-
 # =============================================================================
 # install other components using zsh so that they have paths from .zshenv
 # =============================================================================
