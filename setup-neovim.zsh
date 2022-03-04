@@ -19,13 +19,18 @@ if [ ! -f "$NVIM_PATH" ]; then
         https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
 fi
 
-if [ ! -f "$CONF_DIR/site/autoload/plug.vim" ]; then
-    curl --create-dirs -fL \
-        -o "$CONF_DIR/site/autoload/plug.vim" \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-fi
-
 sudo chmod +x "$NVIM_PATH"
 sudo ln -sf "$NVIM_PATH" "${NVIM_PATH%.appimage}"
 
-nvim --headless +PlugInstall +PlugUpdate +PlugUpgrade +UpdateRemotePlugins +qa
+PACKER_DIR="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
+
+if [ ! -d "$PACKER_DIR" ]; then
+    git clone --depth 1 https://github.com/wbthomason/packer.nvim "$PACKER_DIR"
+else
+    git -C "$PACKER_DIR" fetch --depth 1
+    git -C "$PACKER_DIR" reset --hard origin/master
+    git -C "$PACKER_DIR" clean -dfx
+fi
+
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'UpdateRemotePlugins' -c 'qall'
