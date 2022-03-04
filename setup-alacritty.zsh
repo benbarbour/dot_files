@@ -1,4 +1,4 @@
-sudo add-apt-repository -y ppa:mmstick76/alacritty
-sudo apt-get -y install alacritty
-
-gsettings set org.gnome.desktop.default-applications.terminal exec alacritty
+if ! command -v kitty ; then
+    curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin
+    sudo ln -sf "$HOME/.local/kitty.app/bin/kitty" /usr/bin/kitty
+fi
