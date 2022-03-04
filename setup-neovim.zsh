@@ -2,7 +2,6 @@ NVIM_PATH="/usr/local/bin/nvim.appimage"
 
 # Neovim support packages
 sudo apt-get -y install \
-    python3-pip \
     xclip \
     ;
 pip3 install --user --upgrade pynvim
