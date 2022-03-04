@@ -1,4 +1,3 @@
-set -x
 if command -v go >/dev/null; then
     printf 'go is already installed at: %s\n' "$(which go)"
 else
