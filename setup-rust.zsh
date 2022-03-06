@@ -9,6 +9,8 @@ if [ ! -f "$ZDOTDIR/.zfunc/_rustup" ]; then
     rustup completions zsh > "$ZDOTDIR/.zfunc/_rustup"
 fi
 
+rustup update
+
 cargo install \
     bat \
     exa \
