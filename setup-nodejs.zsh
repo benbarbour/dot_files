@@ -1,8 +1,9 @@
-if [ -d "$NVM_DIR" ]; then
+if [ ! -d "$NVM_DIR" ]; then
+    git clone --depth=1 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
+else
     exit 0
 fi
 
-git clone --depth=1 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
 cd "$NVM_DIR"
 git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
 source "$NVM_DIR/nvm.sh"
