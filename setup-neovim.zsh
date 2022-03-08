@@ -4,7 +4,7 @@ NVIM_PATH="/usr/local/bin/nvim.appimage"
 sudo apt-get -y install \
     xclip \
     ;
-pip3 install --user --upgrade pynvim
+python3 -m pip install --user --upgrade pynvim
 
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
 if command -v npm >/dev/null; then
