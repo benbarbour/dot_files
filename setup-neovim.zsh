@@ -12,7 +12,7 @@ if command -v npm >/dev/null; then
 fi
 
 CONF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
-mkdir -p "$CONF_DIR/backup"
+mkdir -p "$CONF_DIR/undo"
 
 if [ ! -f "$NVIM_PATH" ]; then
     sudo curl --create-dirs -L --output "$NVIM_PATH"\
