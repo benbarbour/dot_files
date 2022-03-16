@@ -268,6 +268,14 @@ return require('packer').startup(function(use)
       vim.cmd(':highlight! link MiniTrailspace NONE')
     end,
   })
+
+  use({
+    'mbbill/undotree',
+    config = function()
+      local opts = { noremap = true, silent = true }
+      vim.api.nvim_set_keymap('n', '<F5>', ':UndotreeToggle<CR>', opts)
+    end,
+  })
 end)
 
 -- vim: set expandtab ts=2 sw=2:
