@@ -230,6 +230,44 @@ return require('packer').startup(function(use)
   })
 
   use({ 'tpope/vim-unimpaired' })
+
+  use({
+    'echasnovski/mini.nvim',
+    branch = 'stable',
+    config = function()
+      local submods = {
+        bufremove = {},
+        comment = {},
+        jump = {},
+        pairs = {},
+        surround = {},
+        trailspace = {},
+        base16 = nil,
+        completion = nil,
+        cursorword = nil,
+        doc = nil,
+        fuzzy = nil,
+        indentscope = nil,
+        misc = nil,
+        sessions = nil,
+        starter = nil,
+        statusline = nil,
+        tabline = nil,
+      }
+      for name, cfg in pairs(submods) do
+        if cfg then
+          require('mini.' .. name).setup(cfg)
+        else
+          vim.g['mini' .. name .. '_disable'] = true
+        end
+      end
+
+      vim.cmd('command! BD lua MiniBufremove.wipeout()')
+      local opts = { noremap = true, silent = true }
+      vim.api.nvim_set_keymap('n', '<F12>', ':lua MiniTrailspace.trim()<CR>', opts)
+      vim.cmd(':highlight! link MiniTrailspace NONE')
+    end,
+  })
 end)
 
 -- vim: set expandtab ts=2 sw=2:
