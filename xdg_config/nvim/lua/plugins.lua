@@ -57,6 +57,17 @@ return require('packer').startup(function(use)
     end
   }
 
+  use { 'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+    config = function()
+      require('nvim-treesitter.configs').setup{
+        ensure_installed = 'maintained',
+        sync_install = false,
+        highlight = { enable = true }
+      }
+    end
+  }
+
 end)
 
 -- vim: set expandtab ts=2 sw=2:
