@@ -1,3 +1,3 @@
-require("settings");
-require("keys");
-require("plugins");
+require('settings')
+require('keys')
+require('plugins')
