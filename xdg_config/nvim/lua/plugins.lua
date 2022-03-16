@@ -170,6 +170,25 @@ return require('packer').startup(function(use)
       end)
   end }
 
+  use({
+    'jose-elias-alvarez/null-ls.nvim',
+    requires = { 'nvim-lua/plenary.nvim' },
+    config = function()
+      local ns = require('null-ls')
+      ns.setup({
+        sources = {
+          ns.builtins.formatting.stylua.with({
+            extra_args = {
+              '--indent-type', 'Spaces',
+              '--indent-width', '2',
+              '--quote-style', 'AutoPreferSingle',
+            },
+          }),
+        },
+      })
+    end,
+  })
+
 end)
 
 -- vim: set expandtab ts=2 sw=2:
