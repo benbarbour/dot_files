@@ -28,3 +28,6 @@ vim.api.nvim_set_keymap('t', '<leader>Ts', '<C-\\><C-n>:split term://zsh<CR>i', 
 -- vim-unimpaired mappings in terminal mode
 vim.api.nvim_set_keymap('t', '[b', '<C-\\><C-n>:bprev<CR>', { noremap = true })
 vim.api.nvim_set_keymap('t', ']b', '<C-\\><C-n>:bnext<CR>', { noremap = true })
+
+-- Clear current search highlight
+vim.api.nvim_set_keymap('', '<F3>', ':noh<CR>', { noremap = true, silent = true })
