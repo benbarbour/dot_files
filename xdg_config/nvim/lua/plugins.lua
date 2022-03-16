@@ -228,6 +228,8 @@ return require('packer').startup(function(use)
       })
     end,
   })
+
+  use({ 'tpope/vim-unimpaired' })
 end)
 
 -- vim: set expandtab ts=2 sw=2:
