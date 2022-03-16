@@ -68,6 +68,43 @@ return require('packer').startup(function(use)
     end
   }
 
+  use { 'nvim-telescope/telescope.nvim',
+    requires = {
+      {'nvim-lua/plenary.nvim'},
+      {'nvim-telescope/telescope-fzf-native.nvim', run = 'make'}
+    },
+    config = function()
+      require('telescope').load_extension('fzf')
+      require('telescope').setup{
+        defaults = {
+          mappings = {
+            i = {
+              ['<C-s>'] = require('telescope.actions').select_horizontal,
+              ['<C-?>'] = require('telescope.actions').which_key
+            },
+            n = {
+              ['<C-s>'] = require('telescope.actions').select_horizontal
+            }
+          }
+        }
+      }
+
+      local function map(mode, lhs, rhs, opts)
+        opts = vim.tbl_extend('force', {noremap = true, silent = true}, opts or {})
+        vim.api.nvim_set_keymap(mode, lhs, rhs, opts)
+      end
+
+      map('n', '<leader>ff', '<cmd>Telescope find_files<cr>')
+      map('n', '<leader>fb', '<cmd>Telescope buffers<cr>')
+      map('n', '<leader>fs', '<cmd>Telescope spell_suggest<cr>')
+      map('n', '<leader>fc', '<cmd>Telescope treesitter<cr>')
+      map('n', '<leader>fg', '<cmd>Telescope git_commits<cr>')
+      map('n', '<leader>fG', '<cmd>Telescope git_bcommits<cr>')
+      map('n', '<leader>/',  '<cmd>Telescope live_grep<cr>')
+      map('n', '<leader>*',  '<cmd>Telescope grep_string<cr>')
+    end
+  }
+
 end)
 
 -- vim: set expandtab ts=2 sw=2:
