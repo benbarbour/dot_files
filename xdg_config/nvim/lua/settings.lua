@@ -8,6 +8,7 @@ vim.opt.number = true -- print the number of each line on the left
 vim.opt.relativenumber = true -- use relative line numbering
 vim.opt.splitbelow = true -- split horizontally below the current window
 vim.opt.splitright = true -- split vertically to the right of the current window
+vim.opt.completeopt = {'menu', 'longest'} -- better omnifunc popup behaviour (show menu only if needed, fill longest match, no preview window)
 
 -- show these special characters as these symbols
 vim.opt.list = true
