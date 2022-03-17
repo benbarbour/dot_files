@@ -1,15 +1,20 @@
 #!/bin/bash
 
 set -e
+set -v
 
 export BBENV="$( cd "$( dirname "$0" )" && pwd )"
 
-sudo apt-get -y update
-
+function header
+{
+    printf '\n\e[4;1m%s\e[0m\n' "$1"
+}
 
 # =============================================================================
 # apt packages used by the rest of the script
 # =============================================================================
+header "SETUP APT"
+sudo apt-get -y update
 sudo apt-get -y install \
     build-essential \
     coreutils \
@@ -23,17 +28,17 @@ sudo apt-get -y install \
     zsh \
     ;
 
-
 # =============================================================================
 # setup XDG_CONFIG_HOME
 # =============================================================================
+header "SETUP CONFIG"
 mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
 ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
-
 
 # =============================================================================
 # setup zsh
 # =============================================================================
+header "SETUP ZSH"
 sudo chsh -s "$(which zsh)" "$USER"
 
 CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
@@ -41,26 +46,26 @@ touch "$CONF_DIR/.zshrc.local"
 ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
 PLUGIN_DIR="$CONF_DIR/plugins"
-curl --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
+curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
     https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
 # =============================================================================
 # install other components using zsh so that they have paths from .zshenv
 # =============================================================================
+. "$HOME/.zshenv"
 if dpkg -s gnome-shell >/dev/null 2>&1; then
-    zsh -e ./setup-gnome.zsh
-    zsh -e ./setup-fonts.zsh
-    zsh -e ./setup-alacritty.zsh
+    . ./setup-gnome.zsh
+    . ./setup-fonts.zsh
+    . ./setup-alacritty.zsh
 fi
-zsh -e ./setup-git.zsh
-zsh -e ./setup-go.zsh
-zsh -e ./setup-rust.zsh
-zsh -e ./setup-nodejs.zsh
-zsh -e ./setup-neovim.zsh
-zsh -e ./setup-language-servers.zsh
+. ./setup-git.zsh
+. ./setup-nodejs.zsh
+. ./setup-go.zsh
+. ./setup-rust.zsh
+. ./setup-language-servers.zsh
+. ./setup-neovim.zsh
 
 # =============================================================================
 # run post-install configurations
 # =============================================================================
-printf '\n'
-zsh -e ./configure-git.zsh
+. ./configure-git.zsh

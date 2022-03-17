@@ -1,3 +1,5 @@
+header "SETUP NEOVIM"
+
 NVIM_PATH="/usr/local/bin/nvim.appimage"
 
 # Neovim support packages
@@ -6,21 +8,22 @@ sudo apt-get -y install \
     ;
 python3 -m pip install --user --upgrade pynvim
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-if command -v npm >/dev/null; then
+if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
 fi
 
 CONF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
 mkdir -p "$CONF_DIR/undo"
 
-if [ ! -f "$NVIM_PATH" ]; then
-    sudo curl --create-dirs -L --output "$NVIM_PATH"\
-        https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-fi
+latest_ver=$(curl -sS -H "Accept: application/vnd.github.v3+json" \
+    https://api.github.com/repos/neovim/neovim/releases/latest | jq -r .tag_name)
 
-sudo chmod +x "$NVIM_PATH"
-sudo ln -sf "$NVIM_PATH" "${NVIM_PATH%.appimage}"
+if [ ! -f "$NVIM_PATH" ] || [ "$(nvim --version | head -n 1 | cut -d' ' -f2)" != "$latest_ver" ]; then
+    sudo curl -sS --create-dirs -L -o "$NVIM_PATH" \
+        https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
+    sudo chmod +x "$NVIM_PATH"
+    sudo ln -sf "$NVIM_PATH" "${NVIM_PATH%.appimage}"
+fi
 
 PACKER_DIR="$HOME/.local/share/nvim/site/pack/packer/start/packer.nvim"
 

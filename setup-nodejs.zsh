@@ -1,14 +1,12 @@
-if [ ! -d "$NVM_DIR" ]; then
-    git clone --depth=1 https://github.com/nvm-sh/nvm.git "$NVM_DIR"
-else
-    exit 0
-fi
+header "SETUP NODEJS"
 
-cd "$NVM_DIR"
-git checkout `git describe --abbrev=0 --tags --match "v[0-9]*" $(git rev-list --tags --max-count=1)`
-source "$NVM_DIR/nvm.sh"
+mkdir -p "$NVM_DIR"
+curl -sS -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+set +v
+source "$HOME/.profile"
+set -v
 
-nvm install node --force
+nvm install --lts
 nvm alias default node
 
 npm set init.author.name "Ben Barbour"
@@ -16,4 +14,4 @@ npm set init.author.email "ben.barbour@gmail.com"
 npm set init.license "ISC"
 npm set init.version "1.0.0"
 
-npm install -g npx --force
+command -v npx || npm install -g npx

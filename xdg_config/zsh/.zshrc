@@ -53,3 +53,5 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
 fi
 
 eval "$(starship init zsh)"
+
+typeset -U path
