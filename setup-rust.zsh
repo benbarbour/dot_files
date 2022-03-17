@@ -1,5 +1,7 @@
+header "SETUP RUST"
+
 if ! command -v rustup >/dev/null; then
-    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs --output /tmp/sh.rustup.rs
+    curl -sS --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs --output /tmp/sh.rustup.rs
     chmod +x /tmp/sh.rustup.rs
     /tmp/sh.rustup.rs -y --no-modify-path
 fi

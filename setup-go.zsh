@@ -1,6 +1,18 @@
-if command -v go >/dev/null; then
-    printf 'go is already installed at: %s\n' "$(which go)"
+header "SETUP GO"
+
+update_needed=0
+latest_ver=$(curl -sS 'https://go.dev/VERSION?m=text')
+
+if ! command -v go >/dev/null; then
+    update_needed=1
 else
-    curl -L https://go.dev/dl/$(curl 'https://go.dev/VERSION?m=text').linux-amd64.tar.gz -o /tmp/go.tar.gz
+    current_ver=$(go version | cut -d' ' -f3)
+    if [[ "$current_ver" != "$latest_ver" ]]; then
+        update_needed=1
+    fi
+fi
+
+if [[ "$update_needed" == 1 ]]; then
+    curl -sS -L https://go.dev/dl/$latest_ver.linux-amd64.tar.gz -o /tmp/go.tar.gz
     sudo tar -C /usr/local -xzf /tmp/go.tar.gz
 fi
