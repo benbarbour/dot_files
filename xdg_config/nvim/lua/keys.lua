@@ -31,3 +31,5 @@ vim.api.nvim_set_keymap('t', ']b', '<C-\\><C-n>:bnext<CR>', { noremap = true })
 
 -- Clear current search highlight
 vim.api.nvim_set_keymap('', '<F3>', ':noh<CR>', { noremap = true, silent = true })
+
+vim.api.nvim_set_keymap('i', '<C-space>', '<c-x><c-o>', { noremap = true, silent = true })
