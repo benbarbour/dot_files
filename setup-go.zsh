@@ -13,6 +13,7 @@ else
 fi
 
 if [[ "$update_needed" == 1 ]]; then
+    sudo rm -rf /usr/local/go
     curl -sS -L https://go.dev/dl/$latest_ver.linux-amd64.tar.gz -o /tmp/go.tar.gz
     sudo tar -C /usr/local -xzf /tmp/go.tar.gz
 fi
