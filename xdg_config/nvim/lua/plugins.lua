@@ -182,7 +182,7 @@ return require('packer').startup(function(use)
     'neovim/nvim-lspconfig',
     config = function()
       vim.diagnostic.config({
-        virtual_text = { severity = 'Error' },
+        virtual_text = false,
         severity_sort = true,
         signs = true,
         underline = true,
@@ -197,12 +197,11 @@ return require('packer').startup(function(use)
       end
 
       -- Show diagnostics on the current line in a popup
-      -- vim.o.updatetime = 250
-      -- vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
+      vim.o.updatetime = 250
+      vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
       -- Keybindings
       local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '<space>e', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
       vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
       vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
       vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
