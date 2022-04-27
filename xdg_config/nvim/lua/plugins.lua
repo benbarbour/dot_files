@@ -210,10 +210,11 @@ return require('packer').startup(function(use)
 
   use({
     'williamboman/nvim-lsp-installer',
+    requires = { 'neovim/nvim-lspconfig' },
     config = function()
       require('nvim-lsp-installer').on_server_ready(function(server)
         local opts = {
-          on_attach = function()
+          on_attach = function(client, bufnr)
             -- Enable completion triggered by <c-x><c-o>
             vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
 
