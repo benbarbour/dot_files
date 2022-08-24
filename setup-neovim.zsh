@@ -18,7 +18,7 @@ mkdir -p "$CONF_DIR/undo"
 latest_ver=$(curl -sS -H "Accept: application/vnd.github.v3+json" \
     https://api.github.com/repos/neovim/neovim/releases/latest | jq -r .tag_name)
 
-if [ ! -f "$NVIM_PATH" ] || [ "$(nvim --version | head -n 1 | cut -d' ' -f2)" != "$latest_ver" ]; then
+if [ ! hash nvim &> /dev/null ] || [ "$(nvim --version | head -n 1 | cut -d' ' -f2)" != "$latest_ver" ]; then
     sudo curl -sS --create-dirs -L -o "$NVIM_PATH" \
         https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
     sudo chmod +x "$NVIM_PATH"
