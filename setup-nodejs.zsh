@@ -9,9 +9,9 @@ set -v
 nvm install --lts
 nvm alias default node
 
-npm set init.author.name "Ben Barbour"
-npm set init.author.email "ben.barbour@gmail.com"
-npm set init.license "ISC"
-npm set init.version "1.0.0"
+npm set init-author=name="Ben Barbour"
+npm set init-author-email="ben.barbour@gmail.com"
+npm set init-license="ISC"
+npm set init-version="1.0.0"
 
 command -v npx || npm install -g npx
