@@ -179,85 +179,121 @@ return require('packer').startup(function(use)
   })
 
   use({
-    'neovim/nvim-lspconfig',
+    'williamboman/mason.nvim',
     config = function()
-      vim.diagnostic.config({
-        virtual_text = false,
-        severity_sort = true,
-        signs = true,
-        underline = true,
-        update_in_insert = true,
-      })
-
-      -- Customize the diagnostic symbols
-      local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-      for type, icon in pairs(signs) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-      end
-
-      -- Show diagnostics on the current line in a popup
-      vim.o.updatetime = 250
-      vim.cmd [[autocmd! CursorHold,CursorHoldI * lua vim.diagnostic.open_float(nil, {focus=false})]]
-
-      -- Keybindings
-      local opts = { noremap = true, silent = true }
-      vim.api.nvim_set_keymap('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<CR>', opts)
-      vim.api.nvim_set_keymap('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<CR>', opts)
-      vim.api.nvim_set_keymap('n', '<space>q', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
-    end,
+      require("mason").setup();
+    end
   })
 
   use({
-    'williamboman/nvim-lsp-installer',
-    requires = { 'neovim/nvim-lspconfig' },
+    'williamboman/mason-lspconfig.nvim',
+    requires = { 'williamboman/mason.nvim' },
     config = function()
-      require('nvim-lsp-installer').on_server_ready(function(server)
-        local opts = {
-          on_attach = function(client, bufnr)
-            -- Enable completion triggered by <c-x><c-o>
-            vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+      require("mason-lspconfig").setup({ "sumneko_lua" })
+    end
+  })
 
-            local function map(lhs, rhs)
-              local opts = { noremap = true, silent = true }
-              vim.api.nvim_buf_set_keymap(bufnr, 'n', lhs, rhs, opts)
-            end
+  use({
+    'neovim/nvim-lspconfig',
+    requires = { 'williamboman/mason-lspconfig.nvim' },
+    config = function()
+      local lspconfig = require("lspconfig")
 
-            -- Key Mappings
-            -- See `:help vim.lsp.*` for documentation on any of the below functions
-            map('gD', '<cmd>lua vim.lsp.buf.declaration()<CR>')
-            map('gd', '<cmd>lua vim.lsp.buf.definition()<CR>')
-            map('K', '<cmd>lua vim.lsp.buf.hover()<CR>')
-            map('gi', '<cmd>lua vim.lsp.buf.implementation()<CR>')
-            map('<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>')
-            map('<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>')
-            map('<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>')
-            map('<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>')
-            map('<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>')
-            map('<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>')
-            map('<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>')
-            map('gr', '<cmd>lua vim.lsp.buf.references()<CR>')
-            map('<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>')
-          end,
-        }
+      local opts = { noremap=true, silent=true }
+      vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
+      vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+      vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+      vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
-        if server.name == 'sumneko_lua' then
-          opts.settings = {
-            Lua = {
-              diagnostics = { globals = { 'vim', 'bufnr' } },
-              workspace = { library = vim.api.nvim_get_runtime_file('', true) },
-              telemetry = { enable = false },
+      -- Use an on_attach function to only map the following keys
+      -- after the language server attaches to the current buffer
+      local on_attach = function(client, bufnr)
+        -- Enable completion triggered by <c-x><c-o>
+        vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+        -- Mappings.
+        -- See `:help vim.lsp.*` for documentation on any of the below functions
+        local bufopts = { noremap=true, silent=true, buffer=bufnr }
+        vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+        vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+        vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+        vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
+        vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, bufopts)
+        vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, bufopts)
+        vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, bufopts)
+        vim.keymap.set('n', '<space>wl', function()
+          print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+        end, bufopts)
+        vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+        vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+        vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+        vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+        vim.keymap.set('n', '<space>f', vim.lsp.buf.formatting, bufopts)
+      end
+
+      -- servers that require no special setup go here
+      local myServers = {'gopls', 'pyright'}
+      for _, server in ipairs(myServers) do
+        lspconfig[server].setup{on_attach = on_attach}
+      end
+
+      -- customized servers go here
+
+      lspconfig.eslint.setup {
+        on_attach = on_attach,
+        settings = {
+          codeAction = {
+            disableRuleComment = {
+              enable = true,
+              location = "separateLine"
             },
+            showDocumentation = {
+              enable = true
+            }
+          },
+          codeActionOnSave = {
+            enable = false,
+            mode = "all"
+          },
+          format = true,
+          nodePath = "",
+          onIgnoredFiles = "off",
+          packageManager = "npm",
+          quiet = false,
+          rulesCustomizations = {},
+          run = "onType",
+          useESLintClass = false,
+          validate = "on",
+          workingDirectory = {
+            mode = "location"
           }
-        end
+        }
+      }
 
-        -- This setup() function will take the provided server configuration
-        -- and decorate it with the necessary properties before passing it
-        -- onwards to lspconfig.
-        -- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
-        server:setup(opts)
-      end)
-    end,
+      lspconfig.sumneko_lua.setup {
+        on_attach = on_attach,
+        settings = {
+          Lua = {
+            runtime = {
+              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
+              version = 'LuaJIT',
+            },
+            diagnostics = {
+              -- Get the language server to recognize the `vim` global
+              globals = {'vim'},
+            },
+            workspace = {
+              -- Make the server aware of Neovim runtime files
+              library = vim.api.nvim_get_runtime_file("", true),
+            },
+            -- Do not send telemetry data containing a randomized but unique identifier
+            telemetry = {
+              enable = false,
+            },
+          },
+        },
+      }
+    end
   })
 
   use({
