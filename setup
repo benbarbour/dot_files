@@ -1,7 +1,7 @@
 #!/bin/bash
 
 set -e
-set -v
+# set -v
 
 export BBENV="$( cd "$( dirname "$0" )" && pwd )"
 
