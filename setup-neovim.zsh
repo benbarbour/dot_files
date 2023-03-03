@@ -6,7 +6,7 @@ NVIM_PATH="/usr/local/bin/nvim.appimage"
 sudo apt-get -y install \
     xclip \
     ;
-python3 -m pip install --user --upgrade pynvim
+python3 -m pip install --user --upgrade pynvim neovim-remote
 
 if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
