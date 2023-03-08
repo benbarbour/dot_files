@@ -189,7 +189,28 @@ return require('packer').startup(function(use)
     'williamboman/mason-lspconfig.nvim',
     requires = { 'williamboman/mason.nvim' },
     config = function()
-      require("mason-lspconfig").setup({ "sumneko_lua" })
+      require("mason-lspconfig").setup {
+        ensure_installed = {
+          "bashls",
+          "clangd",
+          "cmake",
+          "cssls",
+          "docker_compose_language_service",
+          "dockerls",
+          "eslint",
+          "gopls",
+          "html",
+          "jsonls",
+          "lemminx",
+          "lua_ls",
+          "marksman",
+          "pylsp",
+          "rust_analyzer",
+          "taplo",
+          "yamlls"
+        },
+        automatic_installation = true,
+      }
     end
   })
 
@@ -269,53 +290,7 @@ return require('packer').startup(function(use)
           }
         }
       }
-
-      lspconfig.sumneko_lua.setup {
-        on_attach = on_attach,
-        settings = {
-          Lua = {
-            runtime = {
-              -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-              version = 'LuaJIT',
-            },
-            diagnostics = {
-              -- Get the language server to recognize the `vim` global
-              globals = {'vim'},
-            },
-            workspace = {
-              -- Make the server aware of Neovim runtime files
-              library = vim.api.nvim_get_runtime_file("", true),
-            },
-            -- Do not send telemetry data containing a randomized but unique identifier
-            telemetry = {
-              enable = false,
-            },
-          },
-        },
-      }
     end
-  })
-
-  use({
-    'jose-elias-alvarez/null-ls.nvim',
-    requires = { 'nvim-lua/plenary.nvim' },
-    config = function()
-      local ns = require('null-ls')
-      ns.setup({
-        sources = {
-          ns.builtins.formatting.stylua.with({
-            extra_args = {
-              '--indent-type',
-              'Spaces',
-              '--indent-width',
-              '2',
-              '--quote-style',
-              'AutoPreferSingle',
-            },
-          }),
-        },
-      })
-    end,
   })
 
   use({ 'tpope/vim-unimpaired' })
