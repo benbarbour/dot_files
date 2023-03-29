@@ -267,7 +267,7 @@ return require('packer').startup(function(use)
       end
 
       -- servers that require no special setup go here
-      local myServers = {'gopls', 'pyright'}
+      local myServers = {'gopls', 'pyright', 'jsonls'}
       for _, server in ipairs(myServers) do
         lspconfig[server].setup{on_attach = on_attach}
       end
