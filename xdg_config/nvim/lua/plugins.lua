@@ -226,6 +226,20 @@ return require('packer').startup(function(use)
       vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
       vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
 
+      vim.diagnostic.config({
+        underline = true,
+        signs = true,
+        virtual_text = false,
+        float = {
+          show_header = true,
+          source = 'if_many',
+          border = 'rounded',
+          focusable = false,
+        },
+        update_in_insert = false, -- default to false
+        severity_sort = true , -- default to false
+      })
+
       -- Use an on_attach function to only map the following keys
       -- after the language server attaches to the current buffer
       local on_attach = function(client, bufnr)
