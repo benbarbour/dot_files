@@ -22,6 +22,7 @@ return require('packer').startup(function(use)
         sections = {
           lualine_a = {
             {
+              'filename',
               path = 1
             }
           }
