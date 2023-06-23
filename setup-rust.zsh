@@ -24,5 +24,6 @@ cargo install \
     skim \
     starship \
     tokei \
+    tree-sitter-cli \
     ytop \
     ;
