@@ -19,6 +19,13 @@ return require('packer').startup(function(use)
         options = {
           theme = 'solarized_dark',
         },
+        sections = {
+          lualine_a = {
+            {
+              path = 1
+            }
+          }
+        }
       })
     end,
   })
@@ -180,6 +187,7 @@ return require('packer').startup(function(use)
 
   use({
     'williamboman/mason.nvim',
+    run = ":MasonUpdate",
     config = function()
       require("mason").setup();
     end
@@ -187,6 +195,7 @@ return require('packer').startup(function(use)
 
   use({
     'williamboman/mason-lspconfig.nvim',
+    after = 'mason.nvim',
     requires = { 'williamboman/mason.nvim' },
     config = function()
       require("mason-lspconfig").setup {
@@ -216,6 +225,7 @@ return require('packer').startup(function(use)
 
   use({
     'neovim/nvim-lspconfig',
+    after = { 'mason-lspconfig.nvim' },
     requires = { 'williamboman/mason-lspconfig.nvim' },
     config = function()
       local lspconfig = require("lspconfig")
