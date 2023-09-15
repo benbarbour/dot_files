@@ -6,4 +6,4 @@ export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 
 export NVM_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvm"
 
-export PATH="$HOME/bin:/usr/local/go/bin:$GOPATH/bin:$CARGO_HOME/bin:$PATH"
+export PATH="$HOME/bin:$(python3 -m site --user-base)/bin:/usr/local/go/bin:$GOPATH/bin:$CARGO_HOME/bin:$PATH"
