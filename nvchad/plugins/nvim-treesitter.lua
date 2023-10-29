@@ -37,6 +37,6 @@ return {
       "ssh_config",
       "toml",
       "yaml",
-    }
+    },
   },
 }
