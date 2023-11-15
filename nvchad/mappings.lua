@@ -7,6 +7,7 @@ M["general (n)"] = { -- named for NvCheatsheet
     ["X"] = { '"_X', "Delete to null register", opts = { noremap = true } },
     ["<C-I>"] = { "<C-A>", "Increment number", opts = { noremap = true } },
     ["<C-D>"] = { "<C-X>", "Decrement number", opts = { noremap = true } },
+    ["<C-X>"] = { "" },
   },
 }
 
