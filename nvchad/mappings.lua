@@ -57,6 +57,23 @@ M["telescope"] = {
 
 M["tabufline"] = nil -- disabled plugin
 
+M["dap"] = {
+  plugin = true,
+  n = {
+    ["<leader>db"] = { "<cmd> DapToggleBreakpoint <CR>", "Toggle a breakpoint" },
+  },
+}
+
+M["dap_python"] = {
+  plugin = true,
+  n = {
+    ["<leader>dpr"] = {
+      function() require("dap-python").test_method() end,
+      "Run the nearest test method",
+    },
+  },
+}
+
 M.disabled = {
   n = {
     -- default gitsigns
