@@ -6,6 +6,7 @@ return {
       "lua-language-server",
       "stylua",
       -- python
+      "black",
       "mypy",
       "pyright",
       "ruff",
