@@ -5,6 +5,8 @@ return {
       -- lua stuff
       "lua-language-server",
       "stylua",
+      -- python
+      "pyright",
     },
   },
 }
