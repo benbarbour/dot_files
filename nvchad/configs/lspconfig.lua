@@ -4,7 +4,7 @@ local capabilities = configs.capabilities
 
 local lspconfig = require("lspconfig")
 local servers = {
-	"lua_ls",
+  "lua_ls",
 }
 
 for _, lsp in ipairs(servers) do
