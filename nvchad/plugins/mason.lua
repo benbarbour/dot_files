@@ -7,6 +7,7 @@ return {
       "stylua",
       -- python
       "black",
+      "debugpy",
       "mypy",
       "pyright",
       "ruff",
