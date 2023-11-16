@@ -6,7 +6,9 @@ return {
       "lua-language-server",
       "stylua",
       -- python
+      "mypy",
       "pyright",
+      "ruff",
     },
   },
 }

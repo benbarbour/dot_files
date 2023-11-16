@@ -6,6 +6,9 @@ return function()
   local sources = {
     -- Lua
     b.formatting.stylua,
+    -- Python
+    b.diagnostics.mypy,
+    b.diagnostics.ruff,
   }
 
   local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
