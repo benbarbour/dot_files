@@ -7,6 +7,7 @@ return function()
     -- Lua
     b.formatting.stylua,
     -- Python
+    b.formatting.black,
     b.diagnostics.mypy,
     b.diagnostics.ruff,
   }
