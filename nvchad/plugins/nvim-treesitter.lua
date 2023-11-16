@@ -31,6 +31,7 @@ return {
       "gomod",
       "gosum",
       "gowork",
+      "ledger",
       "python",
       "requirements",
       "rust",
