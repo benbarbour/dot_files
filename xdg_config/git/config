@@ -15,7 +15,7 @@
 [core]
 	mergeoptions = --no-commit
 	editor = nvim
-	pager = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -r
+	pager = diff-highlight | less -r
 	excludesfile = /home/ben/.gitignore_global
 [color]
 	ui = true

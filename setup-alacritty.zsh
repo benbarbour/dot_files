@@ -1,6 +1,6 @@
 header "SETUP ALACRITTY"
 
-sudo apt install \
+pkg install \
     cmake \
     pkg-config \
     libfreetype6-dev \

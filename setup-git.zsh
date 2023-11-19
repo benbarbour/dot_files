@@ -1,2 +1,2 @@
 header "SETUP GIT"
-sudo chmod +x /usr/share/doc/git/contrib/diff-highlight/diff-highlight
+chmod +x $(which diff-highlight)
