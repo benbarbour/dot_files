@@ -1,7 +1,11 @@
+local path = require("lspconfig/util").path
+
 return function()
   local null_ls = require("null-ls")
 
   local b = null_ls.builtins
+
+  if vim.env.VIRTUAL_ENV then vim.env.PATH = path.join(vim.env.VIRTUAL_ENV, "bin") .. ":" .. vim.env.PATH end
 
   local sources = {
     -- Lua
