@@ -8,6 +8,7 @@ return {
       -- python
       "black",
       "debugpy",
+      "isort",
       "mypy",
       "pyright",
       "ruff",
