@@ -57,3 +57,7 @@ eval "$(starship init zsh)"
 typeset -U path
 
 export SYSTEMD_EDITOR=nvim
+
+autoload -U bashcompinit
+bashcompinit
+eval "$(register-python-argcomplete pipx)"
