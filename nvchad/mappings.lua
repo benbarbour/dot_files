@@ -29,6 +29,10 @@ M["gitsigns"] = {
       function() require("gitsigns").blame_line({ full = true }) end,
       "Hunk blame",
     },
+    ["<leader>hd"] = {
+      function() require("gitsigns").toggle_deleted() end,
+      "Toggle displaying deleted hunks",
+    },
   },
 }
 
