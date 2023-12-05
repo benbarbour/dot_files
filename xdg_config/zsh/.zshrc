@@ -48,10 +48,6 @@ function new-node-project() {
   npm init -y
 }
 
-if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
-  source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
-fi
-
 eval "$(starship init zsh)"
 
 typeset -U path
@@ -61,3 +57,7 @@ export SYSTEMD_EDITOR=nvim
 autoload -U bashcompinit
 bashcompinit
 eval "$(register-python-argcomplete pipx)"
+
+if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
+fi
