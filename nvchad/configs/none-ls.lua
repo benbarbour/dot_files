@@ -15,6 +15,17 @@ return function()
     b.formatting.black,
     b.diagnostics.mypy,
     b.diagnostics.ruff,
+    -- Web
+    b.formatting.biome.with({
+      args = {
+        "check",
+        "--apply-unsafe",
+        "--formatter-enabled=true",
+        "--organize-imports-enabled=true",
+        "--skip-errors",
+        "$FILENAME",
+      },
+    }),
   }
 
   local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
