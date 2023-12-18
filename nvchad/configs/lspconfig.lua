@@ -5,6 +5,7 @@ local capabilities = configs.capabilities
 local lspconfig = require("lspconfig")
 local servers = {
   "lua_ls",
+  "biome",
 }
 
 for _, lsp in ipairs(servers) do
@@ -18,10 +19,6 @@ lspconfig.pyright.setup({
   on_attach = on_attach,
   capabilities = capabilities,
   filetypes = { "python" },
-})
-
-require("typescript-tools").setup({
-  on_attach = on_attach,
 })
 
 vim.diagnostic.config({ virtual_text = false })
