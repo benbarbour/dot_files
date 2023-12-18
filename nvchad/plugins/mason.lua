@@ -12,6 +12,8 @@ return {
       "mypy",
       "pyright",
       "ruff",
+      -- web
+      "biome",
     },
   },
 }
