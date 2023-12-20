@@ -14,6 +14,7 @@ return {
       "ruff",
       -- web
       "biome",
+      "svelte-language-server",
     },
   },
 }

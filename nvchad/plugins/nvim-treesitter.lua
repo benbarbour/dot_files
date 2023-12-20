@@ -7,12 +7,13 @@ return {
       "lua",
 
       -- web
-      "html",
       "css",
+      "html",
       "javascript",
-      "typescript",
-      "tsx",
       "json",
+      "svelte",
+      "tsx",
+      "typescript",
 
       -- misc things I used
       "bash",

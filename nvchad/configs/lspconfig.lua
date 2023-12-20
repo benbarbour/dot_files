@@ -6,6 +6,7 @@ local lspconfig = require("lspconfig")
 local servers = {
   "lua_ls",
   "biome",
+  "svelte",
 }
 
 for _, lsp in ipairs(servers) do
