@@ -8,6 +8,10 @@ return function()
   if vim.env.VIRTUAL_ENV then vim.env.PATH = path.join(vim.env.VIRTUAL_ENV, "bin") .. ":" .. vim.env.PATH end
 
   local sources = {
+    -- Go
+    b.formatting.gofumpt,
+    b.formatting.goimports,
+    b.formatting.golines,
     -- Lua
     b.formatting.stylua,
     -- Python
