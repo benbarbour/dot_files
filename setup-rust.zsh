@@ -25,5 +25,6 @@ cargo install \
     starship \
     tokei \
     tree-sitter-cli \
+    watchexec-cli \
     ytop \
     ;
