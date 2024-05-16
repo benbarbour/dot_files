@@ -27,6 +27,6 @@ if [ ! hash nvim &> /dev/null ] || [ "$(nvim --version | head -n 1 | cut -d' ' -
 fi
 
 if [ ! -d ~/.config/nvim ]; then
-  git clone https://github.com/NvChad/NvChad ~/.config/nvim --depth 1
+  git clone https://github.com/NvChad/starter ~/.config/nvim --depth 1
   ln -s ~/.bbenv/nvchad ~/.config/nvim/lua/custom
 fi

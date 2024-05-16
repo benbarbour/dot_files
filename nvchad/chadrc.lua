@@ -24,6 +24,7 @@ local M = {
     tabufline = { enabled = false },
     telescope = { style = "bordered" },
     theme = "solarized_dark",
+    comment = { enabled = false },
   },
 }
 
