@@ -65,7 +65,6 @@ curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
 if dpkg -s gnome-shell >/dev/null 2>&1; then
     . ./setup-gnome.zsh
     . ./setup-fonts.zsh
-    . ./setup-alacritty.zsh
 fi
 . ./setup-git.zsh
 . ./setup-nodejs.zsh

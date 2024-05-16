@@ -1,5 +1,4 @@
 header "SETUP GNOME"
-gsettings set org.gnome.desktop.default-applications.terminal exec alacritty
 gsettings set org.gnome.desktop.wm.keybindings maximize "['<Alt>Up']"
 gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-down "@as []"
 gsettings set org.gnome.desktop.wm.keybindings move-to-monitor-up "@as []"
