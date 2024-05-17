@@ -2,9 +2,7 @@ header "SETUP NODEJS"
 
 mkdir -p "$NVM_DIR"
 curl -sS -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-set +v
 source "$HOME/.profile"
-set -v
 
 nvm install --lts
 nvm alias default node
