@@ -1,6 +1,7 @@
 header "SETUP NEOVIM"
 
-NVIM_PATH="/usr/local/bin/nvim.appimage"
+# Build prerequisites
+sudo apt-get install ninja-build gettext cmake unzip curl build-essential ccache
 
 # Neovim support packages
 sudo apt-get -y install \
@@ -12,21 +13,28 @@ if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
 fi
 
-CONF_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/nvim"
-mkdir -p "$CONF_DIR/undo"
+# Clone and build
+old_dir=$(pwd)
+mkdir -p $HOME/src
+if [ ! -d $HOME/src/neovim ]; then
+    git clone https://github.com/neovim/neovim.git $HOME/src/neovim
+fi
+cd $HOME/src/neovim
 
-latest_ver=$(curl -sS -H "Accept: application/vnd.github.v3+json" \
-    https://api.github.com/repos/neovim/neovim/releases/latest | jq -r .tag_name)
+git fetch --prune --tags --force
+CUR_TAG=$(git name-rev --tags --name-only HEAD)
 
-if [ ! hash nvim &> /dev/null ] || [ "$(nvim --version | head -n 1 | cut -d' ' -f2)" != "$latest_ver" ]; then
-    sudo rm -rf "$NVIM_PATH"
-    sudo curl -sS --create-dirs -L -o "$NVIM_PATH" \
-        https://github.com/neovim/neovim/releases/latest/download/nvim.appimage
-    sudo chmod +x "$NVIM_PATH"
-    sudo ln -sf "$NVIM_PATH" "${NVIM_PATH%.appimage}"
+if [ "$CUR_TAG" != "stable" ]; then
+  echo "$CUR_TAG != 'stable' - updating"
+  git checkout stable
+  make CMAKE_BUILD_TYPE=RelWithDebInfo
+  cd build
+  cpack -G DEB
+  sudo dpkg -i nvim-linux64.deb
+
+  # Setup
+  nvim --headless "+Lazy! sync" +qa
 fi
 
-if [ ! -d ~/.config/nvim ]; then
-  git clone https://github.com/NvChad/starter ~/.config/nvim --depth 1
-  ln -s ~/.bbenv/nvchad ~/.config/nvim/lua/custom
-fi
+cd "$old_dir"
+
