@@ -15,8 +15,12 @@
 [core]
 	mergeoptions = --no-commit
 	editor = nvim
-	pager = /usr/share/doc/git/contrib/diff-highlight/diff-highlight | less -r
+	pager = delta
 	excludesfile = /home/ben/.gitignore_global
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true  # use n and N to move between diff sections
 [color]
 	ui = true
 [color "diff-highlight"]
@@ -36,13 +40,9 @@
 [rebase]
 	autosquash = true
 [diff]
-	tool = vimdiff
-[difftool "vimdiff"]
-	cmd = nvim -d \"$LOCAL\" \"$REMOTE\"
+  colorMoved = default
 [merge]
-	tool = vimdiff
-[mergetool "vimdiff"]
-	cmd = nvim -d \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c \"$wincmd w\" -c \"wincmd J\"
+  conflictstyle = diff3
 [user]
 	name = Ben Barbour
 	email = ben.barbour@gmail.com
