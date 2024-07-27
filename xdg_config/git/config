@@ -50,3 +50,5 @@
 	path = config.local
 [push]
 	default = current
+[init]
+	defaultBranch = main
