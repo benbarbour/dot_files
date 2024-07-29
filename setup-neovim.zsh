@@ -7,7 +7,7 @@ sudo apt-get install ninja-build gettext cmake unzip curl build-essential ccache
 sudo apt-get -y install \
     xclip \
     ;
-python3 -m pip install --user --upgrade pynvim neovim-remote
+python3.13 -m pip install --user --upgrade pynvim neovim-remote
 
 if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
