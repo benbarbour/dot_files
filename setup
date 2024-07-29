@@ -12,6 +12,7 @@ function header {
 # apt packages used by the rest of the script
 # =============================================================================
 header "SETUP APT"
+sudo add-apt-repository -y ppa:deadsnakes/ppa
 sudo apt-get -y update
 sudo apt-get -y install \
 	build-essential \
@@ -21,19 +22,25 @@ sudo apt-get -y install \
 	git \
 	grep \
 	jq \
-	python3 \
-	python3-pip \
-	python3-venv \
+	python3.13 \
 	zip unzip \
 	zsh \
 	;
 
 # =============================================================================
-# Misc tools
+# Pipx
 # =============================================================================
-header "INSTALL MISC TOOLS"
-python3 -m pip install --user pipx
-python3 -m pipx ensurepath
+header "INSTALL PIPX"
+# see https://github.com/pypa/pipx/issues/1481
+sudo apt-get -y install pipx                   # installs pipx to /usr/local/bin
+pipx ensurepath                                # adds ~/.local/bin to path
+pipx install pipx                              # installs latest pipx to ~/.local/bin
+sudo apt-get purge -y --autoremove pipx        # remove pipx via apt, and all extra files including autocomplete from /usr/local/bin
+hash -r                                        # pick up the new path
+sudo ~/.local/bin/pipx install pipx --global   # installs latest pipx version to /usr/local/bin because --global works.
+pipx uninstall pipx                            # remove the local version
+pipx ensurepath                                # make sure the ~/.local/bin is added to $PATH
+sudo pipx ensurepath --global                  # make sure that /usr/local/bin is set to global install
 
 # =============================================================================
 # setup XDG_CONFIG_HOME
