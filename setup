@@ -5,7 +5,7 @@ set -e
 export BBENV="$(cd "$(dirname "$0")" && pwd)"
 
 function header {
-	printf '\n\e[4;1m%s\e[0m\n' "$1"
+  printf '\n\e[4;1m%s\e[0m\n' "$1"
 }
 
 # =============================================================================
@@ -14,16 +14,16 @@ function header {
 header "SETUP APT"
 sudo apt-get -y update
 sudo apt-get -y install \
-	build-essential \
-	cmake \
-	coreutils \
-	curl \
-	git \
-	grep \
-	jq \
-	zip unzip \
-	zsh \
-	;
+  build-essential \
+  cmake \
+  coreutils \
+  curl \
+  git \
+  grep \
+  jq \
+  zip unzip \
+  zsh \
+  ;
 
 . ./setup-python.zsh
 
@@ -46,15 +46,15 @@ ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
 PLUGIN_DIR="$CONF_DIR/plugins"
 curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
-	https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+  https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
 # =============================================================================
 # install other components using zsh so that they have paths from .zshenv
 # =============================================================================
 . "$HOME/.zshenv"
 if dpkg -s gnome-shell >/dev/null 2>&1; then
-	. ./setup-gnome.zsh
-	. ./setup-fonts.zsh
+  . ./setup-gnome.zsh
+  . ./setup-fonts.zsh
 fi
 . ./setup-git.zsh
 . ./setup-go.zsh
