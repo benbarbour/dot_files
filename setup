@@ -60,6 +60,7 @@ fi
 . ./setup-go.zsh
 . ./setup-rust.zsh
 . ./setup-nodejs.zsh
+. ./setup-lua.zsh
 . ./setup-language-servers.zsh
 . ./setup-neovim.zsh
 
