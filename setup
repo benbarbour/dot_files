@@ -20,6 +20,7 @@ sudo apt-get -y install \
   curl \
   git \
   grep \
+  perl \
   jq \
   zip unzip \
   zsh \
