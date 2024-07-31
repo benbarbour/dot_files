@@ -72,9 +72,9 @@ if dpkg -s gnome-shell >/dev/null 2>&1; then
 	. ./setup-fonts.zsh
 fi
 . ./setup-git.zsh
-. ./setup-nodejs.zsh
 . ./setup-go.zsh
 . ./setup-rust.zsh
+. ./setup-nodejs.zsh
 . ./setup-language-servers.zsh
 . ./setup-neovim.zsh
 
