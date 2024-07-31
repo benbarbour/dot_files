@@ -6,6 +6,8 @@ if ! command -v "python$py_ver"; then
 	sudo apt-get -y install python$py_ver python$py_ver-dev
 fi
 
+python3.11 -m pip install argcomplete
+
 header "INSTALL PIPX"
 # see https://github.com/pypa/pipx/issues/1481
 if ! command -v pipx; then
