@@ -26,9 +26,6 @@ alias tree='exa --tree --icons'
 
 export SKIM_DEFAULT_COMMAND='fd --type f'
 
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-
 export VISUAL=nvim
 export EDITOR=nvim
 
@@ -57,6 +54,8 @@ export SYSTEMD_EDITOR=nvim
 autoload -U bashcompinit
 bashcompinit
 eval "$(register-python-argcomplete pipx)"
+
+eval "$(fnm env --use-on-cd)"
 
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
