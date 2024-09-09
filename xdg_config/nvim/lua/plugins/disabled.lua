@@ -1,6 +1,5 @@
 local unwanted = {
   "akinsho/bufferline.nvim",
-  "goolord/alpha-nvim",
 }
 
 local spec = {}
