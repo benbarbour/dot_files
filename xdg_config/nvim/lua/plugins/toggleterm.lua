@@ -12,10 +12,10 @@ return {
       desc = "ToggleTerm (float root_dir)",
     },
     {
-      "<leader>th",
+      "<leader>ts",
       function()
         local count = vim.v.count1
-        require("toggleterm").toggle(count, 15, LazyVim.root.get(), "horizontal")
+        require("toggleterm").toggle(count, nil, LazyVim.root.get(), "horizontal")
       end,
       desc = "ToggleTerm (horizontal root_dir)",
     },
@@ -23,7 +23,7 @@ return {
       "<leader>tv",
       function()
         local count = vim.v.count1
-        require("toggleterm").toggle(count, vim.o.columns * 0.5, LazyVim.root.get(), "vertical")
+        require("toggleterm").toggle(count, nil, LazyVim.root.get(), "vertical")
       end,
       desc = "ToggleTerm (vertical root_dir)",
     },
@@ -33,9 +33,9 @@ return {
       desc = "Set term name",
     },
     {
-      "<leader>ts",
+      "<leader>tc",
       "<cmd>TermSelect<cr>",
-      desc = "Select term",
+      desc = "TooggleTerm choose",
     },
   },
   opts = {
@@ -47,7 +47,6 @@ return {
         return vim.o.columns * 0.5
       end
     end,
-    open_mapping = [[<c-\>]],
     shade_terminals = true,
     float_opts = { border = "double" },
   },
