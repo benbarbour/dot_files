@@ -1,7 +1,8 @@
 header "SETUP NEOVIM"
 
 # Build prerequisites
-sudo apt-get install ninja-build gettext cmake unzip curl build-essential ccache
+sudo apt-get install ninja-build gettext cmake unzip curl build-essential
+pip install cmake
 
 # Neovim support packages
 sudo apt-get -y install \
@@ -27,6 +28,7 @@ CUR_TAG=$(git name-rev --tags --name-only HEAD)
 if [ "$CUR_TAG" != "stable" ]; then
   echo "$CUR_TAG != 'stable' - updating"
   git checkout stable
+  git clean -dfx
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   cd build
   cpack -G DEB
