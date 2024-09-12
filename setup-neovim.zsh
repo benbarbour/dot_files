@@ -1,8 +1,8 @@
 header "SETUP NEOVIM"
 
 # Build prerequisites
-sudo apt-get install ninja-build gettext cmake unzip curl build-essential
-pip install cmake
+sudo apt-get install ninja-build gettext cmake unzip curl build-essential python3-pip
+sudo python3.11 -m pip install cmake
 
 # Neovim support packages
 sudo apt-get -y install \
