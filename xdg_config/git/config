@@ -14,7 +14,7 @@
 	whatadded = log --diff-filter=A  # Takes a file as a parameter, returns the commit that added that file
 [core]
 	mergeoptions = --no-commit
-	editor = nvim
+	editor = invim --split --remote-wait
 	pager = delta
 	excludesfile = /home/ben/.gitignore_global
 [interactive]
