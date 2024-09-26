@@ -11,6 +11,3 @@ vim.opt.listchars = {
   tab = "↦ ",
   trail = "·",
 }
-
-vim.cmd([[let $EDITOR='invim --tabedit --remote-wait']])
-vim.cmd([[autocmd FileType gitcommit,gitrebase,gitconfig set bufhidden=delete]])
