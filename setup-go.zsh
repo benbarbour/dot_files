@@ -20,4 +20,6 @@ if [[ "$update_needed" == 1 ]]; then
     sudo tar -C /usr/local -xzf /tmp/go.tar.gz
 fi
 
+go install github.com/go-task/task/v3/cmd/task@latest
+
 echo "Go installed and up to date!"
