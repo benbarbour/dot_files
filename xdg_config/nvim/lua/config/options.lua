@@ -11,3 +11,6 @@ vim.opt.listchars = {
   tab = "↦ ",
   trail = "·",
 }
+
+-- disable animations
+vim.g.snacks_animate = false
