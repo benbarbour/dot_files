@@ -60,3 +60,5 @@ eval "$(fnm env --use-on-cd)"
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
 fi
+
+eval "$(task --completion zsh)"
