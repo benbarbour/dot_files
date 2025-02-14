@@ -1,2 +1,2 @@
 header "SETUP GIT"
-sudo apt-get install git-delta
+sudo apt-get -y install git-delta
