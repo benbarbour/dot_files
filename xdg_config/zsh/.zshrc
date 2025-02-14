@@ -8,6 +8,9 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt no_share_history
 unsetopt share_history
 
+autoload -Uz compinit
+compinit
+
 for file in ~/.config/zsh/plugins/*.zsh(N); do
     source "$file"
 done
