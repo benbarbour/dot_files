@@ -26,8 +26,6 @@ sudo apt-get -y install \
   zsh \
   ;
 
-. ./setup-python.zsh
-
 # =============================================================================
 # setup XDG_CONFIG_HOME
 # =============================================================================
@@ -38,16 +36,20 @@ ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
 # =============================================================================
 # setup zsh
 # =============================================================================
-header "SETUP ZSH"
-sudo chsh -s "$(which zsh)" "$USER"
+if [ "$SHELL" != "/usr/bin/zsh" ]; then
+    header "SETUP ZSH"
+    sudo chsh -s "$(which zsh)" "$USER"
 
-CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-touch "$CONF_DIR/.zshrc.local"
-ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
+    CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
+    touch "$CONF_DIR/.zshrc.local"
+    ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
-PLUGIN_DIR="$CONF_DIR/plugins"
-curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
-  https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+    PLUGIN_DIR="$CONF_DIR/plugins"
+    curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
+        https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
+    echo "Logout and log back in to finish changing shells"
+    exit 0
+fi
 
 # =============================================================================
 # install other components using zsh so that they have paths from .zshenv
@@ -57,6 +59,7 @@ if dpkg -s gnome-shell >/dev/null 2>&1; then
   . ./setup-gnome.zsh
   . ./setup-fonts.zsh
 fi
+. ./setup-python.zsh
 . ./setup-git.zsh
 . ./setup-go.zsh
 . ./setup-rust.zsh

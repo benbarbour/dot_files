@@ -56,7 +56,6 @@ export SYSTEMD_EDITOR=nvim
 
 autoload -U bashcompinit
 bashcompinit
-eval "$(register-python-argcomplete pipx)"
 
 eval "$(fnm env --use-on-cd)"
 
@@ -65,3 +64,7 @@ if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
 fi
 
 eval "$(task --completion zsh)"
+
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init - zsh)"
