@@ -57,7 +57,14 @@ export SYSTEMD_EDITOR=nvim
 autoload -U bashcompinit
 bashcompinit
 
-eval "$(fnm env --use-on-cd)"
+# fnm
+FNM_PATH="/home/ben/.local/share/fnm"
+if [ -d "$FNM_PATH" ]; then
+  export PATH="/home/ben/.local/share/fnm:$PATH"
+  eval "`fnm env`"
+fi
+
+eval "$(fnm env --use-on-cd --shell zsh)"
 
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
