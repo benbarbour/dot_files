@@ -42,7 +42,9 @@
 [diff]
   colorMoved = default
 [merge]
-  conflictstyle = diff3
+	tool = nvim
+[mergetool "nvim"]
+  cmd = nvim -d $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
 [user]
 	name = Ben Barbour
 	email = ben.barbour@gmail.com
