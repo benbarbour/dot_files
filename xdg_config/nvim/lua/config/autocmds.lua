@@ -23,3 +23,10 @@ nvim_create_augroups({
     { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" },
   },
 })
+
+vim.api.nvim_create_autocmd({ "BufRead", "BufNewFile" }, {
+  callback = function()
+    -- using harper-ls for spelling
+    vim.wo.spell = false
+  end,
+})
