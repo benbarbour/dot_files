@@ -22,6 +22,7 @@ cargo install \
     ripgrep \
     sd \
     skim \
+    somo \
     starship \
     tokei \
     tree-sitter-cli \
