@@ -4,9 +4,10 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       sh = { "shfmt" },
-      html = { "prettier" },
-      javascript = { "prettier" },
-      markdown = { "prettier" },
+      html = { "prettierd" },
+      javascript = { "prettierd" },
+      markdown = { "prettierd" },
+      gotmpl = { "prettierd" },
     },
   },
 }
