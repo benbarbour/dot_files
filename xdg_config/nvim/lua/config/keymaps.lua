@@ -5,12 +5,19 @@
 local map = vim.keymap.set
 local unmap = vim.keymap.del
 
+local wk = require("which-key")
+
 map("n", "<A-d>", '"_d', { desc = "Delete to null register" })
 map("n", "x", '"_x', { desc = "Delete to null register", remap = false })
 map("n", "X", '"_x', { desc = "Delete to null register", remap = false })
 
 -- Set new terminal mappings
--- vim.keymap.set("t", "<esc>", [[<C-\><C-n>]])
-vim.keymap.set("t", "<C-w>", [[<C-\><C-n><C-w>]])
-vim.keymap.set("n", "tv", ":vsplit +terminal<CR>", { desc = "Open terminal in vertical split" })
-vim.keymap.set("n", "ts", ":split +terminal<CR>", { desc = "Open terminal in horizontal split" })
+map("t", "<C-w>", [[<C-\><C-n><C-w>]])
+wk.add({
+  {
+    mode = "n",
+    { "<leader>T", group = "Terminal" },
+    { "<leader>Tv", ":vsplit +terminal<CR>", desc = "Open terminal in vertical split" },
+    { "<leader>Ts", ":split +terminal<CR>", desc = "Open terminal in horizontal split" },
+  },
+})
