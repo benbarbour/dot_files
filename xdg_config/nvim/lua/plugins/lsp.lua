@@ -4,7 +4,7 @@ return {
     diagnostics = {
       virtual_text = false,
       signs = true,
-      inlay_hints = { enabled = false },
     },
+    inlay_hints = { enabled = false },
   },
 }
