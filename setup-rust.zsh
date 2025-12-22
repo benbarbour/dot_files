@@ -15,6 +15,7 @@ rustup update
 
 cargo install \
     bat \
+    bottom \
     exa \
     fd-find \
     grex \
@@ -27,5 +28,4 @@ cargo install \
     tokei \
     tree-sitter-cli \
     watchexec-cli \
-    ytop \
     ;
