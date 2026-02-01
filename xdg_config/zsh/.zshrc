@@ -15,6 +15,10 @@ for file in ~/.config/zsh/plugins/*.zsh(N); do
     source "$file"
 done
 
+if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shpool.zsh" ]]; then
+  source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shpool.zsh"
+fi
+
 bindkey "$terminfo[kcuu1]" history-substring-search-up
 bindkey "$terminfo[kcud1]" history-substring-search-down
 

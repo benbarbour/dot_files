@@ -22,6 +22,7 @@ cargo install \
     procs \
     ripgrep \
     sd \
+    shpool \
     skim \
     somo \
     starship \
