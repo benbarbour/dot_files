@@ -1,19 +1,11 @@
 return {
-  "maxmx03/solarized.nvim",
+  "craftzdog/solarized-osaka.nvim",
   lazy = false,
   priority = 1000,
+  opts = {
+    transparent = true,
+  },
   config = function()
-    require("solarized").setup({
-      highlights = function(colors, _)
-        return {
-          LineNr = { bg = colors.base03 },
-          GitsignsAdd = { bg = colors.base03 },
-          GitsignsChange = { bg = colors.base03 },
-          GitsignsDelete = { bg = colors.base03 },
-        }
-      end,
-    })
-    vim.o.background = "dark" -- or 'light'
-    vim.cmd.colorscheme("solarized")
+    vim.cmd.colorscheme("solarized-osaka")
   end,
 }
