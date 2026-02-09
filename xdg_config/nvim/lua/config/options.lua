@@ -19,3 +19,5 @@ vim.g.snacks_animate = false
 vim.diagnostic.config({
   float = { source = "always" },
 })
+
+vim.g.lazyvim_python_lsp = "basedpyright"
