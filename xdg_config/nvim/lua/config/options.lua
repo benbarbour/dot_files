@@ -14,3 +14,8 @@ vim.opt.listchars = {
 
 -- disable animations
 vim.g.snacks_animate = false
+
+-- always show diagnostic source
+vim.diagnostic.config({
+  float = { source = "always" },
+})
