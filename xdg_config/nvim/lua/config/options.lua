@@ -21,3 +21,9 @@ vim.diagnostic.config({
 })
 
 vim.g.lazyvim_python_lsp = "basedpyright"
+
+-- Enables project-local configuration. Nvim will execute any .nvim.lua,
+-- .nvimrc, or .exrc file found in the current-directory and all parent
+-- directories (ordered upwards), if the files are in the trust list.
+-- Use :trust to manage trusted files.
+vim.opt.exrc = true
