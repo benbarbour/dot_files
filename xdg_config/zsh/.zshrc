@@ -19,8 +19,10 @@ if [[ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shpool.zsh" ]]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/shpool.zsh"
 fi
 
-bindkey "$terminfo[kcuu1]" history-substring-search-up
-bindkey "$terminfo[kcud1]" history-substring-search-down
+if [[ -t 0 ]]; then
+  bindkey "$terminfo[kcuu1]" history-substring-search-up
+  bindkey "$terminfo[kcud1]" history-substring-search-down
+fi
 
 alias cat='bat'
 alias fd='fd --follow'
