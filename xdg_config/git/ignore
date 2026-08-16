@@ -28,3 +28,6 @@ Temporary Items
 
 
 **/.claude/settings.local.json
+
+# nvim compiled spell files (regenerated from *.add)
+*.spl
