@@ -21,7 +21,7 @@ vim.diagnostic.config({
 })
 
 vim.g.lazyvim_python_lsp = "basedpyright"
-vim.g.python3_host_prog = vim.fn.expand("~/.local/share/nvim/python-venv/bin/python3")
+vim.g.python3_host_prog = vim.fn.stdpath("data") .. "/python-venv/bin/python3"
 
 -- Enables project-local configuration. Nvim will execute any .nvim.lua,
 -- .nvimrc, or .exrc file found in the current-directory and all parent
