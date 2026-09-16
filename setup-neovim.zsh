@@ -12,7 +12,7 @@ sudo apt-get -y install \
 # The python provider gets its own venv so it doesn't follow `pyenv
 # global` or whatever venv a project activates (see config/options.lua).
 NVIM_VENV="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/python-venv"
-[ -d "$NVIM_VENV" ] || python3.13 -m venv "$NVIM_VENV"
+[ -x "$NVIM_VENV/bin/python" ] || python3.13 -m venv --clear "$NVIM_VENV"
 "$NVIM_VENV/bin/python" -m pip install --upgrade pynvim
 
 # nvr is a command you run, so it stays on PATH via pyenv's shims.
