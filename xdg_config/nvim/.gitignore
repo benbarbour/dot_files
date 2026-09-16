@@ -6,3 +6,8 @@ debug
 foo.*
 *.log
 data
+
+lua/patrocles.lua
+lua/plugins/patrocles-lsp.lua
+lua/achilles.lua
+lua/plugins/achilles-toolchain.lua
