@@ -55,3 +55,5 @@
 	defaultBranch = main
 [url "ssh://soft.bbarbour.com/hugo-rpg/"]
 	insteadOf = https://soft.bbarbour.com/hugo-rpg/
+[credential]
+	helper = cache --timeout=3600
