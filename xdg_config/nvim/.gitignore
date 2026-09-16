@@ -6,3 +6,7 @@ debug
 foo.*
 *.log
 data
+
+# Symlinks into ~/Code/patrocles, created by `patrocles setup-lazyvim`.
+lua/patrocles.lua
+lua/plugins/patrocles-lsp.lua
