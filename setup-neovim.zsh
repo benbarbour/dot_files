@@ -33,7 +33,7 @@ cd $HOME/src/neovim
 git fetch --prune --tags --force
 CUR_TAG=$(git name-rev --tags --name-only HEAD)
 
-if [ "$CUR_TAG" != "stabl2e" ]; then
+if [ "$CUR_TAG" != "stable" ]; then
   echo "$CUR_TAG != 'stable' - updating"
   git checkout stable
   git clean -dfx
