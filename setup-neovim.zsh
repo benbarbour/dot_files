@@ -9,7 +9,14 @@ python3.13 -m pip install cmake
 sudo apt-get -y install \
     xclip \
     ;
-python3.13 -m pip install --upgrade pynvim neovim-remote
+# The python provider gets its own venv so it doesn't follow `pyenv
+# global` or whatever venv a project activates (see config/options.lua).
+NVIM_VENV="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/python-venv"
+[ -d "$NVIM_VENV" ] || python3.13 -m venv "$NVIM_VENV"
+"$NVIM_VENV/bin/python" -m pip install --upgrade pynvim
+
+# nvr is a command you run, so it stays on PATH via pyenv's shims.
+python3.13 -m pip install --upgrade neovim-remote
 
 if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
