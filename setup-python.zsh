@@ -1,3 +1,6 @@
+export PYENV_ROOT="$HOME/.pyenv"
+export PATH="$PYENV_ROOT/bin:$PATH"
+
 if [ ! -d "$HOME/.pyenv" ]; then
 	curl -fsSL https://pyenv.run | bash
 
