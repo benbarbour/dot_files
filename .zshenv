@@ -8,4 +8,4 @@ export PATH="$HOME/bin:$(python3 -m site --user-base)/bin:/usr/local/go/bin:$GOP
 
 # fnm (node)
 export PATH="$HOME/.local/share/fnm:$PATH"
-command -v fnm >/dev/null && eval "$(fnm env)"
+if command -v fnm >/dev/null; then eval "$(fnm env)"; fi
