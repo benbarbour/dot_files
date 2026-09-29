@@ -8,4 +8,7 @@ export PATH="$HOME/bin:$(python3 -m site --user-base)/bin:/usr/local/go/bin:$GOP
 
 # fnm (node)
 export PATH="$HOME/.local/share/fnm:$PATH"
-if command -v fnm >/dev/null; then eval "$(fnm env)"; fi
+# setup sources this from bash, and fnm would guess zsh from the parent process
+if command -v fnm >/dev/null; then
+    eval "$(fnm env --shell "$([ -n "$ZSH_VERSION" ] && echo zsh || echo bash)")"
+fi
