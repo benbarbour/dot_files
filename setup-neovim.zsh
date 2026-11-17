@@ -3,7 +3,7 @@ header "SETUP NEOVIM"
 # Build prerequisites
 sudo apt-get install -y \
     ninja-build gettext cmake unzip curl build-essential python3-pip
-python3.13 -m pip install cmake
+python3 -m pip install cmake
 
 # Neovim support packages
 sudo apt-get -y install \
@@ -12,11 +12,11 @@ sudo apt-get -y install \
 # The python provider gets its own venv so it doesn't follow `pyenv
 # global` or whatever venv a project activates (see config/options.lua).
 NVIM_VENV="${XDG_DATA_HOME:-$HOME/.local/share}/nvim/python-venv"
-[ -x "$NVIM_VENV/bin/python" ] || python3.13 -m venv --clear "$NVIM_VENV"
+[ -x "$NVIM_VENV/bin/python" ] || python3 -m venv --clear "$NVIM_VENV"
 "$NVIM_VENV/bin/python" -m pip install --upgrade pynvim
 
 # nvr is a command you run, so it stays on PATH via pyenv's shims.
-python3.13 -m pip install --upgrade neovim-remote
+python3 -m pip install --upgrade neovim-remote
 
 if command -v npm >/dev/null && ! npm list -g --depth 0 neovim >/dev/null; then
     npm install -g neovim
