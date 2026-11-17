@@ -70,8 +70,7 @@ export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
 (( $+commands[pyenv] )) && eval "$(pyenv init - zsh)"
 
-# Auto-activate venv if in a subdirectory and VIRTUAL_ENV is set in parent
-if [[ -n "$VIRTUAL_ENV" ]] && [[ -z "$VIRTUAL_ENV_ACTIVATED" ]]; then
-    export VIRTUAL_ENV_ACTIVATED=1
+# A nested shell inherits VIRTUAL_ENV, but pyenv's shims land ahead of the venv on PATH.
+if [[ -n "$VIRTUAL_ENV" && -f "$VIRTUAL_ENV/bin/activate" ]]; then
     source "$VIRTUAL_ENV/bin/activate"
 fi
