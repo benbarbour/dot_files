@@ -31,15 +31,20 @@ fi
 cd $HOME/src/neovim
 
 git fetch --prune --tags --force
-CUR_TAG=$(git name-rev --tags --name-only HEAD)
+git checkout --quiet stable
+STABLE_VER=$(git tag --points-at stable 'v*' | head -n 1)
+CUR_VER=$(nvim --version 2>/dev/null | head -n 1)
 
-if [ "$CUR_TAG" != "stable" ]; then
-  echo "$CUR_TAG != 'stable' - updating"
-  git checkout stable
+if [ "$CUR_VER" != "NVIM $STABLE_VER" ]; then
+  echo "'$CUR_VER' != 'NVIM $STABLE_VER' - updating"
   git clean -dfx
   make CMAKE_BUILD_TYPE=RelWithDebInfo
   cd build
   cpack -G DEB
+  # Ubuntu splits the runtime into its own package, and dpkg won't let our deb overwrite it.
+  if dpkg -s neovim-runtime >/dev/null 2>&1; then
+    sudo apt-get -y remove neovim-runtime
+  fi
   sudo dpkg -i nvim-linux*.deb
 
   # Setup
