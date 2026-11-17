@@ -13,7 +13,8 @@ fi
 
 rustup update
 
-cargo install \
+# One at a time: given several, cargo reports all but the first stale crate as up to date.
+for crate in \
     bat \
     bottom \
     exa \
@@ -29,4 +30,6 @@ cargo install \
     tokei \
     tree-sitter-cli \
     watchexec-cli \
-    ;
+    ; do
+    cargo install "$crate"
+done
