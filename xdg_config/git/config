@@ -1,6 +1,6 @@
 [alias]
-	cleanup = "!git branch --merged | grep -v '\\*' | xargs -r -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
-	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -v '\\*'"  # Displays branches that would be deleted by the 'cleanup' alias
+	cleanup = "!git branch --merged | grep -vE '^[*+]| (main|master)$' | xargs -r -n 1 git branch -d"  # Removes all local branches that have already been merged into this one
+	cleanup-check = "!echo 'These branches have already been merged'; git branch --merged | grep -vE '^[*+]| (main|master)$'"  # Displays branches that would be deleted by the 'cleanup' alias
 	co = checkout
 	d = diff
 	ds = diff --staged
@@ -49,6 +49,8 @@
 	path = config.local
 [push]
 	default = current
+[pull]
+	ff = only
 [init]
 	defaultBranch = main
 [url "ssh://soft.bbarbour.com/hugo-rpg/"]
