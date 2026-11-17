@@ -3,7 +3,6 @@
 -- Add any additional keymaps here
 
 local map = vim.keymap.set
-local unmap = vim.keymap.del
 
 local wk = require("which-key")
 

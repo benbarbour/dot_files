@@ -1,7 +1,11 @@
 header "SETUP GO"
 
 update_needed=0
-latest_ver=$(curl -sS 'https://go.dev/VERSION?m=text' | head -n 1)
+latest_ver=$(curl -fsS 'https://go.dev/VERSION?m=text' | head -n 1)
+if [[ "$latest_ver" != go* ]]; then
+    echo "Couldn't read the latest Go version from go.dev" >&2
+    return 1
+fi
 
 if ! command -v go >/dev/null; then
     echo "Go not installed - update needed"
@@ -15,9 +19,10 @@ else
 fi
 
 if [[ "$update_needed" == 1 ]]; then
+    curl -fsS -L "https://go.dev/dl/$latest_ver.linux-amd64.tar.gz" -o /tmp/go.tar.gz
     sudo rm -rf /usr/local/go
-    curl -sS -L "https://go.dev/dl/$latest_ver.linux-amd64.tar.gz" -o /tmp/go.tar.gz
     sudo tar -C /usr/local -xzf /tmp/go.tar.gz
+    rm -f /tmp/go.tar.gz
 fi
 
 go install github.com/go-task/task/v3/cmd/task@latest

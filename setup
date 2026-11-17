@@ -3,6 +3,7 @@
 set -e
 
 export BBENV="$(cd "$(dirname "$0")" && pwd)"
+cd "$BBENV"
 
 function header {
   printf '\n\e[4;1m%s\e[0m\n' "$1"
@@ -32,6 +33,7 @@ sudo apt-get -y install \
 header "SETUP CONFIG"
 mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
 ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
+ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
 # =============================================================================
 # setup zsh
@@ -42,7 +44,6 @@ if [ "$SHELL" != "/usr/bin/zsh" ]; then
 
     CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
     touch "$CONF_DIR/.zshrc.local"
-    ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
     PLUGIN_DIR="$CONF_DIR/plugins"
     curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \

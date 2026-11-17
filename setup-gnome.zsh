@@ -8,5 +8,4 @@ gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-down "['<Supe
 gsettings set org.gnome.desktop.wm.keybindings switch-to-workspace-up "['<Super>Up']"
 gsettings set org.gnome.desktop.wm.keybindings unmaximize "['<Alt>Down']"
 gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>w']"
-gsettings set org.gnome.settings-daemon.plugins.media-keys www "['<Super>w']"
 gsettings set org.gnome.shell.app-switcher current-workspace-only true

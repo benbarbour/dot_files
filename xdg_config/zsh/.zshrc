@@ -36,8 +36,6 @@ export VISUAL=nvim
 export EDITOR=nvim
 
 function new-node-project() {
-  echo $CWD
-  pwd
   if [ -f LICENSE ]; then
     echo "Skipping LICENSE generation because file already exists"
   else
@@ -51,7 +49,7 @@ function new-node-project() {
   npm init -y
 }
 
-eval "$(starship init zsh)"
+(( $+commands[starship] )) && eval "$(starship init zsh)"
 
 typeset -U path
 
@@ -60,24 +58,17 @@ export SYSTEMD_EDITOR=nvim
 autoload -U bashcompinit
 bashcompinit
 
-# fnm
-FNM_PATH="/home/ben/.local/share/fnm"
-if [ -d "$FNM_PATH" ]; then
-  export PATH="/home/ben/.local/share/fnm:$PATH"
-  eval "`fnm env`"
-fi
-
-eval "$(fnm env --use-on-cd --shell zsh)"
+(( $+commands[fnm] )) && eval "$(fnm env --use-on-cd --shell zsh)"
 
 if [ -f "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local" ]; then
   source "${XDG_CONFIG_HOME:-$HOME/.config}/zsh/.zshrc.local"
 fi
 
-eval "$(task --completion zsh)"
+(( $+commands[task] )) && eval "$(task --completion zsh)"
 
 export PYENV_ROOT="$HOME/.pyenv"
 [[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init - zsh)"
+(( $+commands[pyenv] )) && eval "$(pyenv init - zsh)"
 
 # Auto-activate venv if in a subdirectory and VIRTUAL_ENV is set in parent
 if [[ -n "$VIRTUAL_ENV" ]] && [[ -z "$VIRTUAL_ENV_ACTIVATED" ]]; then
