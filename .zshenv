@@ -9,8 +9,6 @@ export CARGO_HOME="${XDG_DATA_HOME:-$HOME/.local/share}/cargo"
 
 export PATH="$HOME/bin:$HOME/.local/bin:/usr/local/go/bin:$GOPATH/bin:$CARGO_HOME/bin:$PATH"
 
-# fnm (node)
-export PATH="$HOME/.local/share/fnm:$PATH"
 # Each fnm env makes a new multishell dir, so a child shell keeps the one it inherited.
 # setup sources this from bash, and fnm would guess zsh from the parent process
 if [ ! -d "$FNM_MULTISHELL_PATH" ] && command -v fnm >/dev/null; then
