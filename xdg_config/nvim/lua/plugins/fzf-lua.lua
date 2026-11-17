@@ -2,13 +2,7 @@ return {
   "ibhagwan/fzf-lua",
   -- optional for icon support
   dependencies = { "nvim-tree/nvim-web-devicons" },
-  config = function()
-    -- calling `setup` is optional for customization
-    require("fzf-lua").setup({
-      fzf_bin = "sk",
-      keymap = {
-        true,
-      },
-    })
-  end,
+  opts = {
+    fzf_bin = "sk",
+  },
 }
