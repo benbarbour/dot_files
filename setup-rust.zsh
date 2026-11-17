@@ -17,7 +17,7 @@ rustup update
 for crate in \
     bat \
     bottom \
-    exa \
+    eza \
     fd-find \
     grex \
     procs \

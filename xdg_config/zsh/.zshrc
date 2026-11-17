@@ -27,8 +27,10 @@ fi
 alias cat='bat'
 alias fd='fd --follow'
 alias ll='ls -l'
-alias ls='exa --icons --group-directories-first'
-alias tree='exa --tree --icons'
+if (( $+commands[eza] )); then
+  alias ls='eza --icons --group-directories-first'
+  alias tree='eza --tree --icons'
+fi
 
 export SKIM_DEFAULT_COMMAND='fd --type f'
 
