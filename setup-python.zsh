@@ -11,5 +11,7 @@ if [ ! -d "$HOME/.pyenv" ]; then
 		libxmlsec1-dev libffi-dev liblzma-dev
 fi
 
+# pyenv only knows the Python releases that existed when it was last updated.
+pyenv update
 pyenv install -s 3.13
 pyenv global 3.13
