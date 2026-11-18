@@ -28,9 +28,9 @@ Temporary Items
 
 
 # Claude Code — ignore everywhere, never commit
-# (NOT CLAUDE.md — that's the shared, committed project file)
 .claude/
 CLAUDE.local.md
+CLAUDE.md
 
 # nvim compiled spell files (regenerated from *.add)
 *.spl
