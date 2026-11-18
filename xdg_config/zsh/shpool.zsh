@@ -60,12 +60,20 @@ _shpool_attach() {
   printf '\e[?1049l\e[?1000l\e[?1002l\e[?1003l\e[?1004l\e[?1006l\e[?2004l\e[?25h\e[0m'
 }
 
-# Names of the currently running sessions, one per line.
-_shpool_session_names() { shpool list 2>/dev/null | tail -n +2 | cut -f1 }
+# One "name<TAB>status<TAB>started" line per session. The plain list lost its
+# start-time column in shpool 0.11, so read the JSON.
+_shpool_sessions() {
+  shpool list --json 2>/dev/null | jq -r '.sessions[]
+    | [.name, (.status | ascii_downcase),
+       (.started_at_unix_ms / 1000 | strflocaltime("%Y-%m-%d %H:%M"))]
+    | @tsv' 2>/dev/null
+}
+
+_shpool_session_names() { _shpool_sessions | cut -f1 }
 
 # Resume the most recently attached session in one step.
 function shpool-resume() {
-  _shpool_require shpool || return 1
+  _shpool_require shpool jq || return 1
   local last
   last="$(<"$(_shpool_cache_dir)/last-session")" 2>/dev/null
   if [[ -z "$last" ]]; then
@@ -80,11 +88,11 @@ function shpool-resume() {
 
 # Pick, resume, or create a shpool session via a gum menu.
 function shpool-pick() {
-  _shpool_require shpool gum || return 1
+  _shpool_require shpool gum jq || return 1
 
   local cache_dir sessions
   cache_dir="$(_shpool_cache_dir)"
-  sessions="$(shpool list 2>/dev/null | tail -n +2)"
+  sessions="$(_shpool_sessions)"
   sessions="${sessions%$'\n'}"
 
   local -a names
@@ -95,14 +103,14 @@ function shpool-pick() {
   local f base
   for f in "$cache_dir"/ssh-*.env(N); do
     base="${${f:t}#ssh-}"; base="${base%.env}"
-    [[ -n "${names[(r)$base]}" ]] || rm -f "$f"
+    [[ -n "${names[(re)$base]}" ]] || rm -f "$f"
   done
 
   # Most-recently attached session, if it still exists (the cursor lands here,
   # so pressing Enter resumes it).
   local last last_default=""
   last="$(<"$cache_dir/last-session")" 2>/dev/null
-  [[ -n "$last" && -n "${names[(r)$last]}" ]] && last_default="$last"
+  [[ -n "$last" && -n "${names[(re)$last]}" ]] && last_default="$last"
 
   local reply=""
 
@@ -112,10 +120,9 @@ function shpool-pick() {
     # Build an aligned menu; remember the row for the last session so the
     # cursor can start there.
     local -a menu sel_args
-    local name started state when opt def_opt='' w=4 n
+    local name state when opt def_opt='' w=4 n
     for n in "$names[@]"; do (( ${#n} > w )) && w=${#n}; done
-    while IFS=$'\t' read -r name started state; do
-      when="${started[1,16]}"; when="${when/T/ }"
+    while IFS=$'\t' read -r name state when; do
       opt="$(printf '%-*s  │  %-12s  │  %s' "$w" "$name" "$state" "$when")"
       menu+=("$opt")
       [[ "$name" == "$last_default" ]] && def_opt="$opt"
@@ -143,11 +150,11 @@ function shpool-pick() {
 # Notify on SSH login if sessions exist.
 if [[ -n "$SSH_TTY" && -z "$SHPOOL_SESSION_NAME" ]]; then
   local _list
-  _list="$(shpool list 2>/dev/null | tail -n +2)"
+  _list="$(_shpool_sessions)"
   if [[ -n "${_list%$'\n'}" ]]; then
     local _total _detached
     _total=$(print -r -- "$_list" | grep -c .)
-    _detached=$(print -r -- "$_list" | awk -F'\t' '$3 != "attached"' | grep -c .)
+    _detached=$(print -r -- "$_list" | awk -F'\t' '$2 != "attached"' | grep -c .)
     print -r -- "shpool: $_total session(s) available ($_detached detached) — 'shpool-pick' to choose, 'shpool-resume' for last"
   fi
   unset _list _total _detached
