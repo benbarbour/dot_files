@@ -54,18 +54,17 @@ ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 # =============================================================================
 # setup zsh
 # =============================================================================
-if [ "$SHELL" != "/usr/bin/zsh" ]; then
-    header "SETUP ZSH"
-    sudo chsh -s "$(which zsh)" "$USER"
+header "SETUP ZSH"
+touch "$CONFIG/zsh/.zshrc.local"
+curl -fsS --create-dirs -L -o "$CONFIG/zsh/plugins/zsh-history-substring-search.zsh" \
+    https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
 
-    CONF_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/zsh"
-    touch "$CONF_DIR/.zshrc.local"
-
-    PLUGIN_DIR="$CONF_DIR/plugins"
-    curl -sS --create-dirs -L -o "$PLUGIN_DIR/zsh-history-substring-search.zsh" \
-        https://raw.githubusercontent.com/zsh-users/zsh-history-substring-search/master/zsh-history-substring-search.zsh
-    echo "Logout and log back in to finish changing shells"
-    exit 0
+SHELL_CHANGED=0
+ZSH_BIN="$(command -v zsh)"
+LOGIN_SHELL="$(getent passwd "$USER" | cut -d: -f7)"
+if [ "$(realpath "$LOGIN_SHELL")" != "$(realpath "$ZSH_BIN")" ]; then
+    sudo chsh -s "$ZSH_BIN" "$USER"
+    SHELL_CHANGED=1
 fi
 
 # =============================================================================
@@ -95,3 +94,7 @@ go install github.com/jesseduffield/lazygit@latest
 # run post-install configurations
 # =============================================================================
 . ./configure-git.zsh
+
+if [ "$SHELL_CHANGED" = 1 ]; then
+    echo "Logout and log back in to finish changing shells"
+fi
