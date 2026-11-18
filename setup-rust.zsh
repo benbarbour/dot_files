@@ -6,12 +6,10 @@ if ! command -v rustup >/dev/null; then
     /tmp/sh.rustup.rs -y --no-modify-path
 fi
 
-if [ ! -f "$ZDOTDIR/.zfunc/_rustup" ]; then
-    mkdir -p "$ZDOTDIR/.zfunc/"
-    rustup completions zsh > "$ZDOTDIR/.zfunc/_rustup"
-fi
-
 rustup update
+
+mkdir -p "$ZDOTDIR/.zfunc/"
+rustup completions zsh > "$ZDOTDIR/.zfunc/_rustup"
 
 # One at a time: given several, cargo reports all but the first stale crate as up to date.
 for crate in \
