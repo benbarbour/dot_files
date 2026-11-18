@@ -31,3 +31,10 @@ for crate in \
     ; do
     cargo install "$crate"
 done
+
+# Crates this list used to install.
+for crate in exa; do
+    if cargo install --list | grep -q "^$crate "; then
+        cargo uninstall "$crate"
+    fi
+done
