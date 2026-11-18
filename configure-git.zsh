@@ -1,7 +1,10 @@
 header "CONFIGURE GIT"
 
 prompt_gitconf() {
-    printf 'Enter your git %s [%s]: ' "$1" "$(git config --file xdg_config/git/config.local $1)"
+    if [ -n "$(git config --file xdg_config/git/config.local "$1")" ]; then
+        return 0
+    fi
+    printf 'Enter your git %s: ' "$1"
     read x
     if [ ! -z "$x" ]; then
         git config --file xdg_config/git/config.local "$1" "$x"
