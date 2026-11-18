@@ -46,10 +46,9 @@ if [ "$CUR_VER" != "NVIM $STABLE_VER" ]; then
     sudo apt-get -y remove neovim-runtime
   fi
   sudo dpkg -i nvim-linux*.deb
-
-  # Setup
-  nvim --headless "+Lazy! sync" +qa
 fi
+
+nvim --headless "+Lazy! restore" +qa
 
 cd "$old_dir"
 
