@@ -1,0 +1,56 @@
+#autoload
+
+__git_review_emails () {
+  local -a emails
+  local name
+  for name in ${(ok)parameters[(I)EMAIL_*]}; do
+    emails+=("${(P)name}:${name#EMAIL_}")
+  done
+  _describe -t emails 'reviewer' emails
+}
+
+_git-review () {
+  _arguments -s -S \
+    '(-d --download)'{-d+,--download=}'[download change into a local branch]:change number: ' \
+    '(-x --cherrypick)'{-x+,--cherrypick=}'[cherry-pick change into the current branch]:change number: ' \
+    '(-N --cherrypickonly)'{-N+,--cherrypickonly=}'[apply change to the index without committing]:change number: ' \
+    '(-X --cherrypickindicate)'{-X+,--cherrypickindicate=}'[cherry-pick change, noting its origin]:change number: ' \
+    '(-m --compare)'{-m+,--compare=}'[diff patchsets of a change]:change,ps[-ps]: ' \
+    '(-i --new-changeid)'{-i,--new-changeid}'[generate a new Change-Id]' \
+    '(-f --finish)'{-f,--finish}'[delete the local branch after submitting]' \
+    '(-F --force-rebase)'{-F,--force-rebase}'[rebase onto the target branch and keep it]' \
+    '(-n --dry-run)'{-n,--dry-run}'[print commands instead of running them]' \
+    '(-r --remote)'{-r+,--remote=}'[Gerrit remote]:remote:__git_remotes' \
+    '--remote-hook[fetch the commit-msg hook from the remote]' \
+    '(-s --setup)'{-s,--setup}'[only run repo setup]' \
+    '(-t --topic -T --no-topic)'{-t+,--topic=}'[set the topic]:topic: ' \
+    '(-t --topic -T --no-topic)'{-T,--no-topic}'[submit without a topic]' \
+    '--hashtags=[comma-separated hashtags]:hashtags: ' \
+    '--message=[patchset message]:message: ' \
+    '(-p --private -P --remove-private)'{-p,--private}'[send as private]' \
+    '(-p --private -P --remove-private)'{-P,--remove-private}'[make a private change public]' \
+    '(-w --wip --work-in-progress -W --ready)'{-w,--wip,--work-in-progress}'[send as work in progress]' \
+    '(-w --wip --work-in-progress -W --ready)'{-W,--ready}'[mark a WIP change ready]' \
+    '--cc[CC reviewers]:*-*:reviewer:__git_review_emails' \
+    '--reviewers[add reviewers]:*-*:reviewer:__git_review_emails' \
+    '--notify=[who gets email notifications]:type:(NONE OWNER OWNER_REVIEWERS ALL)' \
+    '(-u --update)'{-u,--update}'[skip cached copies]' \
+    '(-l --list)'{-l,--list}'[list open reviews]' \
+    '(-y --yes)'{-y,--yes}'[confirm submitting more than one patch]' \
+    '(-v --verbose)'{-v,--verbose}'[verbose output]' \
+    '(-R --no-rebase)'{-R,--no-rebase}'[skip the test rebase]' \
+    '(-K --keep-rebase)'{-K,--keep-rebase}'[keep a failed test rebase]' \
+    '--no-thin[disable thin pushes]' \
+    '(--no-color)--color=[colour output]:when:(always never auto)' \
+    '(--color)--no-color[disable colour output]' \
+    '--no-custom-script[skip pre/post review hooks]' \
+    '(--no-track)--track[target the tracked branch]' \
+    '(--track)--no-track[ignore the tracked branch]' \
+    '--use-pushurl[use pushurl on origin instead of a gerrit remote]' \
+    '--license[print the licence]' \
+    '--version[print the version]' \
+    '--help[print help]' \
+    '1:target branch:__git_remote_branch_names_noprefix'
+}
+
+_git-review "$@"

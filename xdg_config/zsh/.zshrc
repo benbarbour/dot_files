@@ -8,8 +8,10 @@ setopt HIST_EXPIRE_DUPS_FIRST
 setopt no_share_history
 unsetopt share_history
 
+fpath=(${ZDOTDIR:-$HOME/.config/zsh}/.zfunc $fpath)
 autoload -Uz compinit
 compinit
+zstyle ':completion:*:*:git:*' user-commands review:'submit changes to Gerrit'
 
 for file in ~/.config/zsh/plugins/*.zsh(N); do
     source "$file"
