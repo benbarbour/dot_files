@@ -31,8 +31,24 @@ sudo apt-get -y install \
 # setup XDG_CONFIG_HOME
 # =============================================================================
 header "SETUP CONFIG"
-mkdir -p ${XDG_CONFIG_HOME:-$HOME/.config}
-ln -sf $BBENV/xdg_config/* ${XDG_CONFIG_HOME:-$HOME/.config}/
+CONFIG="${XDG_CONFIG_HOME:-$HOME/.config}"
+mkdir -p "$CONFIG"
+for src in "$BBENV"/xdg_config/*; do
+  dst="$CONFIG/$(basename "$src")"
+  if [ -e "$dst" ] && [ ! -L "$dst" ]; then
+    bak="$dst.bak-$(date +%Y%m%d-%H%M%S)"
+    echo "$dst is in the way - moving it to $bak"
+    mv "$dst" "$bak"
+  fi
+  ln -sfn "$src" "$dst"
+done
+for link in "$CONFIG"/*; do
+  if [ -L "$link" ] && [ ! -e "$link" ]; then
+    case "$(readlink "$link")" in
+      "$BBENV"/*) echo "Removing dangling link $link"; rm "$link" ;;
+    esac
+  fi
+done
 ln -sf "$BBENV/.zshenv" "$HOME/.zshenv"
 
 # =============================================================================
