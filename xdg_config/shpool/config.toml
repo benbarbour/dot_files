@@ -1,1 +1,1 @@
-shell = "/bin/zsh -l"
+shell = "/bin/zsh"
