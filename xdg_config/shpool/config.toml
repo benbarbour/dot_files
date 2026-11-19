@@ -1,1 +1,3 @@
 shell = "/bin/zsh"
+# starship shows the session name instead (right_format in starship.toml)
+prompt_prefix = ""

@@ -49,7 +49,7 @@ _shpool_attach() {
   fi
 
   print -r -- "$name" >| "$cache_dir/last-session"
-  shpool attach --force "$name"
+  shpool attach --force --dir . "$name"
 
   # If this client is detached because another device steals the session
   # (shpool attach --force, above), the program running inside never gets to
